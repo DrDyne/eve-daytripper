@@ -1,0 +1,42 @@
+body {
+  background: #ece7e7;
+  margin: 0;
+}
+
+div.app-content {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.example.validation .avatar {
+  margin: 0 auto;
+}
+
+.tt-online.ct-series .ct-area {
+  fill: green
+}
+
+.tt-offline.ct-series .ct-area {
+  fill: red
+}
+
+.tt-auto-refresh.ct-series .ct-line {
+  stroke: blue;
+  stroke-width: 4px;
+  stroke-dasharray: 300px 5px;
+  stroke-linecap: round;
+  fill: none;
+  animation: dash 10s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
+.decomp-total .ct-series.red { fill: red }
+.decomp-total .ct-series.green { fill: green }
+.decomp-total .ct-series.blue { fill: blue }
+
+.decomp-red .ct-series.red { fill: red }
