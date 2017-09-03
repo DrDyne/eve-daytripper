@@ -1,0 +1,18 @@
+.root {
+  transition: background-color .2s;
+}
+
+#recipient {
+  height: 80px;
+  width: 100%;
+}
+
+#label {
+  margin: 0 auto;
+  line-height: 80px;
+  text-align: center;
+}
+
+#label:hover {
+  cursor: pointer;
+}

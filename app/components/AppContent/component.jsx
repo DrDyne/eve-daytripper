@@ -10,7 +10,7 @@ import style from './style.scss'
 
 export class AppContent extends React.Component {
   state = {
-    activeTab: 0
+    activeTab: 0,
   }
 
   changeTab = (event, tabIndex) => {
@@ -20,7 +20,6 @@ export class AppContent extends React.Component {
   render () {
     const { activeTab } = this.state
     const { layout } = this.props
-    console.log(style)
 
     return (<Paper className={style.root}>
       <Tabs value={activeTab} onChange={this.changeTab}>
