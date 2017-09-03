@@ -1,13 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
-import { AppBar } from './components/AppBar'
+import AppBar from './components/AppBar'
+import AppContent from './components/AppContent'
+import Settings from './components/Settings'
 
-const Root = () => (<div className="app">
+const Root = ({layout}) => (<div className="app">
+  <div className="app-layout layout-top">
+    <AppBar />
+  </div>
+
+  <Settings />
+
+  <div className="app-layout app-content">
+    <AppContent />
+  </div>
+
   <div className="content">
     <Route path="/login" component={() => <div> TODO: login </div>} />
     <Route path="/home" component={() => <div> TODO: home </div>} />
   </div>
 </div>)
 
-export default withRouter(Root)
+const mapStateToProps = state => state.layout
+export default connect(mapStateToProps)(withRouter(Root))

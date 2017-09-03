@@ -1,0 +1,1 @@
+export const system = `<url=showinfo:5//30003391 alt='Current Solar System'>Reset</url></b> <color=0xff00ff00L><hint='Security status'>0.7</hint></color><fontsize=12><fontsize=8> </fontsize>&lt;<fontsize=8> </fontsize><url=showinfo:4//20000494>Ankard</url><fontsize=8> </fontsize>&lt;<fontsize=8> </fontsize><url=showinfo:3//10000042>Metropolis</url>`

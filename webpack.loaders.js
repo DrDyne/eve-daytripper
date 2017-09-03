@@ -5,12 +5,25 @@ module.exports = [
     loader: "babel-loader"
   },
   {
+    test: /\.scss$/,
+    loaders: [
+      'style-loader',
+      'css-loader?modules'
+      + '&importLoaders=1'
+      + '&localIndentName=[name]__[local]__${widgetName}__[hash:base64:5]',
+      //'postcss-loader?sourceMap',
+      'sass-loader'
+    ],
+    exclude: ['node_modules']
+  },
+  {
     test: /\.css$/,
     loaders: [
       'style-loader',
       'css-loader?modules'
       + '&importLoaders=1'
-      + '&localIndentName=[name]__[local]__${widgetName}__[hash:base64:5]'
+      + '&localIndentName=[name]__[local]__${widgetName}__[hash:base64:5]',
+      //'postcss-loader?sourceMap'
     ],
     exclude: ['node_modules']
   },

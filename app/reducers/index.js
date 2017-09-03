@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux'
+import { layout } from './layout'
+import { activeTab } from './activeTab'
 
 const Reducers = combineReducers({
+  layout,
+  activeTab,
 })
 
 export default Reducers

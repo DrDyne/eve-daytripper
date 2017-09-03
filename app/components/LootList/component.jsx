@@ -3,6 +3,6 @@ import {
   Drawer
 } from 'material-ui'
 
-export const LootList = props => {
-  return <Drawer> loot list </Drawer>
+export const LootList = ({layout, items}) => {
+  return <div> loot list, {items.length} items </div>
 }

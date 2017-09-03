@@ -9,12 +9,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8889";
 
-loaders.push({
-  test: /\.scss$/,
-  loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
-  exclude: ['node_modules']
-})
-
 module.exports = {
   entry: [
     'react-hot-loader/patch',
@@ -28,7 +22,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      actions: './actions',
+      'edt-actions': './actions/index.js',
       joi: 'joi-browser',
       moment: 'moment/moment.js'
     },
