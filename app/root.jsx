@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
 import AppBar from './components/AppBar'
 import AppContent from './components/AppContent'
+import PasteRecipient from './components/PasteRecipient'
 import Settings from './components/Settings'
 
 const Root = ({layout}) => (<div className="app">
@@ -13,6 +14,7 @@ const Root = ({layout}) => (<div className="app">
   <Settings />
 
   <div className="app-layout app-content">
+    <PasteRecipient />
     <AppContent />
   </div>
 
