@@ -1,4 +1,4 @@
-ï»¿10MN Afterburner I		Propulsion Module		Medium	25 m3	46,321.04 ISK
+10MN Afterburner I		Propulsion Module		Medium	25 m3	46,321.04 ISK
 10MN Y-S8 Compact Afterburner		Propulsion Module		Medium	5 m3	7,380.31 ISK
 1MN Monopropellant Enduring Afterburner	7	Propulsion Module		Medium	35 m3	31,818.85 ISK
 200mm Rolled Tungsten Compact Plates	2	Armor Reinforcer		Low	20 m3	102,245.32 ISK
@@ -6,7 +6,7 @@
 650mm Artillery Cannon I		Projectile Weapon	Medium	High	25 m3	221,475.79 ISK
 650mm Artillery Cannon I		Projectile Weapon	Medium	High	25 m3	221,475.79 ISK
 95th Interstellar Mindclash Championship Tickets	1	Special Edition Commodities			0.01 m3	30,303.71 ISK
-Alice Sakiâ€™s Good Posting Guide	1	Special Edition Commodities			3 m3	122,352.11 ISK
+Alice Saki’s Good Posting Guide	1	Special Edition Commodities			3 m3	122,352.11 ISK
 Angel Bronze Tag	1	Criminal Tags			0.10 m3	22,072.82 ISK
 Angel Copper Tag	2	Criminal Tags			0.20 m3	331,936.96 ISK
 Ballistic Control System I	1	Ballistic Control system		Low	5 m3	78,771.34 ISK
@@ -24,13 +24,13 @@ Capital Parking Ticket	1	Special Edition Commodities			0.01 m3	31,984.04 ISK
 Capsule YC119 Capsuleer Day SKIN (Permanent)	1	Super Kerr-Induced Nanocoatings			0.01 m3	1,572,597.28 ISK
 Cerebrum In A Container	1	Special Edition Commodities			0.01 m3	25,752.63 ISK
 Charmerout ( Solar System )	Corpo
-		Voucher			0 m3
-Chribbaâ€™s Modified Strip Miner	1	Special Edition Commodities			3 m3	104,915.81 ISK
+		Voucher			0 m3	
+Chribba’s Modified Strip Miner	1	Special Edition Commodities			3 m3	104,915.81 ISK
 Contraband Amarrian Walnuts	1	Special Edition Commodities			0.01 m3	167,959.35 ISK
 Cooking With Veldspar	1	Special Edition Commodities			3 m3	23,141.61 ISK
 Copper Firework	200	Festival Charges			20 m3	37,146.00 ISK
 Copper Firework	900	Festival Charges			90 m3	167,157.00 ISK
-Council Diplomatic Shuttle Blueprint		Shuttle Blueprint			0.01 m3
+Council Diplomatic Shuttle Blueprint		Shuttle Blueprint			0.01 m3	
 Counterfeit Dominix Model	1	Special Edition Commodities			0.01 m3	91,123.05 ISK
 Damage Control I		Damage Control		Low	5 m3	8,338.98 ISK
 Damage Control I		Damage Control		Low	5 m3	8,338.98 ISK
@@ -46,7 +46,7 @@ Genolution Core Augmentation CA-3	1	Special Edition Implant		3 	1 m3	81,306,022.
 Genolution Core Augmentation CA-4	1	Special Edition Implant		2 	1 m3	84,521,225.89 ISK
 Gnosis Crimson Harvest YC118 SKIN (Permanent)	1	Super Kerr-Induced Nanocoatings			0.01 m3	1,856,978.07 ISK
 Grand Teigjon Casino Chip	1	Special Edition Commodities			0.01 m3	443,665.86 ISK
-Guillome Renardâ€™s Sleeper Loot Stash	1	Special Edition Commodities			3 m3	94,286.79 ISK
+Guillome Renard’s Sleeper Loot Stash	1	Special Edition Commodities			3 m3	94,286.79 ISK
 Gyrostabilizer I	2	Gyrostabilizer		Low	10 m3	114,892.90 ISK
 Ice Harvester I	1	Strip Miner		High	25 m3	1,918,090.94 ISK
 Imperial Navy Captain Insignia I	5	Empire Insignia Drops			0.50 m3	242,295.35 ISK
@@ -63,7 +63,7 @@ Jump Fatigue Recovery Agent	1	Special Edition Commodities			3 m3	20,012.88 ISK
 Jump Portal Generation Instruction Holoreel	1	Special Edition Commodities			3 m3	7,800.78 ISK
 Kestrel YC119 Yoiul Festival 'Glacial Drift' Edition SKIN (Permanent)	1	Super Kerr-Induced Nanocoatings			0.01 m3	312,916.51 ISK
 Limited Ocular Filter	1	Cyber Learning		1 	1 m3	26,036.82 ISK
-Manufacturing Unionâ€™s Placard	1	Special Edition Commodities			3 m3	8,936.75 ISK
+Manufacturing Union’s Placard	1	Special Edition Commodities			3 m3	8,936.75 ISK
 Max Amarria	1	Special Edition Commodities			0.01 m3	177,591.57 ISK
 Meat Popsicle	1	Special Edition Commodities			0.01 m3	54,280.20 ISK
 Men's 'Curate' Coat (festive)	1	Outer			0.10 m3	66,990.67 ISK
@@ -76,7 +76,7 @@ Miner I		Mining Laser		High	5 m3	8,549.66 ISK
 Miner I		Mining Laser		High	5 m3	8,549.66 ISK
 Miner I		Mining Laser		High	5 m3	8,549.66 ISK
 Mining Laser Upgrade I		Mining Upgrade		Low	5 m3	33,606.93 ISK
-My God, Itâ€™s Full Of Holes!	1	Special Edition Commodities			3 m3	16,108.07 ISK
+My God, It’s Full Of Holes!	1	Special Edition Commodities			3 m3	16,108.07 ISK
 Overdrive Injector System I		Overdrive Injector System		Low	5 m3	9,933.09 ISK
 Polaris Eviction Notice	1	Special Edition Commodities			3 m3	11,033.78 ISK
 Power Diagnostic System I		Power Diagnostic System		Low	5 m3	11,612.67 ISK
@@ -87,17 +87,17 @@ Quafe	10	General			1 m3	484.30 ISK
 Relic Analyzer II		Data Miners		Medium	5 m3	1,448,241.92 ISK
 Reports	10	General			1 m3	328.30 ISK
 Rifter YC119 Yoiul Festival 'Glacial Drift' Edition SKIN (Permanent)	1	Super Kerr-Induced Nanocoatings			0.01 m3	151,118.89 ISK
-Rooks & Kings â€“ The Clarion Call Compilation	1	Special Edition Commodities			3 m3	136,880.60 ISK
+Rooks & Kings – The Clarion Call Compilation	1	Special Edition Commodities			3 m3	136,880.60 ISK
 Salvager I		Salvager		High	5 m3	53,296.26 ISK
 Sansha Claws Fairytale Book	1	Special Edition Commodities			0.01 m3	2,071.42 ISK
 Sansha Electrum Tag	1	Criminal Tags			0.10 m3	3,841.94 ISK
-SCC Guidelines â€“ Lotteries For Dummies	1	Special Edition Commodities			3 m3	974.92 ISK
+SCC Guidelines – Lotteries For Dummies	1	Special Edition Commodities			3 m3	974.92 ISK
 Sisters Of EVE Charity Statue	1	Special Edition Commodities			3 m3	213,480.14 ISK
 Snowball	700	Festival Charges			70 m3	74,067.00 ISK
 Sodium Firework	200	Festival Charges			20 m3	39,348.00 ISK
 Sodium Firework	900	Festival Charges			90 m3	177,066.00 ISK
-Sort Dragonâ€™s Guide To Diplomacy	1	Special Edition Commodities			3 m3	137,377.90 ISK
-Soxfourâ€™s Spaceboots	1	Special Edition Commodities			3 m3	7,800.19 ISK
+Sort Dragon’s Guide To Diplomacy	1	Special Edition Commodities			3 m3	137,377.90 ISK
+Soxfour’s Spaceboots	1	Special Edition Commodities			3 m3	7,800.19 ISK
 Starsi	1	Special Edition Commodities			0.01 m3	288,981.90 ISK
 Strip Miner I	2	Strip Miner		High	50 m3	3,736,592.82 ISK
 The Friend Ship	1	Special Edition Commodities			3 m3	977,064.70 ISK
@@ -105,8 +105,8 @@ The Galactic Party Planning Guide	1	Special Edition Commodities			3 m3	119,914.9
 Upgraded Energized Armor Layering Membrane I		Armor Plating Energized		Low	5 m3	37,289.87 ISK
 Uranium Charge S	3,000	Hybrid Charge	Small		7.50 m3	19,290.00 ISK
 Venture YC119 Yoiul Festival 'Glacial Drift' Edition SKIN (Permanent)	1	Super Kerr-Induced Nanocoatings			0.01 m3	823,532.60 ISK
-Victorieux Luxury Yacht Blueprint		Cruiser Blueprint			0.01 m3
-Vincent Pryceâ€™s Warp Disruption Field Generator	1	Special Edition Commodities			3 m3	4,130.02 ISK
+Victorieux Luxury Yacht Blueprint		Cruiser Blueprint			0.01 m3	
+Vincent Pryce’s Warp Disruption Field Generator	1	Special Edition Commodities			3 m3	4,130.02 ISK
 Women's 'Gunner' Jacket (Mordu's Legion)	1	Outer			0.10 m3	52,756.25 ISK
 Women's 'Outlaw' Coat (Burnt Orange)	1	Outer			0.10 m3	134,477.97 ISK
 Women's Genolution Combat Suit	1	Outer			0.10 m3	1,431,111.15 ISK
@@ -115,14 +115,11 @@ Women's YC119 Yoiul Festival T-shirt	1	Tops			0.10 m3	205,359.45 ISK
 X5 Enduring Stasis Webifier	14	Stasis Web		Medium	70 m3	130,459.42 ISK
 X5 Enduring Stasis Webifier		Stasis Web		Medium	5 m3	9,318.53 ISK
 YC117 Symposium On Emergent Threats Access Pass	1	Special Edition Commodities			0.01 m3	26,296.06 ISK
-YC118 Succession Trial Championâ€™s Decree â€“ House Ardishapur	1	Special Edition Commodities			0.01 m3	1,000.86 ISK
-YC118 Succession Trial Championâ€™s Decree â€“ House Kador	1	Special Edition Commodities			0.01 m3	1,003.92 ISK
-YC118 Succession Trial Championâ€™s Decree â€“ House Khanid	1	Special Edition Commodities			0.01 m3	1,002.72 ISK
-YC118 Succession Trial Championâ€™s Decree â€“ House Kor-Azor	1	Special Edition Commodities			0.01 m3	1,001.23 ISK
-YC118 Succession Trial Championâ€™s Decree â€“ House Sarum	1	Special Edition Commodities			0.01 m3	1,000.79 ISK
-YC118 Succession Trial Championâ€™s Decree â€“ House Tash-Murkon	1	Special Edition Commodities			0.01 m3	1,002.76 ISK
+YC118 Succession Trial Champion’s Decree – House Ardishapur	1	Special Edition Commodities			0.01 m3	1,000.86 ISK
+YC118 Succession Trial Champion’s Decree – House Kador	1	Special Edition Commodities			0.01 m3	1,003.92 ISK
+YC118 Succession Trial Champion’s Decree – House Khanid	1	Special Edition Commodities			0.01 m3	1,002.72 ISK
+YC118 Succession Trial Champion’s Decree – House Kor-Azor	1	Special Edition Commodities			0.01 m3	1,001.23 ISK
+YC118 Succession Trial Champion’s Decree – House Sarum	1	Special Edition Commodities			0.01 m3	1,000.79 ISK
+YC118 Succession Trial Champion’s Decree – House Tash-Murkon	1	Special Edition Commodities			0.01 m3	1,002.76 ISK
 YC119 Yoiul Festival Day 12	1	Special Edition Commodities			5,000 m3	2,010,604.37 ISK
-Zazzmatazz's Bodyguard Insignia	2	Empire Insignia Drops			0.20 m3
-Acolyte I		Combat Drone			5 m3	1,873.60 ISK
-Hobgoblin I		Combat Drone			5 m3	3,045.79 ISK
-Core Scanner Probe I	95	Scanner Probe			9.40 m3	450,120.88 ISK
+Zazzmatazz's Bodyguard Insignia	2	Empire Insignia Drops			0.20 m3	

@@ -13,7 +13,7 @@ import Root from './root'
 import Reducers from './reducers'
 import Middlewares from './middlewares'
 import I18n from './i18n'
-import initialState from './store'
+import { state as initialState } from './store'
 
 const store = createStore(Reducers, initialState, Middlewares)
 const muiTheme = createMuiTheme()

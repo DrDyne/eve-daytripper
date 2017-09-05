@@ -2,11 +2,13 @@ import { combineReducers } from 'redux'
 import { layout } from './layout'
 import { activeTab } from './activeTab'
 import { inventory } from './inventory'
+import { history } from './history'
 
 const Reducers = combineReducers({
   layout,
   activeTab,
   inventory,
+  history,
 })
 
 export default Reducers

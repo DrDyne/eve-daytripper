@@ -1,4 +1,4 @@
-export const clipboard = `10MN Afterburner I		Propulsion Module		Medium	25 m3	46,321.04 ISK
+10MN Afterburner I		Propulsion Module		Medium	25 m3	46,321.04 ISK
 1MN Monopropellant Enduring Afterburner	3	Propulsion Module		Medium	15 m3	13,636.65 ISK
 Caldari Navy Inferno Light Missile	100	Light Missile			1.50 m3	91,023.00 ISK
 Caldari Navy Inferno Rocket	100	Rocket			0.50 m3	68,273.00 ISK
@@ -6,13 +6,13 @@ Cap Booster 25	3	Capacitor Booster Charge			3 m3	494.16 ISK
 Capsule YC119 Capsuleer Day SKIN (Permanent)	1	Super Kerr-Induced Nanocoatings			0.01 m3	1,572,597.28 ISK
 Cerebrum In A Container	1	Special Edition Commodities			0.01 m3	25,752.63 ISK
 Charmerout ( Solar System )	Corpo
-		Voucher			0 m3
-Chribbaï¿½s Modified Strip Miner	1	Special Edition Commodities			3 m3	104,915.81 ISK
+		Voucher			0 m3	
+Chribba’s Modified Strip Miner	1	Special Edition Commodities			3 m3	104,915.81 ISK
 Contraband Amarrian Walnuts	1	Special Edition Commodities			0.01 m3	167,959.35 ISK
 Cooking With Veldspar	1	Special Edition Commodities			3 m3	23,141.61 ISK
 Copper Firework	199	Festival Charges			19.90 m3	36,960.27 ISK
 Copper Firework	1	Festival Charges			0.10 m3	185.73 ISK
-Council Diplomatic Shuttle Blueprint		Shuttle Blueprint			0.01 m3
+Council Diplomatic Shuttle Blueprint		Shuttle Blueprint			0.01 m3	
 Counterfeit Dominix Model	1	Special Edition Commodities			0.01 m3	91,123.05 ISK
 Damage Control I		Damage Control		Low	5 m3	8,338.98 ISK
 Damage Control I		Damage Control		Low	5 m3	8,338.98 ISK
@@ -21,4 +21,4 @@ Domination Copper Tag	1	Criminal Tags			0.10 m3	4,698.20 ISK
 Expanded Cargohold I		Expanded Cargohold		Low	5 m3	1,480.65 ISK
 Expanded Cargohold I		Expanded Cargohold		Low	5 m3	1,480.65 ISK
 Nanite Repair Paste	2	Nanite Repair Paste			0.02 m3	53,113.92 ISK
-Relic Analyzer II		Data Miners		Medium	5 m3	1,448,241.92 ISK`
+Relic Analyzer II		Data Miners		Medium	5 m3	1,448,241.92 ISK

@@ -1,11 +1,16 @@
 import { connect } from 'react-redux'
-import { pasted } from '../../actions'
+import {
+  inputPaste
+} from '../../actions'
 import { PasteRecipient } from './component'
 
-export const mapStateToProps = state => state
+export const mapStateToProps = state => ({
+  parsedItems: state.history.lastPasted.items.length
+})
+
 export const mapDispatchToProps = dispatch => ({
   onPaste: event => {
-    dispatch(pasted(event.clipboardData))
+    dispatch(inputPaste(event.clipboardData))
   }
 })
 

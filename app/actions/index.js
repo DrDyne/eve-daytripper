@@ -3,9 +3,16 @@ export const SET_BREADCRUMBS_COLOR = 'breadcrumbs:color:set'
 export const CHANGE_TAB = 'tab:change'
 export const SETTINGS_MENU_TOGGLE = 'menu:settings:toggle'
 export const SWAP_STOCK_AND_LOOT_LISTS = 'layout:lists:swap'
-export const PASTED = 'event:paste'
-export const ADD_STOCK = 'stock:add'
+
+export const ADD_ITEM = 'item:add'
+
+export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
+
+export const INPUT_PASTE = 'input:paste'
+export const UNDO_PASTE = 'paste:undo'
+
+export const UPDATE_INVENTORY_FROM_PASTE = 'inventory:update:from=paste'
 
 export const setBreadcrumbs = items => ({
   type: SET_BREADCRUMBS,
@@ -30,7 +37,7 @@ export const swapListLayout = () => ({
   type: SWAP_STOCK_AND_LOOT_LISTS
 })
 
-export const pasted = clipboard => ({
-  type: PASTED,
+export const inputPaste = clipboard => ({
+  type: INPUT_PASTE,
   clipboard
 })
