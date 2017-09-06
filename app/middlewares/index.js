@@ -1,4 +1,5 @@
 import { applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
 import { api } from './api'
 import { dispatchLogger } from './dispatch-logger'
 import {
@@ -7,6 +8,7 @@ import {
 } from './inventory'
 
 export const middlewares = [
+  thunk,
   api,
   dispatchLogger,
   inventoryLogger,

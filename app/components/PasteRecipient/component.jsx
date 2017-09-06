@@ -12,7 +12,7 @@ export class PasteRecipient extends React.Component {
     pasted: false,
   }
 
-  focus = event => this.setState({focused: true})
+  focus = event => this.setState({focused: true, pasted: false})
   hover = event => this.setState({hovered: true})
   blur = event => this.setState({focused: false, hovered: false, pasted: false})
   paste = event => {
@@ -22,6 +22,7 @@ export class PasteRecipient extends React.Component {
 
   render () {
     const { hovered, focused, pasted } = this.state
+    const { parsedItems } = this.props
     const css = {
       root: {
         background: !hovered
@@ -41,7 +42,12 @@ export class PasteRecipient extends React.Component {
         onClick={this.focus}
         onMouseEnter={this.hover}
         onMouseLeave={this.blur}>
-        <Typography type="headline" id={style.label}> Click and paste </Typography>
+        <Typography id={style.label} type="headline"> Click and paste </Typography>
+        { parsedItems > 0 && (
+          <Typography id={style['label-caption']} type="caption" align="right">
+            {parsedItems} items parsed
+          </Typography>
+        ) }
       </div>
     </div>)
   }

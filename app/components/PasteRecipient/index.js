@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import {
-  inputPaste
+  inputPaste,
+  updateInventoryFromPaste
 } from '../../actions'
 import { PasteRecipient } from './component'
 
@@ -11,6 +12,7 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   onPaste: event => {
     dispatch(inputPaste(event.clipboardData))
+    dispatch(updateInventoryFromPaste())
   }
 })
 

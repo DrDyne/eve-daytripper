@@ -1,0 +1,5 @@
+10MN Afterburner I	2	Propulsion Module		Medium	25 m3	46,321.04 ISK
+1MN Monopropellant Enduring Afterburner	4	Propulsion Module		Medium	15 m3	13,636.65 ISK
+Caldari Navy Inferno Light Missile	100	Light Missile			1.50 m3	91,023.00 ISK
+Caldari Navy Inferno Rocket	100	Rocket			0.50 m3	68,273.00 ISK
+Cap Booster 25	3	Capacitor Booster Charge			3 m3	494.16 ISK

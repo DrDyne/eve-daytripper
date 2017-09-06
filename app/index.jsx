@@ -7,6 +7,7 @@ import { createMuiTheme } from 'material-ui/styles'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { thunk } from 'redux-thunk'
 import style from '../styles/index.scss'
 
 import Root from './root'

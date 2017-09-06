@@ -5,6 +5,7 @@ export const SETTINGS_MENU_TOGGLE = 'menu:settings:toggle'
 export const SWAP_STOCK_AND_LOOT_LISTS = 'layout:lists:swap'
 
 export const ADD_ITEM = 'item:add'
+export const UPDATE_ITEM_BATCH = 'item:update:batch'
 
 export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
@@ -39,5 +40,20 @@ export const swapListLayout = () => ({
 
 export const inputPaste = clipboard => ({
   type: INPUT_PASTE,
-  clipboard
+  clipboard,
+  raw: clipboard.getData('Text')
 })
+
+export const addOrUpdateItem = ({name, qty}) => ({
+  type: ADD_ITEM,
+  name,
+  qty,
+})
+
+export const updateInventoryFromPaste = () => (dispatch, getState) => {
+  const { history } = getState()
+  console.log(history.lastPasted.items)
+  history.lastPasted.items.forEach(({name, qty}) => {
+    dispatch(addOrUpdateItem({name, qty}))
+  })
+}

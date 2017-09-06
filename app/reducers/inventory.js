@@ -11,7 +11,7 @@ export const initialState = {
   stock: []
 }
 
-export const byName = name => item => item.name === name
+export const byName = name => i => i.name === name
 
 export const addToStock = (state, item) => ({
   items: state.items,
@@ -29,17 +29,17 @@ export const updateStock = (state, item) => {
   }
 }
 
-export const addItem = (state, item) => {
+export const addItem = (state, {name, qty}) => {
   return {
     items: [...state.items, {name, qty}],
     stock: state.stock
   }
 }
 
-export const updateItem = (state, item) => {
+export const updateItem = (state, {name, qty}) => {
   const items = state.items.slice() // else update it
   const itemIndex = items.findIndex(byName(name))
-  items[itemIndex].qty += qty
+  items[itemIndex].qty = qty
 
   return {
     items,
@@ -62,27 +62,6 @@ export const inventory = (state=initialState, action) => {
       if ( !stock ) // add it
         return addToStock(state, {name, qty})
       return updateStock(state, {name, qty})
-
-    case UPDATE_INVENTORY_FROM_PASTE:
-
-    case INPUT_PASTE:
-      const items = parseClipboardFromGameClientToJson(action.clipboard.getData('Text'))
-      if ( !items.length ) return state
-
-      // dispatch ADD_ITEM for each item
-      // then cleanup items with qty=0
-
-      //test
-      items.forEach(pastedItem => {
-        const item =  state.items.find(byName(pastedItem.name))
-        if ( item ) {
-          if ( item.qty === pastedItem.qty ) return
-          else console.log(`update ${pastedItem.name} (${pastedItem.qty - item.qty})`)
-        }
-        else
-          console.log(`add x${pastedItem.qty} ${pastedItem.name} to loot list !`)
-      })
-
   }
 
 return state
