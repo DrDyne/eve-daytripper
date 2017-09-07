@@ -43,12 +43,12 @@ export class PasteRecipient extends React.Component {
         onMouseEnter={this.hover}
         onMouseLeave={this.blur}>
         <Typography id={style.label} type="headline"> Click and paste </Typography>
-        { parsedItems > 0 && (
+        { parsedItems > 0 && (<div>
           <Typography id={style['label-caption']} type="caption" align="right">
             {parsedItems} items parsed
           </Typography>
           <Button onClick={clearMissing}> Clear missing </Button>
-        ) }
+        </div>) }
       </div>
     </div>)
   }
