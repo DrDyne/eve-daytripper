@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { thunk } from 'redux-thunk'
 import style from '../styles/index.scss'
+//import worker from './worker.js'
 
 import Root from './root'
 import Reducers from './reducers'
@@ -30,6 +31,8 @@ const WrappedRoot = (<AppContainer>
   </Router>
   </Provider>
 </AppContainer>)
+
+//if ( 'serviceWorker' in navigator ) navigator.serviceWorker.register('/worker.js')
 
 const element = document.querySelector('#root')
 ReactDOM.render(WrappedRoot, element)

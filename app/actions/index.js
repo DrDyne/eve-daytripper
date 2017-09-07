@@ -52,7 +52,6 @@ export const addOrUpdateItem = ({name, qty}) => ({
 
 export const updateInventoryFromPaste = () => (dispatch, getState) => {
   const { history } = getState()
-  console.log(history.lastPasted.items)
   history.lastPasted.items.forEach(({name, qty}) => {
     dispatch(addOrUpdateItem({name, qty}))
   })

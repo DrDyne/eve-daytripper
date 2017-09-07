@@ -7,9 +7,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggle: () => {
-    dispatch(toggleSettingsMenu())
-  }
+  toggle: () => dispatch(toggleSettingsMenu())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)

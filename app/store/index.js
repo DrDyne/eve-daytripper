@@ -5,6 +5,6 @@ import { parseClipboardFromGameClientToJson } from '../reducers/utils'
 export const state = {
   inventory: {
     items: parseClipboardFromGameClientToJson(cargoMock),
-    stock: [{ name: 'Core Scanner Probe I', qty: 8 }]
-  }
+    stock: [{ name: 'Core Scanner Probe I', qty: 8 }],
+  },
 }

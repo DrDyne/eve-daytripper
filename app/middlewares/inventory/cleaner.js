@@ -4,8 +4,7 @@ import {
 } from '../../actions'
 
 export const cleaner = store => next => action => {
-  if ( INPUT_PASTE ) {
-    const result = next(action)
-    // then remove all items with 0 qty
-  }
+  const result = next(action)
+  // then remove all items with 0 qty
+  return result
 }

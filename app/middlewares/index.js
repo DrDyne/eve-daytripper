@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import { api } from './api'
 import { dispatchLogger } from './dispatch-logger'
 import {
-  inventoryCleaner,
+  //inventoryCleaner,
   inventoryLogger
 } from './inventory'
 
@@ -12,7 +12,7 @@ export const middlewares = [
   api,
   dispatchLogger,
   inventoryLogger,
-  inventoryCleaner,
+  //inventoryCleaner,
 ]
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
