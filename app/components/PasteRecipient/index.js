@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import {
   inputPaste,
-  updateInventoryFromPaste
+  updateInventoryFromPaste,
+  clearMissingFromPaste,
 } from '../../actions'
 import { PasteRecipient } from './component'
 
@@ -13,6 +14,9 @@ export const mapDispatchToProps = dispatch => ({
   onPaste: event => {
     dispatch(inputPaste(event.clipboardData))
     dispatch(updateInventoryFromPaste())
+  },
+  clearMissing: event => {
+    dispatch(clearMissingFromPaste())
   }
 })
 

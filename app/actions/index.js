@@ -5,7 +5,7 @@ export const SETTINGS_MENU_TOGGLE = 'menu:settings:toggle'
 export const SWAP_STOCK_AND_LOOT_LISTS = 'layout:lists:swap'
 
 export const ADD_ITEM = 'item:add'
-export const UPDATE_ITEM_BATCH = 'item:update:batch'
+export const DELETE_ITEM = 'item:delete'
 
 export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
@@ -50,9 +50,22 @@ export const addOrUpdateItem = ({name, qty}) => ({
   qty,
 })
 
+export const deleteItem = ({name}) => ({
+  type: DELETE_ITEM,
+  name
+})
+
 export const updateInventoryFromPaste = () => (dispatch, getState) => {
   const { history } = getState()
   history.lastPasted.items.forEach(({name, qty}) => {
     dispatch(addOrUpdateItem({name, qty}))
+  })
+}
+
+export const clearMissingFromPaste = () => (dispatch, getState) => {
+  const { inventory, history } = getState()
+  inventory.items.forEach(({name, qty}) => {
+    const pasted = history.lastPasted.items.find(i => name === i.name)
+    if ( !pasted ) dispatch(deleteItem({name}))
   })
 }
