@@ -1,7 +1,8 @@
 import React from 'react'
 import {
-  IconButton,
   Avatar,
+  Button,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
@@ -16,15 +17,20 @@ import {
   FillGauge
 } from '../FillGauge'
 
-export const StockList = ({layout, items, stock, showMenu}) => {
+export const StockList = ({layout, inventory, showMenu}) => {
   const getInventoryQty = name => {
-    const item = items.find(i => i.name === name)
+    const item = inventory.items.find(i => i.name === name)
     return !item ? 0 : item.qty
   }
 
-  return (<div> stock list, {stock.length} items
+  const getInventoryPrice = name => {
+    const item = inventory.items.find(i => i.name === name)
+    return !item ? 0 : item.price
+  }
+
+  return (<div> stock list, {inventory.stock.length} items
     <List>
-      {stock.map(item => (<div key={item.name}>
+      {inventory.stock.map(item => (<div key={item.name}>
         <ListItem button onClick={showMenu(item)}>
           <ListItemAvatar>
             <Avatar>
@@ -41,6 +47,7 @@ export const StockList = ({layout, items, stock, showMenu}) => {
             <IconButton aria-label="remove from stock">
               <DeleteIcon />
             </IconButton>
+            <Button disabled> {getInventoryPrice(item.name)} ISK </Button>
           </ListItemSecondaryAction>
 
         </ListItem>

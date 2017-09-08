@@ -3,6 +3,7 @@ import {
   inputPaste,
   updateInventoryFromPaste,
   clearMissingFromPaste,
+  saveInventory,
 } from '../../actions'
 import { PasteRecipient } from './component'
 
@@ -13,6 +14,7 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   onPaste: event => {
     dispatch(inputPaste(event.clipboardData))
+    dispatch(saveInventory())
     dispatch(updateInventoryFromPaste())
   },
   clearMissing: event => {

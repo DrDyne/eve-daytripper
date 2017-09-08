@@ -1,6 +1,7 @@
 import {
   INPUT_PASTE,
-  UNDO_PASTE
+  UNDO_PASTE,
+  SAVE_INVENTORY,
 } from '../actions'
 import { parseClipboardFromGameClientToJson } from './utils'
 
@@ -10,7 +11,14 @@ export const initialState = {
     items: [],
     date: '',
   },
+  lastInventory: {
+    total: {
+      isk: 0,
+      volume: 0,
+    }
+  },
   paste: [],
+  inventory: [],
 }
 
 export const history = (state=initialState, action) => {
@@ -22,14 +30,23 @@ export const history = (state=initialState, action) => {
       const date = new Date()
 
       console.log({date,items,raw})
-      return {
+      return Object.assign({}, state, {
         lastPasted: {
           date,
           items,
           raw,
         },
         paste: [...state.paste, {date, items, raw}],
-      }
+      })
+
+    case SAVE_INVENTORY:
+      const { inventory } = action
+      return Object.assign({}, state, {
+        lastInventory: {
+          total: inventory.total
+        },
+        inventory: [...state.inventory, inventory]
+      })
 
     case UNDO_PASTE:
       const lastPasted = state.paste.slice().pop()

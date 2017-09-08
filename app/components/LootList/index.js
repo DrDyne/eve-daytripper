@@ -1,11 +1,13 @@
 import { connect } from 'react-redux'
 import { LootList } from './component'
 
-const mapStateToProps = state => ({
-  layout: state.layout,
-  items: state.inventory.items.filter(item => {
-    return !state.inventory.stock.find(stock => stock.name === item.name)
-  })
+const mapStateToProps = ({layout, inventory, history}) => ({
+  layout,
+  inventory,
+  lootOnly: inventory.items.filter(item => {
+    return !inventory.stock.find(stock => stock.name === item.name)
+  }),
+  history,
 })
 
 const mapDispatchToProps = dispatch => ({
