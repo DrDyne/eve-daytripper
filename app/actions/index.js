@@ -63,7 +63,7 @@ export const deleteItem = ({name}) => ({
 export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
   const { history } = getState()
 
-  return history.lastPasted.items.map(item => dispatch(addOrUpdateItem(item)))
+  //return history.lastPasted.items.map(item => dispatch(addOrUpdateItem(item)))
 
   const identifications = history.lastPasted.items.map(item => {
     return api.identify(item.name)
