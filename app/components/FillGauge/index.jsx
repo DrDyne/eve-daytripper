@@ -13,5 +13,6 @@ export const FillGauge = ({qty, target}) => {
   return (<LinearProgress
     value={progress}
     mode="determinate"
-    style={style}/>)
+    style={style}
+  />)
 }

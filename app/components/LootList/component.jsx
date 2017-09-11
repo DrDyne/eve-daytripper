@@ -15,6 +15,7 @@ import {
   Delete as DeleteIcon
 } from 'material-ui-icons'
 import { ISK } from '../ISK'
+import { M3 } from '../M3'
 import style from './style.scss'
 
 export const LootList = ({layout, inventory, history}) => {
@@ -47,12 +48,20 @@ export const LootList = ({layout, inventory, history}) => {
       </ListItem>))}
 
       <ListItem>
-        <ListItemText primary={<ISK value={total.isk} />} />
-        <Typography type="caption" className={`delta delta-${total.isk-total.prev.isk}`}>
-          { (total.isk-total.prev.isk > 0) ? '+' : '-' }
-          <ISK value={ total.isk - total.prev.isk } />
-        </Typography>
-        <ListItemText primary={total.volume + ' m3'} />
+        <ListItemText primary={<ISK value={'total: ' + total.isk} />} />
+        <ListItemText primary={'total: ' + total.volume + ' m3'} />
+        {total.prev.isk && (
+          <Typography type="caption" className="delta-isk">
+            { (total.isk-total.prev.isk > 0) ? '+' : '-' }
+            <ISK value={ total.isk - total.prev.isk } />
+          </Typography>)
+        }
+        {total.prev.volume && (
+          <Typography type="caption" className="delta-m3">
+            { (total.volume-total.prev.volume > 0) ? '+' : '-' }
+            <M3 value={total.volume-total.prev.volume} />
+          </Typography>)
+        }
       </ListItem>
     </List>
   </div>)
