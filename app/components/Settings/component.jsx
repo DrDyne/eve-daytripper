@@ -12,10 +12,6 @@ export class Settings extends React.Component {
     cargoCapacity: null
   }
 
-  style = {
-    width: '100%'
-  }
-
   componentWillMount () {
     const { cargoCapacity } = this.props
     this.setState({cargoCapacity})
@@ -38,7 +34,7 @@ export class Settings extends React.Component {
               onChange={event => {
                 this.setState({cargoCapacity: event.target.value})
               }}
-              style={this.style} />
+              fullWidth />
           </div>
         </Drawer>
       </div>)

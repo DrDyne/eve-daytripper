@@ -16,6 +16,7 @@ import {
 } from 'material-ui-icons'
 import { ISK } from '../ISK'
 import { M3 } from '../M3'
+import { GameItemAvatar } from '../GameItemAvatar'
 import style from './style.scss'
 
 export const LootList = ({layout, inventory, history}) => {
@@ -30,7 +31,7 @@ export const LootList = ({layout, inventory, history}) => {
       {inventory.items.map((item, index) => (<ListItem key={`${item.name}-${index}`} button>
         <ListItemAvatar>
           <Avatar>
-            <FolderIcon />
+            <GameItemAvatar id={item.id} />
           </Avatar>
         </ListItemAvatar>
 
@@ -38,18 +39,15 @@ export const LootList = ({layout, inventory, history}) => {
           primary={item.name}
           secondary={item.qty}
           />
-
-        <ListItemSecondaryAction>
-          <IconButton aria-label="remove from stock">
-            <DeleteIcon />
-          </IconButton>
-          <Button disabled> <ISK value={item.price} /> </Button>
-        </ListItemSecondaryAction>
       </ListItem>))}
 
       <ListItem>
-        <ListItemText primary={<ISK value={'total: ' + total.isk} />} />
-        <ListItemText primary={'total: ' + total.volume + ' m3'} />
+        <ListItemText primary={<div>
+            total: <ISK value={total.isk} />
+        </div>} />
+        <ListItemText primary={<div>
+            total: <M3 value={total.volume} />
+        </div>} />
         {total.prev.isk && (
           <Typography type="caption" className="delta-isk">
             { (total.isk-total.prev.isk > 0) ? '+' : '-' }

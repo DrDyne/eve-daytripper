@@ -25,10 +25,11 @@ export const addToStock = (state, item) => {
   return Object.assign({}, state, {stock})
 }
 
-export const updateStock = (state, item) => {
+export const updateStock = (state, {id, name, qty}) => {
+  const stockIndex = state.stock.findIndex(byName(name))
   const updatedStock = state.stock.slice()
-  const stockIndex = items.findIndex(byName(item.name))
-  updatedStock[stockIndex].qty = item.qty
+  if ( id ) updatedStock[stockIndex].id = id
+  if ( qty ) updatedStock[stockIndex].qty = qty
 
   return Object.assign({}, state, {
     stock: updatedStock

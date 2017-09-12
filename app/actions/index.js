@@ -46,6 +46,13 @@ export const inputPaste = clipboard => ({
   raw: clipboard.getData('Text')
 })
 
+export const setStock = ({id, name, qty}) => ({
+  type: SET_STOCK,
+  id,
+  name,
+  qty
+})
+
 export const addOrUpdateItem = ({id, name, qty, volume, price}) => ({
   type: ADD_ITEM,
   id,
@@ -61,19 +68,28 @@ export const deleteItem = ({name}) => ({
 })
 
 export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
-  const { history } = getState()
-
-  //return history.lastPasted.items.map(item => dispatch(addOrUpdateItem(item)))
-
+  const { history, inventory } = getState()
   const identifications = history.lastPasted.items.map(item => {
+    const byName = i => i.name === item.name
+
     return api.identify(item.name)
     .then(id => {
       const itemWithId = Object.assign({}, item, {id})
       dispatch(addOrUpdateItem(itemWithId))
+
+      const inStock = inventory.stock.find(byName)
+      if ( inStock && !inStock.id )
+        dispatch(setStock({
+          id: itemWithId.id,
+          name: item.name,
+        }))
     })
   })
 
   return Promise.all(identifications)
+}
+
+export const sellMissingFromPaste = () => (dispatch, getState) => {
 }
 
 export const clearMissingFromPaste = () => (dispatch, getState) => {
