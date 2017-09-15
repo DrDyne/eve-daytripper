@@ -5,23 +5,25 @@ import AppBar from './components/AppBar'
 import AppContent from './components/AppContent'
 import PasteRecipient from './components/PasteRecipient'
 import Settings from './components/Settings'
+import Login from './components/Login'
+import Oauth from './components/Oauth'
 
 const Root = ({layout}) => (<div className="app">
-  <div className="app-layout layout-top">
-    <AppBar />
-  </div>
+  <Route path="/login" component={Login} />
+  <Route path="/oauth" component={Oauth} />
+  <Route path="/home" component={() => (<div className="content">
+    <div className="app-layout layout-top">
+      <AppBar />
+    </div>
 
-  <Settings />
+    <Settings />
 
-  <div className="app-layout app-content">
-    <PasteRecipient />
-    <AppContent />
-  </div>
+    <div className="app-layout app-content">
+      <PasteRecipient />
+      <AppContent />
+    </div>
+  </div> )} />
 
-  <div className="content">
-    <Route path="/login" component={() => <div> TODO: login </div>} />
-    <Route path="/home" component={() => <div> TODO: home </div>} />
-  </div>
 </div>)
 
 const mapStateToProps = state => state.layout

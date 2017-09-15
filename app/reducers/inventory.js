@@ -5,16 +5,14 @@ import {
   UPDATE_INVENTORY_FROM_PASTE,
 } from '../actions'
 import { parseClipboardFromGameClientToJson } from './utils'
-import { clipboard as cargoMock } from '../store/cargo.pasted.js'
 
-const cargo = parseClipboardFromGameClientToJson(cargoMock)
 export const initialState = {
   total: {
-    isk: cargo.reduce((memo, i) => memo + i.price, 0),
-    volume: cargo.reduce((memo, i) => memo + i.volume, 0),
+    price: 46321.04,
+    volume: 25,
   },
-  items: cargo,
-  stock: [{ name: 'Core Scanner Probe I', qty: 8 }],
+  items: [{name: '10MN Afterburner I', qty: 1, id: 12056, volume: 25, isk: 46321.04}],
+  stock: [{ name: 'Core Scanner Probe I', qty: 8, id: 30013 }],
 }
 
 export const byId = id => i => i.id === id

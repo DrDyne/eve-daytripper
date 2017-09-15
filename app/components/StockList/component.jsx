@@ -2,7 +2,6 @@ import React from 'react'
 import {
   Avatar,
   Button,
-  IconButton,
   List,
   ListItem,
   ListItemAvatar,
@@ -13,10 +12,6 @@ import {
   TextField,
   Typography
 } from 'material-ui'
-import {
-  Folder as FolderIcon,
-  MoreVert as MoreVertIcon
-} from 'material-ui-icons'
 import { FillGauge } from '../FillGauge'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
