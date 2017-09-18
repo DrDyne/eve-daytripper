@@ -7,12 +7,21 @@ import {
 import { parseClipboardFromGameClientToJson } from './utils'
 
 export const initialState = {
+  capacity: 400,
   total: {
-    price: 46321.04,
-    volume: 25,
+    isk: 527854.52,
+    m3: 27,
   },
-  items: [{name: '10MN Afterburner I', qty: 1, id: 12056, volume: 25, isk: 46321.04}],
-  stock: [{ name: 'Core Scanner Probe I', qty: 8, id: 30013 }],
+  items: [{
+    name: '10MN Afterburner I', qty: 1, id: 12056, m3: 25, isk: 46321.04
+  }, {
+    name: 'Nanite Repair Paste', qty: 200, id: 28668, m3: 2, isk: 481533.48
+  }],
+  stock: [{
+    name: 'Core Scanner Probe I', qty: 8, id: 30013
+  }, {
+    name: 'Nanite Repair Paste', qty: 18, id: 28668
+  }],
 }
 
 export const byId = id => i => i.id === id
@@ -34,22 +43,22 @@ export const updateStock = (state, {id, name, qty}) => {
   })
 }
 
-export const addItem = (state, {id, name, qty, price, volume}) => {
+export const addItem = (state, {id, name, qty, isk, m3}) => {
   const total = {
-    isk: state.total.isk + price,
-    volume: state.total.volume + volume
+    isk: state.total.isk + isk,
+    m3: state.total.m3 + m3
   }
-  const items = [...state.items, {id, name, qty, price, volume}]
+  const items = [...state.items, {id, name, qty, isk, m3}]
   return Object.assign({}, state, { total, items })
 }
 
-export const updateItem = (state, {id, name, qty, price, volume}) => {
+export const updateItem = (state, {id, name, qty, isk, m3}) => {
   const items = state.items.slice() // else update it
   const itemIndex = items.findIndex(byName(name))
-  items[itemIndex] = Object.assign(items[itemIndex], { qty, price, volume })
+  items[itemIndex] = Object.assign(items[itemIndex], { qty, isk, m3 })
   const total = {
-    isk: state.items.reduce((memo, i) => memo + i.price, 0),
-    volume: state.items.reduce((memo, i) => memo + i.volume, 0),
+    isk: state.items.reduce((memo, i) => memo + i.isk, 0),
+    m3: state.items.reduce((memo, i) => memo + i.m3, 0),
   }
 
   return Object.assign({}, state, { total, items })

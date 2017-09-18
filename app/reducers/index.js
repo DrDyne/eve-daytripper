@@ -3,12 +3,16 @@ import { layout } from './layout'
 import { activeTab } from './activeTab'
 import { inventory } from './inventory'
 import { history } from './history'
+import { user } from './user'
+import { char } from './char'
 
 const Reducers = combineReducers({
   layout,
   activeTab,
   inventory,
   history,
+  user,
+  char,
 })
 
 export default Reducers

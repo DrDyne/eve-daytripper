@@ -4,23 +4,23 @@ export const parseQty = (item) => {
 }
 
 export const parseVolume = (item) => {
-  if ( !item.volume ) return 0
-  return parseFloat(item.volume.replace(/,/g, ''))
+  if ( !item.m3 ) return 0
+  return parseFloat(item.m3.replace(/,/g, ''))
 }
 
 export const parsePrice = (item) => {
-  if ( !item.price ) return 0
-  return parseFloat(item.price.replace(/,/g, ''))
+  if ( !item.isk ) return 0
+  return parseFloat(item.isk.replace(/,/g, ''))
 }
 
 export const toInventoryItem = item => {
-  const [name, qty, group, size, slot, volume, price] = item.split(/\t/)
+  const [name, qty, group, size, slot, m3, isk] = item.split(/\t/)
 
   return {
     name,
     qty: parseQty({qty}),
-    volume: parseVolume({volume}),
-    price: parsePrice({price}),
+    m3: parseVolume({m3}),
+    isk: parsePrice({isk}),
   }
 }
 
@@ -31,7 +31,7 @@ export const mergeStacks = (memo, item) => {
   return memo
 }
 
-export const hasPrice = item => item.price > 0
+export const hasPrice = item => item.isk > 0
 
 export const parseClipboardFromGameClientToJson = pasted => {
   return pasted.split(/\n+/)

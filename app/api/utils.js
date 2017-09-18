@@ -32,3 +32,5 @@ export const soundex = (str) => {
 
   return `${firstChar}${code}000`.slice(0, 4).toUpperCase()
 }
+
+export const makePortraitUrl = id => `http://image.eveonline.com/Character/${id}_64.jpg`
