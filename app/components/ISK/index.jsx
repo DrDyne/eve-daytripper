@@ -13,10 +13,11 @@ export const shorten = value => {
   : Math.round(value / (1000 * 1000 * 1000)) + b
 }
 
-export const ISK = ({value, short}) => {
-  if ( !value ) return <div> 0 ISK </div>
-  if ( !short ) return <div> { value.toLocaleString('en-US') } ISK </div>
-  return <div> { shorten(value) } ISK </div>
+export const ISK = (props) => {
+  const { value,  short } = props
+  if ( !value ) return <span {...props}> 0 ISK </span>
+  if ( !short ) return <span {...props}> { value.toLocaleString('en-US') } ISK </span>
+  return <span {...props}> { shorten(value) } ISK </span>
 }
 
 // 90,352,223,123.99 ISK // !short

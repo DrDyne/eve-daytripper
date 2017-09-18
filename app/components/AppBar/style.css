@@ -1,0 +1,9 @@
+.root {}
+.flex {
+  flex: 1
+}
+.avatar {
+  height: 64px;
+  wiwdth: 64px;
+  margin-right: 12px;
+}

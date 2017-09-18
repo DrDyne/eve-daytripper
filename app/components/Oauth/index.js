@@ -1,23 +1,20 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { oauthCallback } from '../../actions'
+import { Oauth } from './component'
 
-export const parseCredentials = hash => {
-  return hash.split(/#|&/).reduce((memo, chunk) => {
-    if ( !chunk.length ) return memo
 
-    const [ key, value ] = chunk.split('=')
-    return Object.assign(memo, {[key]: value})
-  }, {})
-}
+export const mapStateToProps = state => ({
+  id: state.char.id,
+  name: state.char.name,
+  portrait: state.char.portrait
+})
 
-//ry  CCP's SSO should redirect straight to a Cognito endpoint
-//... which will redirect to here with a unique CognitoId
-//... hence, forget about CCP's access token and use CognitoId's instead
-export const Oauth = ({location}) => {
-  const creds = parseCredentials(location.hash)
-  console.log(creds)
-  return <div> loading your inventory... </div>
-}
+export const mapDispatchToProps = dispatch => ({
+  authenticate: creds => {
+    console.log('authenticating', creds)
+    dispatch(oauthCallback(creds))
+  },
+})
 
-export default connect()(withRouter(Oauth))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Oauth))

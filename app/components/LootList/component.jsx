@@ -22,7 +22,7 @@ import style from './style.scss'
 export const LootList = ({layout, inventory, history}) => {
   const total = {
     isk: inventory.total.isk,
-    volume: inventory.total.volume,
+    m3: inventory.total.m3,
     prev: history.lastInventory.total
   }
 
@@ -39,25 +39,29 @@ export const LootList = ({layout, inventory, history}) => {
           primary={item.name}
           secondary={item.qty}
           />
+        <ListItemText
+          secondary={<ISK value={item.isk}/>}
+          />
       </ListItem>))}
 
       <ListItem>
-        <ListItemText primary={<div>
-            total: <ISK value={total.isk} />
-        </div>} />
-        <ListItemText primary={<div>
-            total: <M3 value={total.volume} />
-        </div>} />
+        <div>
+            total: <ISK value={total.isk} style={{display: 'inline'}} />
+        </div>
+        <div>
+            total: <M3 value={total.m3} style={{display: 'inline'}} />
+        </div>
+        
         {total.prev.isk && (
           <Typography type="caption" className="delta-isk">
             { (total.isk-total.prev.isk > 0) ? '+' : '-' }
             <ISK value={ total.isk - total.prev.isk } />
           </Typography>)
         }
-        {total.prev.volume && (
+        {total.prev.m3 && (
           <Typography type="caption" className="delta-m3">
-            { (total.volume-total.prev.volume > 0) ? '+' : '-' }
-            <M3 value={total.volume-total.prev.volume} />
+            { (total.m3-total.prev.m3 > 0) ? '+' : '-' }
+            <M3 value={total.m3-total.prev.m3} />
           </Typography>)
         }
       </ListItem>

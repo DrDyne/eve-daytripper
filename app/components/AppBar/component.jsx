@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   AppBar as MuiAppBar,
+  Avatar,
   Button,
   IconButton,
   Toolbar,
@@ -9,11 +10,11 @@ import {
 import {
   Menu as MenuIcon
 } from 'material-ui-icons'
-import style from './style.scss'
+import style from './style.css'
 
-export const AppBar = ({toggleSettingsMenu}) => {
-  return (<div className="root">
-    <MuiAppBar position="static">
+export const AppBar = ({toggleSettingsMenu, char}) => {
+  return (<div className={style.root}>
+    <MuiAppBar position="fixed">
       <Toolbar disableGutters>
         <IconButton
           className="menu-burger"
@@ -22,6 +23,14 @@ export const AppBar = ({toggleSettingsMenu}) => {
           onClick={toggleSettingsMenu}>
           <MenuIcon />
         </IconButton>
+        <Avatar
+          alt={char.name}
+          src={char.portrait}
+          className={style.avatar} />
+
+        <Typography type="title" className={style.flex}>
+          {char.name}
+        </Typography>
       </Toolbar>
     </MuiAppBar>
   </div>)
