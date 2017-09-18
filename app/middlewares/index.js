@@ -1,6 +1,6 @@
 import { applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import * as api from '../api'
+import api from '../api'
 import { dispatchLogger } from './dispatch-logger'
 import {
   //inventoryCleaner,

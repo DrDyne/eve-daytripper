@@ -7,15 +7,21 @@ export const SWAP_STOCK_AND_LOOT_LISTS = 'layout:lists:swap'
 export const ADD_ITEM = 'item:add'
 export const DELETE_ITEM = 'item:delete'
 
-
 export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
 
 export const INPUT_PASTE = 'input:paste'
 export const UNDO_PASTE = 'paste:undo'
-export const SAVE_INVENTORY = 'save:inventory'
+export const LOAD_INVENTORY = 'inventory:load'
+export const SAVE_INVENTORY = 'inventory:save'
+export const UPDATE_INVENTORY_FROM_PASTE = 'inventory:update'
 
-export const UPDATE_INVENTORY_FROM_PASTE = 'inventory:update:from=paste'
+export const SAVE_CREDENTIALS = 'user:credentials:save'
+export const SET_CHAR_INFO = 'char:set'
+export const JUMP_TO = 'system:set'
+export const BOARD_SHIP = 'ship:set'
+export const SET_CAPACITY = 'capacity:set'
+
 
 export const setBreadcrumbs = items => ({
   type: SET_BREADCRUMBS,
@@ -53,13 +59,13 @@ export const setStock = ({id, name, qty}) => ({
   qty
 })
 
-export const addOrUpdateItem = ({id, name, qty, volume, price}) => ({
+export const addOrUpdateItem = ({id, name, qty, m3, isk}) => ({
   type: ADD_ITEM,
   id,
   name,
   qty,
-  volume,
-  price
+  m3,
+  isk
 })
 
 export const deleteItem = ({name}) => ({
@@ -72,7 +78,7 @@ export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
   const identifications = history.lastPasted.items.map(item => {
     const byName = i => i.name === item.name
 
-    return api.identify(item.name)
+    return api.inventory.identify(item.name)
     .then(id => {
       const itemWithId = Object.assign({}, item, {id})
       dispatch(addOrUpdateItem(itemWithId))
@@ -111,3 +117,29 @@ export const saveInventory = () => (dispatch, getState) => {
   const { total } = getState().inventory.items
   dispatch(inventoryHistory.push(getState().inventory))
 }
+
+export const oauthCallback = creds => (dispatch, getState, {api}) => {
+  return api.user.authenticate(creds.access_token)
+  .then(json => ({
+    id: json.CharacterID,
+    name: json.CharacterName,
+  }))
+  // then sign-in to cognito using json.id, return {id, name}
+  .then(({id, name}) => {
+    dispatch(setCharacterInfo({id, name}))
+    dispatch(saveCredentials(creds))
+  })
+  .catch(console.error.bind('oauth err'))
+}
+
+export const setCharacterInfo = ({id, name}) => ({
+  type: SET_CHAR_INFO,
+  id,
+  name,
+})
+
+export const saveCredentials = ({access_token, expires_in}) => ({
+  type: SAVE_CREDENTIALS,
+  token: access_token,
+  expires: expires_in,
+})

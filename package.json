@@ -1,7 +1,7 @@
 {
-  "name": "react-webpack-babel",
-  "version": "0.0.3",
-  "description": "React Webpack Babel Starter Kit",
+  "name": "eve-daytripper",
+  "version": "0.0.1",
+  "description": "Stock and loot management for small-scale daytripping expeditions for Eve online.",
   "main": "''",
   "scripts": {
     "build": "webpack --config webpack.production.config.js --progress --profile --colors",
@@ -14,11 +14,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alicoding/react-webpack-babel"
+    "url": "https://github.com/DrDyne/eve-daytripper"
   },
-  "author": "Ali Al Dallal",
+  "author": "DrDyne",
   "license": "MIT",
-  "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
+  "homepage": "https://github.com/DrDyne/eve-daytripper",
   "dependencies": {
     "assets-webpack-plugin": "^3.5.1",
     "chartist": "^0.11.0",
@@ -56,6 +56,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-runtime": "^6.26.0",
     "css-loader": "0.26.1",
+    "express": "^4.15.4",
     "extract-text-webpack-plugin": "^v2.0.0-rc.1",
     "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.30.1",

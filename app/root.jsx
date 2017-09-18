@@ -18,7 +18,7 @@ const Root = ({layout}) => (<div className="app">
 
     <Settings />
 
-    <div className="app-layout app-content">
+    <div style={{paddingTop: 64}}>
       <PasteRecipient />
       <AppContent />
     </div>
