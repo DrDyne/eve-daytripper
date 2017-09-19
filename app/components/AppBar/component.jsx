@@ -23,14 +23,19 @@ export const AppBar = ({toggleSettingsMenu, char}) => {
           onClick={toggleSettingsMenu}>
           <MenuIcon />
         </IconButton>
+
+        <div className={style.flexGrow} />
+
+        <Typography type="title" className={style.flex} align="right" style={{marginRight: 14}}>
+          {char.name}
+        </Typography>
+
         <Avatar
           alt={char.name}
           src={char.portrait}
-          className={style.avatar} />
+          className={style.avatar}
+          />
 
-        <Typography type="title" className={style.flex}>
-          {char.name}
-        </Typography>
       </Toolbar>
     </MuiAppBar>
   </div>)

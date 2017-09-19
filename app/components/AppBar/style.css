@@ -7,3 +7,8 @@
   wiwdth: 64px;
   margin-right: 12px;
 }
+
+.flexGrow {
+  display: flex;
+  flex: '1 1 auto'
+}
