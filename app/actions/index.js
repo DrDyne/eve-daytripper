@@ -1,3 +1,9 @@
+import * as layout from './layout'
+
+export {
+  layout
+}
+
 export const SET_BREADCRUMBS = 'breadcrumbs:set'
 export const SET_BREADCRUMBS_COLOR = 'breadcrumbs:color:set'
 export const CHANGE_TAB = 'tab:change'

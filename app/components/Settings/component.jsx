@@ -6,6 +6,7 @@ import {
   TextField,
   Typography,
 } from 'material-ui'
+import ShowEmptyStockSwitch from './components/ShowEmptyStockSwitch'
 
 export class Settings extends React.Component {
   state = {
@@ -35,7 +36,11 @@ export class Settings extends React.Component {
                 this.setState({cargoCapacity: event.target.value})
               }}
               fullWidth />
+
+            <ShowEmptyStockSwitch />
           </div>
+
+          //TODO display percentages instead of item images
         </Drawer>
       </div>)
   }
