@@ -7,6 +7,7 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
+  TextField,
 } from 'material-ui'
 import Collapse from 'material-ui/transitions/Collapse'
 import { FillGauge } from '../FillGauge'
@@ -64,9 +65,11 @@ export class StockList extends React.Component {
 
     return (<div> stock list, {inventory.stock.length} items
       <List>
+        <AddStockListItem />
         { inventory.stock.filter(i => i.qty > (layout.showEmptyStock ? -1 : 0)).map(item => (<div key={item.name}>
 
-          <ListItem button onClick={this.toggleMenu(item.name)}>
+          {/*<ListItem button onClick={this.toggleMenu(item.name)}>*/}
+          <ListItem button onClick={this.setStock(item)}>
             <ListItemAvatar>
               <Avatar>
                 <GameItemAvatar id={item.id} />
@@ -103,5 +106,33 @@ export class StockList extends React.Component {
           this.hideDialogs()
         }} />
     </div>)
+  }
+}
+
+export class AddStockListItem extends React.Component {
+  state = {
+    itemSelected: null
+  }
+
+  render () {
+    const { onSave } = this.props
+
+    return <ListItem>
+      <TextField
+        label="Edit stock..."
+        placeholder="Core Scanner Probe"
+        style={{width: '80%'}}
+        />
+
+      <TextField
+        label="Quantity"
+        placeholder="8"
+        disabled={this.state.itemSelected}
+        />
+
+      <Button onClick={onSave}>
+        Save
+      </Button>
+    </ListItem>
   }
 }
