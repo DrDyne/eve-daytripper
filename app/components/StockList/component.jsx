@@ -12,7 +12,7 @@ import Collapse from 'material-ui/transitions/Collapse'
 import { FillGauge } from '../FillGauge'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
-import { SetStockDialog } from '../SetStockDialog'
+import SetStockDialog from '../SetStockDialog'
 
 export class StockList extends React.Component {
   state = {
@@ -30,7 +30,7 @@ export class StockList extends React.Component {
     })
   }
 
-  hideMenu = name => event => {
+  hideMenu = event => {
     console.log('hide menu')
     this.setState({
       menuItemKey: null,
@@ -50,12 +50,6 @@ export class StockList extends React.Component {
       selectedItems: [item],
       showStockDialog: true
     })
-  }
-
-  updateStockQty = qty => {
-    const { selectedItems } = this.state
-    console.log(selectedItems, `qty:${qty}`)
-    this.setState({selectedItems: []})
   }
 
   render () {
@@ -106,8 +100,14 @@ export class StockList extends React.Component {
       <SetStockDialog
         items={this.state.selectedItems}
         open={this.state.showStockDialog }
-        onRequestClose={() => this.hideMenu() && this.hideDialogs()}
-        onSave={qty => this.hideMenu() && this.hideDialogs() && this.updateStockQty(qty)}>
+        onRequestClose={() => {
+          this.hideMenu()
+          this.hideDialogs()
+        }}
+        onSave={qty => {
+          this.hideMenu()
+          this.hideDialogs()
+        }}>
       </SetStockDialog>
     </div>)
   }

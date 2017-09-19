@@ -9,12 +9,13 @@ import {
   Typography
 } from 'material-ui'
 
+
 export const SetStockDialog = (props) => {
-  const { items, open, onRequestClose, onSave } = props
-  
+  const { items, open, onRequestClose, onSave, setStock } = props
+
   if ( items.length === 1 ) {
     const item = items[0] || {}
-    console.log(item)
+    let quantity = item.qty
 
     return (<Dialog
       open={open}
@@ -30,11 +31,21 @@ export const SetStockDialog = (props) => {
         <TextField
           placeholder={''+item.qty}
           label={item.qty+'x ' + item.name}
+          onChange={event => quantity = event.target.value}
+          autoFocus
           />
       </DialogContent>
       <DialogActions>
         <Button onClick={onRequestClose}> cancel </Button>
-        <Button onClick={onSave} color="primary"> save </Button>
+        <Button
+          onClick={() => {
+            onSave()
+            setStock({ items, qty: quantity })
+          }}
+          color="primary"
+        >
+          save
+        </Button>
       </DialogActions>
     </Dialog>)
   }
