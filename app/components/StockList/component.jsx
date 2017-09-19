@@ -31,7 +31,6 @@ export class StockList extends React.Component {
   }
 
   hideMenu = event => {
-    console.log('hide menu')
     this.setState({
       menuItemKey: null,
       menuAnchor: null
@@ -39,7 +38,6 @@ export class StockList extends React.Component {
   }
 
   hideDialogs = () => {
-    console.log('menu closed, now hide dialogs')
     this.setState({
       showStockDialog: false,
     })
@@ -66,7 +64,7 @@ export class StockList extends React.Component {
 
     return (<div> stock list, {inventory.stock.length} items
       <List>
-        {inventory.stock.map(item => (<div key={item.name}>
+        { inventory.stock.filter(i => i.qty > (layout.showEmptyStock ? -1 : 0)).map(item => (<div key={item.name}>
 
           <ListItem button onClick={this.toggleMenu(item.name)}>
             <ListItemAvatar>
@@ -99,16 +97,11 @@ export class StockList extends React.Component {
 
       <SetStockDialog
         items={this.state.selectedItems}
-        open={this.state.showStockDialog }
+        open={this.state.showStockDialog}
         onRequestClose={() => {
           this.hideMenu()
           this.hideDialogs()
-        }}
-        onSave={qty => {
-          this.hideMenu()
-          this.hideDialogs()
-        }}>
-      </SetStockDialog>
+        }} />
     </div>)
   }
 }
