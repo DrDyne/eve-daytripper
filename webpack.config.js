@@ -22,7 +22,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'edt-actions': path.resolve(__dirname, 'app/actions'),
       joi: 'joi-browser',
       moment: 'moment/moment.js'
     },

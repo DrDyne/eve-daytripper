@@ -14,6 +14,7 @@ import { FillGauge } from '../FillGauge'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
 import SetStockDialog from '../SetStockDialog'
+import { Typeahead } from 'react-typeahead'
 
 export class StockList extends React.Component {
   state = {
@@ -109,6 +110,8 @@ export class StockList extends React.Component {
   }
 }
 
+import itemNames from '../../../docs/static/names.json'
+
 export class AddStockListItem extends React.Component {
   state = {
     itemSelected: null
@@ -118,6 +121,11 @@ export class AddStockListItem extends React.Component {
     const { onSave } = this.props
 
     return <ListItem>
+      <Typeahead
+        options={itemNames}
+        maxVisible={5}
+        />
+
       <TextField
         label="Edit stock..."
         placeholder="Core Scanner Probe"

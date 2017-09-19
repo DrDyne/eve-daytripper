@@ -21,7 +21,7 @@ const writeGroupedByFirstChar = files => {
       const fileContent = files[fileName]
       console.log(`writing ${fileName}.json`)
       // FIXME ... stuck on '[', probably filesystem won't allow files starting with this char, so blacklist this char or rename file
-      return fs.writeFile(`static/typeids/${fileName}.json`, JSON.stringify(fileContent), 'utf-8', err => {
+      return fs.writeFile(`docs/static/typeids/${fileName}.json`, JSON.stringify(fileContent), 'utf-8', err => {
         if ( !err ) return
         console.log(err)
       })
@@ -36,7 +36,7 @@ const writeSeparate = () => {
     console.log('writing into', fileName+'.json')
     console.log(json[fileName].length, 'items')
 
-    fs.writeFile(`static/typeids/${file}.json`, JSON.stringify(json[fileName]), 'utf-8', err => {
+    fs.writeFile(`docs/static/typeids/${file}.json`, JSON.stringify(json[fileName]), 'utf-8', err => {
       if ( !err ) return
       console.log('Something bad happened Bob.')
       console.error(err)

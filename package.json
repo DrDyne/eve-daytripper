@@ -10,7 +10,8 @@
     "dev": " webpack-dashboard -- webpack-dev-server --progress --profile --colors",
     "test": "node ./node_modules/jest/bin/jest.js",
     "update-default-reg": "npm update --registry=https://registry.npmjs.org",
-    "typeids-to-chunks": "babel-node npm-scripts/typeids-to-chunks"
+    "typeids-to-chunks": "babel-node npm-scripts/typeids-to-chunks",
+    "typeids-to-names": "babel-node npm-scripts/typeids-to-names"
   },
   "repository": {
     "type": "git",

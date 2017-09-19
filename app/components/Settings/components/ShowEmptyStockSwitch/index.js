@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { ShowEmptyStockSwitch } from './component'
-import { layout } from 'edt-actions'
+import { layout } from '../../../../actions'
 
 export const mapStateToProps = state => ({
   checked: state.layout.showEmptyStock
