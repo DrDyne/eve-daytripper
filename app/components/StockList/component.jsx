@@ -2,6 +2,8 @@ import React from 'react'
 import {
   Avatar,
   Button,
+  Checkbox,
+  Input,
   List,
   ListItem,
   ListItemAvatar,
@@ -14,14 +16,15 @@ import { FillGauge } from '../FillGauge'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
 import SetStockDialog from '../SetStockDialog'
-import { Typeahead } from 'react-typeahead'
+import InfoButton from '../InfoButton'
 
 export class StockList extends React.Component {
   state = {
     menuAnchor: null,
     menuItemKey: null,
     showStockDialog: false,
-    selectedItems: [] // possibly, selecting multiple items before opening the menu will enable actions on them all
+    selectedItems: [], // possibly, selecting multiple items before opening the menu will enable actions on them all
+    showControls: null,
   }
 
   toggleMenu = name => event => {
@@ -66,27 +69,62 @@ export class StockList extends React.Component {
 
     return (<div> stock list, {inventory.stock.length} items
       <List>
-        <AddStockListItem />
+        {/*TODO
+          <AddStockListItem />
+        */}
         { inventory.stock.filter(i => i.qty > (layout.showEmptyStock ? -1 : 0)).map(item => (<div key={item.name}>
 
           {/*<ListItem button onClick={this.toggleMenu(item.name)}>*/}
-          <ListItem button onClick={this.setStock(item)}>
-            <ListItemAvatar>
-              <Avatar>
-                <GameItemAvatar id={item.id} />
-              </Avatar>
-            </ListItemAvatar>
-
-            <ListItemText
-              primary={item.name}
-              secondary={`${getInventoryQty(item.name)} / ${item.qty}`}
+          <ListItem
+            onMouseEnter={() => {
+              this.setState({showControls: item.id})
+            }}
+            onMouseLeave={() => {
+              this.setState({showControls: null})
+            }}
+          >
+              <Checkbox
+                checked={item.checked}
+                tabIndex={'-1'}
+                onChange={() => item.checked = !item.checked}
+                style={{
+                  display: item.checked
+                  ? 'inherit'
+                  : this.state.showControls === item.id
+                  ? 'inherit'
+                  : 'none'
+                }}
               />
+            <div
+              onClick={this.setStock(item)}
+              style={{
+                display: 'flex',
+                flex: '1 1 auto',
+                ':hover': { cursor: 'pointer' }
+            }}>
+              <ListItemAvatar>
+                <Avatar>
+                  <GameItemAvatar id={item.id} />
+                </Avatar>
+              </ListItemAvatar>
 
-            <Button disabled>
-              <ISK value={getInventoryPrice(item.name)} />
-            </Button>
+
+              <ListItemText
+                primary={item.name}
+                secondary={`${getInventoryQty(item.name)} / ${item.qty}`}
+                />
+
+              <Button disabled>
+                <ISK value={getInventoryPrice(item.name)} />
+              </Button>
+            </div>
+
+            <ListItemSecondaryAction>
+              <InfoButton id={item.id}/>
+            </ListItemSecondaryAction>
 
           </ListItem>
+
           <FillGauge qty={getInventoryQty(item.name)} target={item.qty} />
 
           <Collapse
@@ -107,40 +145,5 @@ export class StockList extends React.Component {
           this.hideDialogs()
         }} />
     </div>)
-  }
-}
-
-import itemNames from '../../../docs/static/names.json'
-
-export class AddStockListItem extends React.Component {
-  state = {
-    itemSelected: null
-  }
-
-  render () {
-    const { onSave } = this.props
-
-    return <ListItem>
-      <Typeahead
-        options={itemNames}
-        maxVisible={5}
-        />
-
-      <TextField
-        label="Edit stock..."
-        placeholder="Core Scanner Probe"
-        style={{width: '80%'}}
-        />
-
-      <TextField
-        label="Quantity"
-        placeholder="8"
-        disabled={this.state.itemSelected}
-        />
-
-      <Button onClick={onSave}>
-        Save
-      </Button>
-    </ListItem>
   }
 }
