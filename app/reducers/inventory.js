@@ -1,7 +1,10 @@
 import {
   ADD_ITEM,
+  DELETE_ITEM,
   INPUT_PASTE,
+  INSPECT_ITEM,
   SET_STOCK,
+  SET_ITEM_INFO,
   UPDATE_INVENTORY_FROM_PASTE,
 } from '../actions'
 import { parseClipboardFromGameClientToJson } from './utils'
@@ -34,13 +37,11 @@ export const addToStock = (state, item) => {
 
 export const updateStock = (state, {id, name, qty}) => {
   const stockIndex = state.stock.findIndex(byName(name))
-  const updatedStock = state.stock.slice()
-  if ( id ) updatedStock[stockIndex].id = id
-  if ( qty ) updatedStock[stockIndex].qty = qty
+  const stock = state.stock.slice()
+  if ( id ) stock[stockIndex].id = id
+  if ( qty ) stock[stockIndex].qty = qty
 
-  return Object.assign({}, state, {
-    stock: updatedStock
-  })
+  return Object.assign({}, state, { stock })
 }
 
 export const addItem = (state, {id, name, qty, isk, m3}) => {
@@ -50,6 +51,17 @@ export const addItem = (state, {id, name, qty, isk, m3}) => {
   }
   const items = [...state.items, {id, name, qty, isk, m3}]
   return Object.assign({}, state, { total, items })
+}
+
+export const setItemQty = (state, name, qty) => {
+  const itemIndex = state.items.findIndex(byName(name))
+  const items = state.items.slice()
+  items[itemIndex].qty = qty
+  return Object.assign({}, state, { items })
+}
+
+export const deleteItem = (state, {name}) => {
+  return updateItem(state, { name, qty: 0, isk: 0, m3: 0, })
 }
 
 export const updateItem = (state, {id, name, qty, isk, m3}) => {
@@ -64,6 +76,20 @@ export const updateItem = (state, {id, name, qty, isk, m3}) => {
   return Object.assign({}, state, { total, items })
 }
 
+export const setInfo = (state, name, info) => {
+  console.log(info.description)
+  return Object.assign({}, state, {
+    items: state.items.map(item => {
+      if ( name !== item.name ) return item
+      return Object.assign(item, {info})
+    }),
+    stock: state.stock.map(item => {
+      if ( name !== item.name ) return item
+      return Object.assign(item, {info})
+    })
+  })
+}
+
 export const inventory = (state=initialState, action) => {
   const { name, qty } = action
 
@@ -73,6 +99,12 @@ export const inventory = (state=initialState, action) => {
       if ( !item ) // add it
         return addItem(state, action)
       return updateItem(state, action)
+
+    case DELETE_ITEM:
+      return deleteItem(state, action)
+
+    case SET_ITEM_INFO:
+      return setInfo(state, name, action.info)
 
     case SET_STOCK:
       const stock = state.stock.find(byName(name))

@@ -1,7 +1,9 @@
 import * as layout from './layout'
+import * as inventory from './inventory'
 
 export {
-  layout
+  layout,
+  inventory
 }
 
 export const SET_BREADCRUMBS = 'breadcrumbs:set'
@@ -12,6 +14,8 @@ export const SWAP_STOCK_AND_LOOT_LISTS = 'layout:lists:swap'
 
 export const ADD_ITEM = 'item:add'
 export const DELETE_ITEM = 'item:delete'
+export const SET_ITEM_INFO = 'item:info'
+export const INSPECT_ITEM = 'item:inspect'
 
 export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
@@ -60,18 +64,17 @@ export const inputPaste = clipboard => ({
 
 export const setStock = ({id, name, qty}) => ({
   type: SET_STOCK,
-  id,
-  name,
-  qty
+  id, name, qty
+})
+
+export const setItemQty = ({id, name, qty}) => ({
+  type: SET_ITEM_QTY,
+  id, name, qty
 })
 
 export const addOrUpdateItem = ({id, name, qty, m3, isk}) => ({
   type: ADD_ITEM,
-  id,
-  name,
-  qty,
-  m3,
-  isk
+  id, name, qty, m3, isk
 })
 
 export const deleteItem = ({name}) => ({
@@ -79,49 +82,27 @@ export const deleteItem = ({name}) => ({
   name
 })
 
-export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
-  const { history, inventory } = getState()
-  const identifications = history.lastPasted.items.map(item => {
-    const byName = i => i.name === item.name
+export const setItemInfo = (item, info) => ({
+  type: SET_ITEM_INFO,
+  name: item.name,
+  info
+})
 
-    return api.inventory.identify(item.name)
-    .then(id => {
-      const itemWithId = Object.assign({}, item, {id})
-      dispatch(addOrUpdateItem(itemWithId))
+export const inspectItem = item => ({
+  type: INSPECT_ITEM,
+  item
+})
 
-      const inStock = inventory.stock.find(byName)
-      if ( inStock && !inStock.id )
-        dispatch(setStock({
-          id: itemWithId.id,
-          name: item.name,
-        }))
-    })
+export const showInfoDialog = id => (dispatch, getState, {api}) => {
+  const { inventory } = getState()
+  const item = inventory.items.concat(inventory.stock).find(i => i.id === id)
+  if ( item.description ) return dispatch(inspectItem(item))
+
+  api.inventory.info(item.id)
+  .then(info => {
+    dispatch(setItemInfo(item, info))
+    dispatch(inspectItem(item))
   })
-
-  return Promise.all(identifications)
-}
-
-export const sellMissingFromPaste = () => (dispatch, getState) => {
-}
-
-export const clearMissingFromPaste = () => (dispatch, getState) => {
-  const { inventory, history } = getState()
-  inventory.items.forEach(({name}) => {
-    const pasted = history.lastPasted.items.find(i => name === i.name)
-    if ( !pasted ) dispatch(deleteItem({name}))
-  })
-}
-
-export const inventoryHistory = {
-  push: inventory => ({
-    type: SAVE_INVENTORY,
-    inventory
-  })
-}
-
-export const saveInventory = () => (dispatch, getState) => {
-  const { total } = getState().inventory.items
-  dispatch(inventoryHistory.push(getState().inventory))
 }
 
 export const oauthCallback = creds => (dispatch, getState, {api}) => {

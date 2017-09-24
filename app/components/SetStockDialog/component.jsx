@@ -22,7 +22,7 @@ export const SetStockDialog = (props) => {
       onRequestClose={onRequestClose}
     >
       <DialogTitle>
-        Set target stock quantity
+        Target stock quantity
         { items.length > 1 &&
         ( <Typography type="caption"> Editing {items.length} items </Typography> )
         }

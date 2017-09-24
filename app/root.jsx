@@ -4,6 +4,7 @@ import { Route, withRouter } from 'react-router-dom'
 import AppBar from './components/AppBar'
 import AppContent from './components/AppContent'
 import PasteRecipient from './components/PasteRecipient'
+import PasteActions from './components/PasteActions'
 import Settings from './components/Settings'
 import Login from './components/Login'
 import Oauth from './components/Oauth'
@@ -20,6 +21,7 @@ const Root = ({layout}) => (<div className="app">
 
     <div style={{paddingTop: 64}}>
       <PasteRecipient />
+      <PasteActions />
       <AppContent />
     </div>
   </div> )} />

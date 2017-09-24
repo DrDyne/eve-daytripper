@@ -114,9 +114,9 @@ export class StockList extends React.Component {
                 secondary={`${getInventoryQty(item.name)} / ${item.qty}`}
                 />
 
-              <Button disabled>
+              { layout.showStockPrice && (<Button disabled>
                 <ISK value={getInventoryPrice(item.name)} />
-              </Button>
+              </Button> )}
             </div>
 
             <ListItemSecondaryAction>

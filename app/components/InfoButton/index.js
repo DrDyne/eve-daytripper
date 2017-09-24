@@ -1,10 +1,17 @@
 import { connect } from 'react-redux'
+import {
+  showInfoDialog,
+} from '../../actions'
 import { InfoButton } from './component'
 
+export const mapStateToProps = state => ({
+  dialogContent: state.history.inspect
+})
+
 export const mapDispatchToProps = dispatch => ({
-  fetchInfo: id => {
-    console.log('fetch item:'+ id)
+  showInfoDialog: item => event => {
+    dispatch(showInfoDialog(item))
   }
 })
 
-export default connect(null, mapDispatchToProps)(InfoButton)
+export default connect(mapStateToProps, mapDispatchToProps)(InfoButton)

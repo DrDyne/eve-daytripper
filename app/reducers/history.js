@@ -1,5 +1,6 @@
 import {
   INPUT_PASTE,
+  INSPECT_ITEM,
   UNDO_PASTE,
   SAVE_INVENTORY,
 } from '../actions'
@@ -14,11 +15,12 @@ export const initialState = {
   lastInventory: {
     total: {
       isk: 0,
-      volume: 0,
+      m3: 0,
     }
   },
   paste: [],
   inventory: [],
+  inspect: null,
 }
 
 export const history = (state=initialState, action) => {
@@ -38,6 +40,9 @@ export const history = (state=initialState, action) => {
         },
         paste: [...state.paste, {date, items, raw}],
       })
+
+    case INSPECT_ITEM:
+      return Object.assign({}, state, { inspect: action.item })
 
     case SAVE_INVENTORY:
       const { inventory } = action

@@ -20,6 +20,8 @@ import { GameItemAvatar } from '../GameItemAvatar'
 import style from './style.scss'
 import SetStockDialog from '../SetStockDialog'
 
+export const filterEmptyQty = i => i.qty > 0
+
 export class LootList extends React.Component {
   state = {
     selectedItems: [],
@@ -36,7 +38,10 @@ export class LootList extends React.Component {
 
     return (<div style={style.root}> loot list, {inventory.items.length} items
       <List>
-        {inventory.items.map((item, index) => (<ListItem
+        {inventory.items
+          .filter(filterEmptyQty)
+          .map((item, index) =>
+        (<ListItem
           key={`${item.name}-${index}`}
           button
           onClick={() => {
