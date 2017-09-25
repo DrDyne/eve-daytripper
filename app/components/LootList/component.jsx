@@ -17,8 +17,9 @@ import {
 import { ISK } from '../ISK'
 import { M3 } from '../M3'
 import { GameItemAvatar } from '../GameItemAvatar'
-import style from './style.scss'
 import SetStockDialog from '../SetStockDialog'
+import InfoButton from '../InfoButton'
+import style from './style.scss'
 
 export const filterEmptyQty = i => i.qty > 0
 
@@ -64,6 +65,10 @@ export class LootList extends React.Component {
           <ListItemText
             secondary={<ISK value={item.isk}/>}
             />
+
+          <ListItemSecondaryAction>
+            <InfoButton id={item.id} />
+          </ListItemSecondaryAction>
         </ListItem>))}
 
         <ListItem>

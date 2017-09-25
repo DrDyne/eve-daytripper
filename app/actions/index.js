@@ -16,6 +16,7 @@ export const ADD_ITEM = 'item:add'
 export const DELETE_ITEM = 'item:delete'
 export const SET_ITEM_INFO = 'item:info'
 export const INSPECT_ITEM = 'item:inspect'
+export const INSPECT_CLOSE = 'item:inspect:close'
 
 export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
@@ -93,10 +94,14 @@ export const inspectItem = item => ({
   item
 })
 
+export const closeInspect = () => ({
+  type: INSPECT_CLOSE
+})
+
 export const showInfoDialog = id => (dispatch, getState, {api}) => {
   const { inventory } = getState()
   const item = inventory.items.concat(inventory.stock).find(i => i.id === id)
-  if ( item.description ) return dispatch(inspectItem(item))
+  if ( item.info ) return dispatch(inspectItem(item))
 
   api.inventory.info(item.id)
   .then(info => {

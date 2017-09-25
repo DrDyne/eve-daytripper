@@ -1,6 +1,8 @@
 import {
   SETTINGS_MENU_TOGGLE,
-  SWAP_STOCK_AND_LOOT_LISTS
+  SWAP_STOCK_AND_LOOT_LISTS,
+  INSPECT_ITEM,
+  INSPECT_CLOSE
 } from '../actions'
 
 import {
@@ -13,7 +15,8 @@ const STOCK_POS_RIGHT = 'right'
 export const initialState = {
   stockListPosition: STOCK_POS_LEFT,
   settingsMenuOpen: false,
-  showEmptyStock: false
+  showEmptyStock: false,
+  showInfoDialog: false,
 }
 
 const toggleSettingsMenu = state => {
@@ -33,6 +36,8 @@ const swapLists = state => {
 
 export const layout = (state=initialState, action) => {
   switch ( action.type ) {
+    case INSPECT_ITEM: return Object.assign({}, state, {showInfoDialog: true})
+    case INSPECT_CLOSE: return Object.assign({}, state, {showInfoDialog: false})
     case SETTINGS_MENU_TOGGLE: return toggleSettingsMenu(state)
     case SWAP_STOCK_AND_LOOT_LISTS: return swapLists(state)
     case TOGGLE_SHOW_EMPTY_STOCK: return toggleShowEmptyStock(state)

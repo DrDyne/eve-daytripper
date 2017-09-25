@@ -6,6 +6,7 @@ import {
 } from 'material-ui'
 import StockList from '../StockList'
 import LootList from '../LootList'
+import InfoDialog from '../InfoDialog'
 import style from './style.scss'
 
 export class AppContent extends React.Component {
@@ -50,6 +51,8 @@ export class AppContent extends React.Component {
       {activeTab === 2 && (<TabContainer>
         <LootList />
       </TabContainer>)}
+
+      <InfoDialog />
     </Paper>)
   }
 }
