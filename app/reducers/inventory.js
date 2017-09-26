@@ -3,6 +3,7 @@ import {
   DELETE_ITEM,
   INPUT_PASTE,
   INSPECT_ITEM,
+  SET_CAPACITY,
   SET_STOCK,
   SET_ITEM_INFO,
   UPDATE_INVENTORY_FROM_PASTE,
@@ -111,6 +112,9 @@ export const inventory = (state=initialState, action) => {
       if ( !stock ) // add it
         return addToStock(state, action)
       return updateStock(state, action)
+
+    case SET_CAPACITY:
+      return Object.assign({}, state, { capacity: action.m3 })
   }
 
   return state

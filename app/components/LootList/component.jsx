@@ -37,7 +37,7 @@ export class LootList extends React.Component {
       prev: history.lastInventory.total
     }
 
-    return (<div style={style.root}> loot list, {inventory.items.length} items
+    return (<div style={style.root}>
       <List>
         {inventory.items
           .filter(filterEmptyQty)

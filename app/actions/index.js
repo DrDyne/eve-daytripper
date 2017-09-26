@@ -135,3 +135,8 @@ export const saveCredentials = ({access_token, expires_in}) => ({
   token: access_token,
   expires: expires_in,
 })
+
+export const setCapacity = m3 => ({
+  type: SET_CAPACITY,
+  m3,
+})

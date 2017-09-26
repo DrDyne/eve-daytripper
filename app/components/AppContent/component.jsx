@@ -4,9 +4,11 @@ import {
   Tab,
   Tabs,
 } from 'material-ui'
-import StockList from '../StockList'
-import LootList from '../LootList'
 import InfoDialog from '../InfoDialog'
+import {
+  TabsLayout,
+  SideToSideLayout,
+} from './layouts'
 import style from './style.scss'
 
 export class AppContent extends React.Component {
@@ -29,33 +31,15 @@ export class AppContent extends React.Component {
         <Tab label="Loot" />
       </Tabs>
 
-      { activeTab === 0 && (<TabContainer>
-        {(layout.stockListPosition === 'left')
-          ? (<div>
-            <StockList />
-            <StockListSeparator />
-            <LootList />
-          </div>)
-          : (<div>
-            <LootList />
-            <StockListSeparator />
-            <StockList />
-          </div>)
-        }
-      </TabContainer>)}
+      { 'tabs' === layout.contentLayout &&
+        <TabsLayout {...this.props} {...this.state}/>
+      }
 
-      {activeTab === 1 && (<TabContainer>
-        <StockList />
-      </TabContainer>)}
-
-      {activeTab === 2 && (<TabContainer>
-        <LootList />
-      </TabContainer>)}
+      { 'side-to-side' === layout.contentLayout &&
+        <SideToSideLayout {...this.props} {...this.state} />
+      }
 
       <InfoDialog />
     </Paper>)
   }
 }
-
-export const TabContainer = props => (<div style={{padding: 20}}>{props.children}</div>)
-export const StockListSeparator = props => (<div />)

@@ -13,6 +13,7 @@ const STOCK_POS_LEFT = 'left'
 const STOCK_POS_RIGHT = 'right'
 
 export const initialState = {
+  contentLayout: 'side-to-side', // 'side-to-side', 'tabs'
   stockListPosition: STOCK_POS_LEFT,
   settingsMenuOpen: false,
   showEmptyStock: false,
