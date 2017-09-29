@@ -5,11 +5,13 @@ import { inventory } from './inventory'
 import { history } from './history'
 import { user } from './user'
 import { char } from './char'
+import { fleet } from './fleet'
 
 const Reducers = combineReducers({
   layout,
   activeTab,
   inventory,
+  fleet,
   history,
   user,
   char,
