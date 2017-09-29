@@ -67,7 +67,7 @@ export class StockList extends React.Component {
       return !item ? 0 : item.isk
     }
 
-    return (<div> stock list, {inventory.stock.length} items
+    return (<div>
       <List>
         {/*TODO
           <AddStockListItem />

@@ -43,13 +43,19 @@ export class Footer extends React.Component {
                   color: gain
                     ? '#8BC34A'
                     : '#D50000'
-                }}
-              />
+                }} />
             </Typography>
 
             <Typography type="caption" className="delta-m3" align="right">
               <DeltaSymbol current={total.m3} prev={total.prev.m3} />
-              <M3 value={total.m3 - total.prev.m3} style={{display: 'inline'}} />
+              <M3
+                value={total.m3 - total.prev.m3}
+                style={{
+                  display: 'inline',
+                  color: (total.m3 - total.prev.m3 > 0)
+                    ? '#D50000'
+                    : '#8BC34A'
+                }} />
             </Typography>
           </div>)
         }

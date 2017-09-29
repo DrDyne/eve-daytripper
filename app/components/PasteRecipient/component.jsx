@@ -1,7 +1,6 @@
 import React from 'react'
 import style from './style.scss'
 import {
-  Button,
   Typography
 } from 'material-ui'
 
@@ -22,7 +21,7 @@ export class PasteRecipient extends React.Component {
 
   render () {
     const { hovered, focused, pasted } = this.state
-    const { parsedItems, clearMissing } = this.props
+    const { parsedItems } = this.props
     const css = {
       root: {
         background: !hovered
@@ -47,7 +46,6 @@ export class PasteRecipient extends React.Component {
           <Typography id={style['label-caption']} type="caption" align="right">
             {parsedItems} items parsed
           </Typography>
-          <Button onClick={clearMissing}> Clear missing </Button>
         </div>) }
       </div>
     </div>)
