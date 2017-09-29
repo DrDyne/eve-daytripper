@@ -140,3 +140,8 @@ export const setCapacity = m3 => ({
   type: SET_CAPACITY,
   m3,
 })
+
+export const saveInventory = inventory => ({
+  type: SAVE_INVENTORY,
+  inventory
+})

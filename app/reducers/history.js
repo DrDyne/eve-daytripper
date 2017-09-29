@@ -48,7 +48,7 @@ export const history = (state=initialState, action) => {
       const { inventory } = action
       return Object.assign({}, state, {
         lastInventory: {
-          total: inventory.total
+          total: inventory.total,
         },
         inventory: [...state.inventory, inventory]
       })

@@ -2,6 +2,8 @@ import {
   addOrUpdateItem,
   setStock,
   deleteItem,
+  inventoryHistoryPush,
+  saveInventory,
 } from './index.js'
 
 const byName = name => i => i.name === name
@@ -44,12 +46,5 @@ export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
 
 
 export const save = () => (dispatch, getState) => {
-  const history = {
-    //push: inventory => ({
-    //  type: SAVE_INVENTORY,
-    //  inventory
-    //})
-  }
-  const { total } = getState().inventory.items
-  //dispatch(history.push(getState().inventory))
+  dispatch(saveInventory(getState().inventory))
 }

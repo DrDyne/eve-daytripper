@@ -4,6 +4,7 @@ import {
 } from 'material-ui'
 import StockList from '../../StockList'
 import LootListHeader from '../../LootList/Header'
+import LootListFooter from '../../LootList/Footer'
 import LootList from '../../LootList'
 
 export const SideToSideLayout = props => {
@@ -13,7 +14,7 @@ export const SideToSideLayout = props => {
     <Grid item xs={12} sm={7} md={6}>
       <LootListHeader />
       <LootList />
-      {/*<LootListFooter />*/}
+      <LootListFooter />
     </Grid>
 
     <Grid item xs={12} sm={5} md={6}>

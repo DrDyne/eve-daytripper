@@ -9,9 +9,10 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   setCapacity: event => {
     const value = parseInt(event.target.value)
+    const [min, max] = [5, 9999999]
     if ( !Number.isInteger(value) ) return
-    if ( value < 5 ) return dispatch(setCapacity(5))
-    if ( value > 9999999 ) return dispatch(setCapacity(9999999))
+    if ( value < min ) return dispatch(setCapacity(min))
+    if ( value > max ) return dispatch(setCapacity(max))
 
     return dispatch(setCapacity(value))
   }

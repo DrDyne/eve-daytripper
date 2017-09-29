@@ -18,11 +18,10 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(inventory.updateInventoryFromPaste())
   },
   clearMissing: event => {
-    console.log('clear missing')
+    dispatch(inventory.save())
     dispatch(clearMissingFromPaste())
   },
   sellMissing: event => {
-    console.log('sell missing')
   }
 })
 

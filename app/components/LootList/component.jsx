@@ -62,36 +62,21 @@ export class LootList extends React.Component {
             primary={item.name}
             secondary={item.qty}
             />
-          <ListItemText
-            secondary={<ISK value={item.isk}/>}
-            />
+          <div style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginRight: 10,
+          }}>
+            <ListItemText
+              secondary={<ISK value={item.isk}/>}
+              />
+          </div>
 
           <ListItemSecondaryAction>
             <InfoButton id={item.id} />
           </ListItemSecondaryAction>
         </ListItem>))}
 
-        <ListItem>
-          <div>
-              total: <ISK value={total.isk} style={{display: 'inline'}} />
-          </div>
-          <div>
-              total: <M3 value={total.m3} style={{display: 'inline'}} />
-          </div>
-
-          {total.prev.isk && (
-            <Typography type="caption" className="delta-isk">
-              { (total.isk-total.prev.isk > 0) ? '+' : '-' }
-              <ISK value={ total.isk - total.prev.isk } />
-            </Typography>)
-          }
-          {total.prev.m3 && (
-            <Typography type="caption" className="delta-m3">
-              { (total.m3-total.prev.m3 > 0) ? '+' : '-' }
-              <M3 value={total.m3-total.prev.m3} />
-            </Typography>)
-          }
-        </ListItem>
       </List>
 
       <SetStockDialog
