@@ -6,7 +6,9 @@ import {
 } from 'material-ui'
 import {
   FileDownload as FileDownloadIcon,
-  FileUpload as FileUploadIcon
+  FileUpload as FileUploadIcon,
+  RemoveShoppingCart,
+  ShoppingCart,
 } from 'material-ui-icons'
 
 export const Header = props => {

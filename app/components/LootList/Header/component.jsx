@@ -5,15 +5,22 @@ import {
   TextField,
   Typography
 } from 'material-ui'
-import Slide from 'material-ui/transitions/Slide'
+import Collapse from 'material-ui/transitions/Collapse'
 import { LinearProgress } from 'material-ui/Progress'
 import { M3 } from '../../M3'
 
 export class Header extends React.Component {
   state = {
     shrinkLabel: false,
-    clean: true,
     showPostPasteActions: false,
+  }
+
+  componentWillReceiveProps (nextProps) {
+    //TODO check layout.showPostPasteActions instead of delta total isk
+    const nextTotal = nextProps.inventory.total
+    console.log(nextTotal, this.props.inventory.total, nextTotal.isk !== this.props.inventory.total.isk)
+    if ( nextTotal.isk !== this.props.inventory.total.isk )
+      this.setState({ showPostPasteActions: true })
   }
 
   render () {
@@ -38,6 +45,29 @@ export class Header extends React.Component {
             flexDirection: 'column',
             width: '100%',
         }} >
+
+        <Collapse in={this.state.showPostPasteActions} direction="right">
+          <Toolbar disableGutters>
+            <Button
+              disabled={ history.inventory.length < 1 }
+              onClick={() => {
+                clearMissing()
+                this.setState({ showPostPasteActions: false })
+              }}
+            >
+              Clear missing
+            </Button>
+
+            <div style={{
+                flexGrow: 1
+            }} />
+
+            <ClosePasteActionsButton onClick={() => {
+                this.setState({ showPostPasteActions: false })
+            }} />
+          </Toolbar>
+        </Collapse>
+
         <TextField
           label={ `${Math.round(inventory.total.m3)} / ${capacityShort}m3` }
           placeholder={inventory.capacity.toString()}
@@ -62,17 +92,18 @@ export class Header extends React.Component {
             width: '100%',
             height: 4,
         }} />
+
       </div>
 
-      <Slide in={history.inventory.length > 0} direction="left">
-        <Button
-          disabled={ history.inventory.length < 1 }
-          onClick={clearMissing}
-        >
-          Clear missing
-        </Button>
-      </Slide>
       </Toolbar>
     </div>)
   }
+}
+
+import IconButton from 'material-ui/IconButton'
+import CloseIcon from 'material-ui-icons/Close'
+const ClosePasteActionsButton = ({onClick}) => {
+  return <IconButton onClick={onClick} aria-label="Close">
+    <CloseIcon />
+  </IconButton>
 }
