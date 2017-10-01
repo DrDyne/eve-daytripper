@@ -36,8 +36,7 @@ export class Header extends React.Component {
     : parseInt(inventory.capacity / 1000 / 1000) + 'm'
 
     return (<div>
-      <Toolbar style={{
-          paddingRight: 1,
+      <Toolbar disableGutters style={{
           minHeight: 40,
         }}>
         <div style={{

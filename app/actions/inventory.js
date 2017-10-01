@@ -2,13 +2,12 @@ import {
   addOrUpdateItem,
   setStock,
   deleteItem,
-  inventoryHistoryPush,
   saveInventory,
 } from './index.js'
 
 const byName = name => i => i.name === name
 
-export const clearMissingItemsAfterPaste = () => (dispatch, getState, {api}) => {
+export const clearMissingItemsAfterPaste = () => (dispatch, getState) => {
   const { inventory, history } = getState()
   //if ( !history.lastPasted.items.length ) return // prevents reseting inventory at page load, but button should be hidden until paste event... so no need for double security
 
@@ -20,7 +19,7 @@ export const clearMissingItemsAfterPaste = () => (dispatch, getState, {api}) => 
   })
 }
 
-export const sellMissingItemsAfterPaste = () => (dispatch, getState, {api}) => {
+export const sellMissingItemsAfterPaste = () => (dispatch, getState) => {
 }
 
 export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {

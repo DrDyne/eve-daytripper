@@ -1,9 +1,11 @@
 import * as layout from './layout'
 import * as inventory from './inventory'
+import * as gps from './gps'
 
 export {
+  inventory,
   layout,
-  inventory
+  gps,
 }
 
 export const SET_BREADCRUMBS = 'breadcrumbs:set'
@@ -33,6 +35,7 @@ export const JUMP_TO = 'system:set'
 export const BOARD_SHIP = 'ship:set'
 export const SET_CAPACITY = 'capacity:set'
 
+export const CREATE_ROUTE = 'map:route:create'
 
 export const setBreadcrumbs = items => ({
   type: SET_BREADCRUMBS,
@@ -144,4 +147,9 @@ export const setCapacity = m3 => ({
 export const saveInventory = inventory => ({
   type: SAVE_INVENTORY,
   inventory
+})
+
+export const createRoute = systems => ({
+  type: CREATE_ROUTE,
+  systems
 })

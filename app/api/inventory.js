@@ -10,7 +10,7 @@ export const identify = name => {
 
   //return fetch(`/static/typeids/${cat}.json`)
   const cat = soundex(name)
-  return fetch(baseUrl + `/static/typeids/${cat.charAt(0)}.json`)
+  return fetch(baseUrl + `/static/typeids/${cat.charAt(0)}.json`, { cache: 'force-cache' })
   .then(response => response.json())
   .then(typeids => typeids[cat].find(type => name === type.name))
   .then(({id}) => {

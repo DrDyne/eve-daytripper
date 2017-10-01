@@ -1,5 +1,6 @@
 import React from 'react'
 import style from './style.scss'
+import { Redirect } from 'react-router-dom'
 import {
   Typography
 } from 'material-ui'
@@ -21,7 +22,7 @@ export class PasteRecipient extends React.Component {
 
   render () {
     const { hovered, focused, pasted } = this.state
-    const { parsedItems } = this.props
+    const { parsedItems, parsedSystem } = this.props
     const css = {
       root: {
         background: !hovered

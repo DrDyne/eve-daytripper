@@ -1,4 +1,5 @@
 import {
+  CREATE_ROUTE,
   INPUT_PASTE,
   INSPECT_ITEM,
   UNDO_PASTE,
@@ -18,9 +19,41 @@ export const initialState = {
       m3: 0,
     }
   },
+  lastOrigin: {
+    id: null,
+    name: null,
+    sec: null
+  },
   paste: [],
   inventory: [],
+  routes: [],
   inspect: null,
+}
+
+const matchingOriginAndDestination = (origin, destination) => route => {
+  const matchOrigin = route[0].id === origin.id
+  const matchDestination = route.slice().pop().id === destination.id
+  return matchOrigin && matchDestination
+}
+
+export const createRoute = (state, action) => {
+  const { systems } = action
+  const [origin, jumps, destination] = [
+    systems[0],
+    systems.length,
+    systems.slice().pop()
+  ]
+
+  console.log('push route to history:', origin, jumps, destination)
+
+  const savedRoute = state.routes.find(matchingOriginAndDestination(origin, destination))
+
+  return savedRoute
+  ? state
+  : Object.assign({}, state, {
+    lastOrigin: origin,
+    routes: [systems, ...state.routes]
+  })
 }
 
 export const history = (state=initialState, action) => {
@@ -28,7 +61,6 @@ export const history = (state=initialState, action) => {
     case INPUT_PASTE:
       const { raw } = action
       const items = parseClipboardFromGameClientToJson(raw)
-      if ( !items.length ) return state
       const date = new Date()
 
       console.log({date,items,raw})
@@ -59,6 +91,9 @@ export const history = (state=initialState, action) => {
         lastPasted,
         paste: state.paste.slice(0,-1),
       }
+
+    case CREATE_ROUTE:
+      return createRoute(state, action)
   }
   return state
 }

@@ -10,6 +10,7 @@ import {
 import {
   Menu as MenuIcon
 } from 'material-ui-icons'
+import PasteRecipient from '../PasteRecipient'
 import style from './style.css'
 
 export const AppBar = ({toggleSettingsMenu, char}) => {
@@ -37,6 +38,9 @@ export const AppBar = ({toggleSettingsMenu, char}) => {
           />
 
       </Toolbar>
+
+      <PasteRecipient />
+      
     </MuiAppBar>
   </div>)
 }
