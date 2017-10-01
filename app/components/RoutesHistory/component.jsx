@@ -8,18 +8,13 @@ import List, { ListItem, ListItemText } from 'material-ui/List'
 import { Link } from 'react-router-dom'
 
 export const RoutesHistory = props => {
-  const { routes } = props
-  const origins = routes.reduce((memo, [origin]) => {
-    return memo.find(o => o.id === origin.id)
-    ? memo
-    : memo.concat(origin)
-  }, [])
+  const { origins, routes } = props
 
   return (<div style={{height: 900}}>
     <List>
       { origins.map(origin => (
         <div key={origin.id}>
-          <Link to={`/route/${origin.name}`}>
+          <Link to={`/home/route/${origin.name}`}>
             <Typography type="body2">
               {origin.name} ({origin.sec})
             </Typography>
@@ -28,9 +23,9 @@ export const RoutesHistory = props => {
       ))}
     </List>
     routes history ({routes.length})
-    <Button onClick={() => { console.log('redirect to route') }}>
-      Route
-    </Button>
+    <Link to="/home/route">
+      <Button> Route </Button>
+    </Link>
   </div>)
   // check sticky subheaders "Pinned Subheader List"
   // https://material-ui-1dab0.firebaseapp.com/demos/lists/

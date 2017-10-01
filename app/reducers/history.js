@@ -30,10 +30,9 @@ export const initialState = {
   inspect: null,
 }
 
-const matchingOriginAndDestination = (origin, destination) => route => {
-  const matchOrigin = route[0].id === origin.id
-  const matchDestination = route.slice().pop().id === destination.id
-  return matchOrigin && matchDestination
+const byId = (origin, destination) => route => {
+  return route.origin.id === origin.id
+  && route.destination.id === destination.id
 }
 
 export const createRoute = (state, action) => {
@@ -46,13 +45,13 @@ export const createRoute = (state, action) => {
 
   console.log('push route to history:', origin, jumps, destination)
 
-  const savedRoute = state.routes.find(matchingOriginAndDestination(origin, destination))
+  const savedRoute = state.routes.find(byId(origin, destination))
 
   return savedRoute
   ? state
   : Object.assign({}, state, {
     lastOrigin: origin,
-    routes: [systems, ...state.routes]
+    routes: [{origin, jumps, destination}, ...state.routes]
   })
 }
 
