@@ -27,6 +27,7 @@ export const initialState = {
   paste: [],
   inventory: [],
   routes: [],
+  origins: [],
   inspect: null,
 }
 
@@ -42,6 +43,9 @@ export const createRoute = (state, action) => {
     systems.length,
     systems.slice().pop()
   ]
+  const origins = state.origins.find(o => o.name === origin.name)
+  ? state.origins
+  : [...state.origins, origin]
 
   console.log('push route to history:', origin, jumps, destination)
 
@@ -51,6 +55,7 @@ export const createRoute = (state, action) => {
   ? state
   : Object.assign({}, state, {
     lastOrigin: origin,
+    origins,
     routes: [{origin, jumps, destination}, ...state.routes]
   })
 }

@@ -2,7 +2,10 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Gps } from './component'
 
-export const mapStateToProps = state => state.gps
+export const mapStateToProps = state => Object.assign({},
+  state.gps,
+  { origins: state.history.origins }
+)
 
 export const mapDispatchToProps = dispatch => ({
   setFavorite: system => { },

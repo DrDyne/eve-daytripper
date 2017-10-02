@@ -11,6 +11,18 @@ export const initialState = {
     id: 30000142,
     name: 'Jita',
     sec: 0.945913117
+  }, {
+    id: 30002053,
+    name: "Hek",
+    sec: 0.549668267
+ }, {
+    id: 30002659,
+    name: "Dodixie",
+    sec: 0.868406702
+  }, {
+    id: 30002187,
+    name: "Amarr",
+    sec: 1
   }],
   avoidance: [],
   routes: []

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { RoutesHistory } from './component'
 
 export const mapStateToProps = state => ({
-  origins: state.history.routes.map(route => route.origin),
+  origins: state.history.origins,
   routes: state.gps.routes,
 })
 
