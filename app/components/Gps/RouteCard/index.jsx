@@ -10,11 +10,39 @@ import {
 import StarBorder from 'material-ui-icons/StarBorder'
 import { RoutePath } from '../RoutePath'
 
-export const RemoveFromFavoritesButton = ({system}) => (
-  <IconButton onClick={() => confirmRemoveFromFavorites(route.destination)}>
+import { connect } from 'react-redux'
+import Menu from 'material-ui/Menu'
+export const mapStateToProps = state => state.layout
+export const mapDispatchToProps = dispatch => ({
+  confirmDeleteFavorite: system => () => {
+    //show dialog (set layout.showConfirmDeleteFromFavoritesDialog = true)
+  },
+})
+export const deleteFavoriteButton = props => (<div>
+  const {
+    layout,
+    system,
+    confirmDeleteFavorite,
+    cancelDeleteFavorite,
+    deleteFavorite
+  } = props
+
+  <IconButton onClick={confirmDeleteFavorite(system)}>
     <StarBorder />
   </IconButton>
-)
+  { system.id === layout.showConfirmDeleteFavoriteDialog && (
+    <Menu open={layout.showConfirmDeleteFavoriteDialog} onRequestClose={cancelDeleteFavorite}>
+      <MenuItem>
+        <Button onClick={cancelDeleteFavorite}> cancel </Button>
+      </MenuItem>
+
+      <MenuItem>
+        <Button onClick={deleteFavorite}> delete </Button>
+      </MenuItem>
+    </Menu>)
+  }
+</div>)
+export default connect(mapStateToProps, mapDispatchToProps)(deleteFavoriteButton)
 
 export const RouteCard = ({route}) => <Card>
   <CardContent>
@@ -48,6 +76,6 @@ export const RouteCard = ({route}) => <Card>
         route
       </Button>
     </a>
-    <RemoveFromFavoritesButton system={route.destination} />
+    <deleteFavoriteButton system={route.destination} />
   </CardActions>
 </Card>

@@ -2,7 +2,10 @@ import {
   SETTINGS_MENU_TOGGLE,
   SWAP_STOCK_AND_LOOT_LISTS,
   INSPECT_ITEM,
-  INSPECT_CLOSE
+  INSPECT_CLOSE,
+  CONFIRM_DELETE_FAVORITE,
+  CANCEL_DELETE_FAVORITE,
+  DELETE_FAVORITE,
 } from '../actions'
 
 import {
@@ -18,6 +21,7 @@ export const initialState = {
   settingsMenuOpen: false,
   showEmptyStock: false,
   showInfoDialog: false,
+  showConfirmDeleteFavoritesDialog: false,
 }
 
 const toggleSettingsMenu = state => {
@@ -35,6 +39,16 @@ const swapLists = state => {
   return Object.assign({}, state, {stockListPosition})
 }
 
+const showDeleteFavoriteDialog = (state, system) => {
+  const showConfirmDeleteFromFavoritesDialog = system.id
+  return Object.assign({}, state, {showConfirmDeleteFavoritesDialog})
+}
+
+const closeDeleteFavoriteDialog = state => {
+  const showConfirmDeleteFavoritesDialog = false
+  return Object.assign({}, state, {showConfirmDeleteFavoritesDialog})
+}
+
 export const layout = (state=initialState, action) => {
   switch ( action.type ) {
     case INSPECT_ITEM: return Object.assign({}, state, {showInfoDialog: true})
@@ -42,6 +56,9 @@ export const layout = (state=initialState, action) => {
     case SETTINGS_MENU_TOGGLE: return toggleSettingsMenu(state)
     case SWAP_STOCK_AND_LOOT_LISTS: return swapLists(state)
     case TOGGLE_SHOW_EMPTY_STOCK: return toggleShowEmptyStock(state)
+    case CONFIRM_DELETE_FAVORITE: return showDeleteFavoriteDialog(state, action.system)
+    case CANCEL_DELETE_FAVORITE: return closeDeleteFavoriteDialog(state)
+    case DELETE_FAVORITE: return closeDeleteFavoriteDialog(state)
   }
   return state
 }

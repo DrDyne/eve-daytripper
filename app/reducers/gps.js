@@ -37,12 +37,8 @@ export const createRoute = (state, action) => {
   ]
   const avgSec = systems.reduce((m, s) => m + s.sec, 0) / jumps
   const safetyScore = avgSec //* systems.reduce((m, s) => m + (-1+s.sec), 0) // higher = more dangerous
-  const bestSec = systems.reduce((memo, system) => {
-    return memo < system.sec ? system.sec : memo
-  }, -1)
-  const worstSec = systems.reduce((memo, system) => {
-    return memo > system.sec ? system.sec : memo
-  }, 1)
+  const bestSec = systems.reduce((memo, {sec}) => Math.max(sec, memo), -1)
+  const worstSec = systems.reduce((memo, {sec}) => Math.min(sec, memo), 1)
   const routes = [{
     origin,
     jumps,
