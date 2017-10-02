@@ -18,7 +18,11 @@ export const RemoveFromFavoritesButton = ({system}) => (
 
 export const RouteCard = ({route}) => <Card>
   <CardContent>
-    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
+    <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }}>
       <Typography type="headline" component="h2">
         {route.origin.name}
       </Typography>

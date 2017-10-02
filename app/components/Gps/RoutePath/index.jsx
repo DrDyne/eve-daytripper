@@ -12,12 +12,12 @@ export const RoutePath = ({systems}) => {
   return <div style={{
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-evenly'
+      justifyContent: 'center'
   }}>
     { short.systems.map(s => {
       return <div
         key={`${s.class}:${s.jumps}:${s.systems[0].name}-${s.systems.slice().pop().name}`}
-        style={{display: 'flex'}}
+        style={{display: 'flex', padding: '0 3px'}}
       >
       <Badge
         classes={{ badge: utils.secCssId(s.systems.reduce((memo, s) => Math.max(memo, s), 0))}}
