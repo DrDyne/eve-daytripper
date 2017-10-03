@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Grid
 } from 'material-ui'
-import { RouteCard } from '../RouteCard'
+import RouteCard from '../RouteCard'
 import { byName } from '../utils'
 
 export const RoutesToFavorites = props => {
