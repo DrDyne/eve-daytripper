@@ -124,5 +124,13 @@ export class FavoriteRouteMenu extends React.Component {
         </ListItem>
       </Collapse>
     </Menu>
+
+    //return <Menu>
+    //  origin
+    //    set favorite
+    //  destination
+    //    delete from favorite
+    //      cancel
+    //      confirm
   }
 }
