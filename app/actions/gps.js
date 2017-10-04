@@ -18,12 +18,17 @@ export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
     return origin
   })
   .then(origin => Promise.all(favorites.map(destination => {
+    if ( origin.id === destination.id ) return
+
     return api.gps.route(origin, destination)
-    .then(route => (route[0].id === origin.id) ? route : route.reverse()) // sometimes ccp server reverses order /shrug
+    .then(route => (route[0].id === origin.id)
+    ? route
+    : route.reverse()) // sometimes ccp server reverses order /shrug
   })))
   .then(routes => {
     console.log('routes !', routes)
-    routes.forEach(route => {
+    routes.filter(route => !!route)
+    .forEach(route => {
       dispatch(createRoute(route))
     })
   })
