@@ -68,7 +68,9 @@ export const Gps = ({match, favorites, routes, origins}) => {
 
 const OriginsHistory = props => {
   const { origins } = props
-  return <div>
-    {origins.length} origins to display
-  </div>
+  return <Toolbar>
+    <Typography type="body2">
+      {origins.length} origins to display
+    </Typography>
+  </Toolbar>
 }
