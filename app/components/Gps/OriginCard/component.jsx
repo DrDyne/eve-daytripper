@@ -29,5 +29,6 @@ export const OriginCard = ({system}) => (
     <a href={`https://zkillboard.com/system/${system.id}/`} target="_blank">
       <Button> zkill </Button>
     </a>
+
   </CardActions>
 </Card>)
