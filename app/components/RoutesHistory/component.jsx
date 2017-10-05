@@ -35,7 +35,6 @@ export const RoutesHistory = props => {
           </ListItem>
         </NavLink>)
       })}
-    routes history ({origins.length})
   </div>)
   // check sticky subheaders "Pinned Subheader List"
   // https://material-ui-1dab0.firebaseapp.com/demos/lists/
