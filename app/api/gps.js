@@ -13,7 +13,8 @@ export const get = id => {
 }
 
 export const identify = name => {
-  if ( identified[name] ) return Promise.resolve(identified[name])
+  const Name = name.toUpperCase()
+  if ( identified[Name] ) return Promise.resolve(identified[Name])
 
   //static content served from gh-pages... check /docs/static/typeids/***.json
   //https://drdyne.github.io/eve-daytripper/static/typeids/A.json
@@ -21,16 +22,19 @@ export const identify = name => {
   //return fetch(`/static/typeids/${cat}.json`)
   return fetch(baseUrl + `/static/mapSolarSystems.json`)
   .then(response => response.json())
-  .then(systems => systems.find(s => name === s.solarSystemName))
-  .then(({solarSystemID, solarSystemName, security}) => {
+  .then(systems => systems.find(s => Name.toUpperCase() === s.solarSystemName.toUpperCase()))
+  .then(system => {
+    if ( !system ) return Promise.reject(`Unknown system: ${Name}`)
+
+    const { solarSystemID, solarSystemName, security } = system
     console.log(`identified ${solarSystemID}:${solarSystemName}`)
 
-    identified[name] = {
+    identified[Name] = {
       id: solarSystemID,
-      name: solarSystemName,
+      Name: solarSystemName,
       sec: security
     }
-    return identified[name]
+    return identified[Name]
   })
 }
 
