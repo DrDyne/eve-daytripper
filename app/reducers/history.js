@@ -2,6 +2,7 @@ import {
   CREATE_ROUTE,
   CLEAR_ROUTE_HISTORY,
   INPUT_PASTE,
+  INPUT_PASTE_DONE,
   INSPECT_ITEM,
   UNDO_PASTE,
   SAVE_INVENTORY,
@@ -9,6 +10,7 @@ import {
 import { parseClipboardFromGameClientToJson } from './utils'
 
 export const initialState = {
+  busy: false,
   lastPasted: {
     raw: '',
     items: [],
@@ -63,6 +65,9 @@ export const createRoute = (state, action) => {
 
 export const history = (state=initialState, action) => {
   switch (action.type) {
+    case INPUT_PASTE_DONE:
+      return Object.assign({}, state, {busy: false})
+
     case INPUT_PASTE:
       const { raw } = action
       const items = parseClipboardFromGameClientToJson(raw)
@@ -70,6 +75,7 @@ export const history = (state=initialState, action) => {
 
       console.log({date,items,raw})
       return Object.assign({}, state, {
+        busy: true,
         lastPasted: {
           date,
           items,
