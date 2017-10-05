@@ -24,6 +24,7 @@ export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
 
 export const INPUT_PASTE = 'input:paste'
+export const INPUT_PASTE_DONE = 'input:paste:done'
 export const UNDO_PASTE = 'paste:undo'
 export const LOAD_INVENTORY = 'inventory:load'
 export const SAVE_INVENTORY = 'inventory:save'
@@ -36,10 +37,9 @@ export const BOARD_SHIP = 'ship:set'
 export const SET_CAPACITY = 'capacity:set'
 
 export const CREATE_ROUTE = 'gps:route:create'
-export const CONFIRM_DELETE_FAVORITE = 'gps:favorites:confirm:delete'
-export const CANCEL_DELETE_FAVORITE = 'gps:favorites:cancel:delete'
-export const DELETE_FAVORITE = 'gps:favorites:delete'
-export const ADD_FAVORITE = 'gps:favorites:add'
+export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
+export const GPS_FAVORITE = 'gps:favorites:add'
+export const GPS_SEARCH = 'gps:search'
 
 export const CLEAR_ROUTE_HISTORY = 'history:routes:clear'
 
@@ -70,6 +70,10 @@ export const inputPaste = clipboard => ({
   type: INPUT_PASTE,
   clipboard,
   raw: clipboard.getData('Text')
+})
+
+export const inputPasteDone = () => ({
+  type: INPUT_PASTE_DONE,
 })
 
 export const setStock = ({id, name, qty}) => ({
