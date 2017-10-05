@@ -19,14 +19,14 @@ export const DestinationInput = props => (
 />)
 
 export const ControlInputs = props => (<Switch>
-  <Route path="/home/route/:origin" component={ withRouter(({match}) => (<div {...props}>
-    <OriginInput value={match.params.origin}/>
-    <DestinationInput />
-  </div>) )} />
-
   <Route path="/home/route/:origin/:destination" component={ withRouter(({match}) => (<div {...props}>
     <OriginInput value={match.params.origin}/>
     <DestinationInput value={match.params.destination} />
+  </div>) )} />
+
+  <Route path="/home/route/:origin" component={ withRouter(({match}) => (<div {...props}>
+    <OriginInput value={match.params.origin}/>
+    <DestinationInput />
   </div>) )} />
 
   <Route path="/home/route" component={() => (<div {...props}>

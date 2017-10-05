@@ -7,8 +7,10 @@ import { byName } from '../utils'
 
 export const RoutesToFavorites = props => {
   const { favorites, routes, origin } = props
+
   console.log(favorites, routes)
   console.log( favorites.map(fav => routes.find(byName(origin, fav.name))).filter(r => !!r) )
+
   return (<Grid container spacing={0}>
     { favorites
       .map(fav => routes.find(byName(origin, fav.name)))

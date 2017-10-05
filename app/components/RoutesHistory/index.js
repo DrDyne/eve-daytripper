@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { RoutesHistory } from './component'
+import { layout } from '../../actions'
 
 export const mapStateToProps = state => ({
   origins: state.history.origins,

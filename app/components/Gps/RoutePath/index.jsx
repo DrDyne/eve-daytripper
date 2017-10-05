@@ -1,7 +1,8 @@
 import React from 'react'
 import {
   Avatar,
-  Badge
+  Badge,
+  Typography
 } from 'material-ui'
 import * as utils from '../utils'
 
@@ -17,17 +18,20 @@ export const RoutePath = ({systems}) => {
     { short.systems.map(s => {
       return <div
         key={`${s.class}:${s.jumps}:${s.systems[0].name}-${s.systems.slice().pop().name}`}
-        style={{display: 'flex', padding: '0 3px'}}
+        style={{
+          display: 'flex',
+          width: '1.8em',
+          flexDirection: 'column-reverse',
+          alignItems: 'center',
+        }}
       >
-      <Badge
-        classes={{ badge: utils.secCssId(s.systems.reduce((memo, s) => Math.max(memo, s), 0))}}
-        badgeContent={s.class}
-      >
+        <Typography type="body2">
+          {s.class}
+        </Typography>
+
         <Avatar className={utils.secCssId(s.worstSec)}>
           {s.jumps}
         </Avatar>
-      </Badge>
-
       </div>
     }) }
   </div>

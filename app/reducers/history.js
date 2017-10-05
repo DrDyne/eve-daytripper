@@ -1,5 +1,6 @@
 import {
   CREATE_ROUTE,
+  CLEAR_ROUTE_HISTORY,
   INPUT_PASTE,
   INSPECT_ITEM,
   UNDO_PASTE,
@@ -98,6 +99,9 @@ export const history = (state=initialState, action) => {
 
     case CREATE_ROUTE:
       return createRoute(state, action)
+
+    case CLEAR_ROUTE_HISTORY:
+      return Object.assign(state, { routes: [], origins: [] })
   }
   return state
 }

@@ -41,6 +41,8 @@ export const CANCEL_DELETE_FAVORITE = 'gps:favorites:cancel:delete'
 export const DELETE_FAVORITE = 'gps:favorites:delete'
 export const ADD_FAVORITE = 'gps:favorites:add'
 
+export const CLEAR_ROUTE_HISTORY = 'history:routes:clear'
+
 export const setBreadcrumbs = items => ({
   type: SET_BREADCRUMBS,
   items
@@ -175,4 +177,8 @@ export const deleteFavorite = system => ({
 export const addFavorite = system => ({
   type: ADD_FAVORITE,
   system
+})
+
+export const clearRouteHistory = () => ({
+  type: CLEAR_ROUTE_HISTORY
 })

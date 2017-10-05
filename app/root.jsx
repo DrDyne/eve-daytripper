@@ -21,7 +21,7 @@ const Root = ({layout, match}) => (<div className="app">
         paddingTop: 144,
       }}>
 
-      <Settings width={100} />
+      <Settings width={240} />
 
       <main style={{
           display: 'flex',

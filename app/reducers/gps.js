@@ -4,6 +4,7 @@ import {
   GPS_AVOID,
   GPS_AVOID_REMOVE,
   CREATE_ROUTE,
+  CLEAR_ROUTE_HISTORY,
 } from '../actions'
 
 export const initialState = {
@@ -55,6 +56,8 @@ export const gps = (state=initialState, action) => {
   switch(action.type) {
     case CREATE_ROUTE:
       return createRoute(state, action)
+    case CLEAR_ROUTE_HISTORY:
+      return Object.assign(state, {routes: []})
     case GPS_FAVORITE:
     case GPS_FAVORITE_REMOVE:
     case GPS_AVOID:
