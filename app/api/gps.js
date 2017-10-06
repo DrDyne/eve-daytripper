@@ -22,7 +22,7 @@ export const identify = name => {
   //return fetch(`/static/typeids/${cat}.json`)
   return fetch(baseUrl + `/static/mapSolarSystems.json`)
   .then(response => response.json())
-  .then(systems => systems.find(s => Name.toUpperCase() === s.solarSystemName.toUpperCase()))
+  .then(systems => systems.find(s => Name === s.solarSystemName.toUpperCase()))
   .then(system => {
     if ( !system ) return Promise.reject(`Unknown system: ${Name}`)
 
@@ -40,19 +40,34 @@ export const identify = name => {
 
 const Jita = '30000142'
 const Hek = '30002053'
-export const route = (origin={}, destination={}) => {
-  const url = `https://esi.tech.ccp.is/latest/route/${origin.id||Hek}/${destination.id||Jita}/?datasource=tranquility&flag=shortest`
+export const route = (origin, destination, options={shortest, safest}) => {
+  const flag = options.shortest
+  ? 'shortest'
+  : options.safest
+  ? 'secure'
+  : 'shortest'
+
+  const url = `https://esi.tech.ccp.is/latest/route/${origin.id}/${destination.id}/?datasource=tranquility&flag=${flag}`
   return fetch(url)
   .then(response => response.json())
-  .then(route => {
-    console.log(route)
-    return Promise.all(route.map(get))
-  })
+  .then(route => Promise.all(route.map(get)))
+  .then(route => route[0].id === origin.id
+  ? route
+  : route.reverse()) // sometimes ccp server reverses order /shrug
 }
 
+export const shortest = (origin, destination) => (
+  route(origin, destination, {shortest: true})
+)
+
+export const safest = (origin, destination) => {
+  route(origin, destination, {safest :true})
+}
 
 export default {
   identify,
   get,
-  route
+  route,
+  shortest,
+  safest,
 }
