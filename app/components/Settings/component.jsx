@@ -59,9 +59,7 @@ export class Settings extends React.Component {
 
       <Link to="/home/route">
         <ListItem button>
-          <Button>
-            routes
-          </Button>
+          routes
         </ListItem>
       </Link>
 

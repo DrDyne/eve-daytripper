@@ -1,10 +1,16 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { RoutesHistory } from './component'
 import { layout } from '../../actions'
 
 export const mapStateToProps = state => ({
-  origins: state.history.origins,
-  routes: state.gps.routes,
+  routes: state.gps.routes // not fav origin/destination
+  .filter(r => !state.gps.favorites.find(fav => fav.id == r.origin.id))
+  .map(r => {
+    const isFavorite = state.gps.favorites.find(fav => fav.id === r.destination.id)
+    return Object.assign(r, { isFavorite })
+  }),
+  systems: state.history.origins
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -13,4 +19,4 @@ export const mapDispatchToProps = dispatch => ({
   deleteRoute: route => { },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoutesHistory)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoutesHistory))
