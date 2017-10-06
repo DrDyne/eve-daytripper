@@ -34,7 +34,7 @@ export class RouteMenu extends React.Component {
   render () {
     const { route, layout, gps } = this.props
 
-    const isFavoriteRoute = gps.favorites.find(fav => fav.id === route.destination.id)
+    const isFavoriteRoute = gps.favorites.some(fav => fav.id === route.destination.id)
     if ( isFavoriteRoute ) return <div>
       <RouteMenuButton openMenu={this.openMenu} />
       <FavoriteRouteMenu

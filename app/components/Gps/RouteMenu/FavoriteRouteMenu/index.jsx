@@ -45,7 +45,10 @@ export class FavoriteRouteMenu extends React.Component {
 
       <ListSubheader>{route.destination.name}</ListSubheader>
 
-      <ListItem button onClick={this.toggleConfirm('DeleteDestinationFromFavorites')}>
+      <ListItem
+        button
+        disabled={ 'Jita' === route.destination.name }
+        onClick={this.toggleConfirm('DeleteDestinationFromFavorites')}>
         <ListItemIcon>
           <StarBorder />
         </ListItemIcon>

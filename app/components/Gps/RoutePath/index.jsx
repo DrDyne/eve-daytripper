@@ -8,7 +8,6 @@ import * as utils from '../utils'
 
 export const RoutePath = ({systems}) => {
   const short = utils.shortRoute(systems)
-  console.log(short)
 
   return <div style={{
       display: 'flex',
