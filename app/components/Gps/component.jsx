@@ -46,7 +46,11 @@ export const Gps = props => {
 
         <Route exact path="/home/route/:origin/:destination" exact component={withRouter(({match}) => {
           const route = routes.find(utils.byName(match.params.origin, match.params.destination))
-          return <div style={Object.assign({}, utils.style.flexRow, utils.style.flexGrow)}>
+          return <div style={{
+            display: 'flex',
+            flexGrow: 1,
+            flexDirection: 'row',
+          }}>
             <Paper
               elevation={0}
               style={{

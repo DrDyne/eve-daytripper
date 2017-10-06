@@ -6,6 +6,9 @@ import { layout, clearRouteHistory } from '../../actions'
 const mapStateToProps = state => state
 const mapDispatchToProps = dispatch => ({
   //toggle: () => dispatch(toggleSettingsMenu()),
+  toggleSafestShortestRoutes: () => {
+    console.log('toggle shortest/safest routes')
+  },
   toggleFavoriteRoutes: () => dispatch(layout.toggleFavoriteRoutes()),
   clearHistory: () => {
     dispatch(clearRouteHistory())

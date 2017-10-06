@@ -24,7 +24,7 @@ export class Settings extends React.Component {
   render () {
     const { gps, layout, history } = this.props
     const { origins } = history
-    const { toggleFavoriteRoutes, clearHistory } = this.props
+    const { toggleFavoriteRoutes, toggleSafestShortestRoutes, clearHistory } = this.props
 
     return <List style={{
       width: this.props.width,
@@ -53,13 +53,24 @@ export class Settings extends React.Component {
         <ListItemIcon>
           { layout.showFavoriteRoutes
           ? <StarBorder />
-          : <StarBorder style={{fill: '#f50057'}} /> }
+          : <StarBorder style={{fill: '#f50057'}} />
+          }
+        </ListItemIcon>
+      </ListItem>
+
+      <ListItem button onClick={toggleSafestShortestRoutes}>
+        <ListItemText primary={ `show ${layout.showShortestRoutes ? 'shortest' : 'safest'} routes` } />
+        <ListItemIcon>
+          { layout.showShortestRoutes
+          ? <StarBorder style={{fill: 'red'}} />
+          : <StarBorder style={{fill: 'blue'}} />
+          }
         </ListItemIcon>
       </ListItem>
 
       <Link to="/home/route">
         <ListItem button>
-          routes
+          <ListItemText primary="routes"/>
         </ListItem>
       </Link>
 
