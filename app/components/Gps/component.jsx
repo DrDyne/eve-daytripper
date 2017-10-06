@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import {
+  Divider,
   Paper,
   Toolbar,
   Typography,
@@ -10,7 +11,7 @@ import { RoutesToFavorites } from './RoutesToFavorites'
 import { DestinationCard } from './DestinationCard'
 import { ControlInputs } from './ControlInputs'
 import { CloseButton as GpsCloseButton } from './CloseButton'
-import { ControlInputs as GpsControlInputs } from './ControlInputs'
+import GpsControlInputs from './ControlInputs'
 import OriginCard from './OriginCard'
 import * as utils from './utils'
 
@@ -34,15 +35,36 @@ export const Gps = props => {
     </Toolbar>
 
     { !!routes.length && (<div>
-      <Route path="/home/route/:origin" component={withRouter(({match}) => {
-        const { origin } = routes.find(utils.byOriginName(match.params.origin))
-        return <OriginCard system={origin} />
-      })} />
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between'
+      }}>
+        <Route path="/home/route/:origin" component={withRouter(({match}) => {
+          const { origin } = routes.find(utils.byOriginName(match.params.origin))
+          return <OriginCard system={origin} />
+        })} />
 
-      <Route exact path="/home/route/:origin/:destination" component={withRouter(({match}) => {
-        const { destination } = routes.find(utils.byName(match.params.origin, match.params.destination))
-        return <DestinationCard system={destination} />
-      })} />
+        <Route exact path="/home/route/:origin/:destination" exact component={withRouter(({match}) => {
+          const route = routes.find(utils.byName(match.params.origin, match.params.destination))
+          return <div style={Object.assign({}, utils.style.flexRow, utils.style.flexGrow)}>
+            <Paper
+              elevation={0}
+              style={{
+                display: 'flex',
+                flexGrow: 1,
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+              <Divider style={{display: 'flex', flexGrow: 1}} />
+              <RoutePath systems={route.systems} />
+              <Divider style={{display: 'flex', flexGrow: 1}} />
+            </Paper>
+            <DestinationCard system={route.destination} route={route} />
+          </div>
+        })} />
+      </div>
+
 
       { !!layout.showFavoriteRoutes &&
       <Route path="/home/route/:origin"
