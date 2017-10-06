@@ -2,7 +2,7 @@ export const secCssId = sec => sec > 0
   ? `sec-${sec.toString().slice(0,3).replace('.', '-')}`
   : `sec-${sec.toString().slice(0,3).replace('.', '-')}`
 
-export const securityClassLabel = sec => sec > 0.5 ? 'HS' : sec > 0 ? 'LS' : 'NS'
+export const securityClassLabel = sec => sec > 0.45 ? 'HS' : sec > 0.05 ? 'LS' : 'NS'
 
 export const byId = (origin, destination) => route => {
   return origin.id === route.origin.id
