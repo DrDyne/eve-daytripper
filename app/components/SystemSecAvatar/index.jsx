@@ -30,6 +30,8 @@ export const SystemSecAvatar = ({system, size}) => {
   return <Avatar style={{
     width: size || 10,
     height: size || 10,
-    backgroundColor: secToHex(system.sec)
+    backgroundColor: secToHex(system.sec),
+    display: 'inline-block',
+    marginRight: 5
   }} />
 }
