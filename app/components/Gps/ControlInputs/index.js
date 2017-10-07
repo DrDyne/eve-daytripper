@@ -10,8 +10,9 @@ export const mapDispatchToProps = dispatch => ({
   search: (origin, destination) => {
     if ( origin === destination ) return
 
-    if ( origin && destination )
-      dispatch(gps.search(origin, destination))
+    if ( !origin || !destination ) return
+
+    dispatch(gps.search(origin, destination))
   }
 })
 

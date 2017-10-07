@@ -1,5 +1,7 @@
 import {
   saveRoute,
+  GPS_BUSY,
+  GPS_BUSY_DONE,
   GPS_SEARCH,
   GPS_FAVORITE,
   GPS_FAVORITE_REMOVE,
@@ -68,10 +70,14 @@ export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
 
 export const searchOrigin = origin => ({ type: GPS_SEARCH, origin })
 export const searchDestination = destination => ({ type: GPS_SEARCH, destination })
+const gpsBusy = () => ({ type: GPS_BUSY })
+const gpsBusyDone = () => ({ type: GPS_BUSY_DONE })
 
 export const search = (origin, destination) => (dispatch, getState, {api}) => {
   if ( origin ) dispatch(searchOrigin(origin))
   if ( destination ) dispatch(searchDestination(destination))
+
+  dispatch(gpsBusy())
 
   return Promise.all([
     api.gps.identify(origin),
@@ -90,5 +96,9 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
       return routes.map(r => dispatch(saveRoute(r)))
     })
   })
-  .catch(console.warn)
+  .catch(err => {
+    console.warn(err)
+    return Promise.resolve()
+  })
+  .then(() => dispatch(gpsBusyDone()))
 }
