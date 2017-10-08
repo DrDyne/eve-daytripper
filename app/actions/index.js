@@ -162,11 +162,6 @@ export const saveInventory = inventory => ({
   inventory
 })
 
-export const saveRoute = systems => ({
-  type: CREATE_ROUTE,
-  systems
-})
-
 export const deleteRouteByOrigin = origin => ({
   type: GPS_DELETE_ROUTE,
   origin

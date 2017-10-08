@@ -1,10 +1,11 @@
 import {
-  saveRoute,
   GPS_BUSY,
   GPS_BUSY_DONE,
   GPS_SEARCH,
   GPS_FAVORITE,
   GPS_FAVORITE_REMOVE,
+  CREATE_ROUTE,
+  DELETE_ROUTE,
 } from './index.js'
 
 export const isWormhole = name => /^J[0-9]{6}$/.test(name)
@@ -14,6 +15,17 @@ const byOriginId = id => route => route.origin.id === id
 export const deleteFavorite = system => ({
   type: GPS_FAVORITE_REMOVE,
   system
+})
+
+export const deleteRoute = (origin, destination) => ({
+  type: DELETE_ROUTE,
+  origin,
+  destination
+})
+
+export const saveRoute = systems => ({
+  type: CREATE_ROUTE,
+  systems
 })
 
 export const addFavorite = system => (getState, dispatch, {api}) => {
