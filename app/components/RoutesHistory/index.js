@@ -9,7 +9,14 @@ export const mapStateToProps = state => ({
   .map(r => {
     const isFavorite = state.gps.favorites.find(fav => fav.id === r.destination.id)
     return Object.assign(r, { isFavorite })
-  }),
+  }).reduce((memo, route, index, routes) => {
+    const routesFromOrigin = routes.filter(r => r.origin.id === route.origin.id)
+    const routesFromOriginNotFavorite = routesFromOrigin.filter(r => !r.isFavorite)
+
+    return routesFromOriginNotFavorite.length
+    ? memo.concat(...routesFromOriginNotFavorite)
+    : memo.concat(...routesFromOrigin)
+  }, []),
   systems: state.history.origins
 })
 

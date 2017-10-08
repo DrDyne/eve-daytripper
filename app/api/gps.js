@@ -1,4 +1,5 @@
 export const identified = {}
+export const mapSolarSystem = null // cache /static/mapSolarSystem.json !
 const baseUrl = 'https://drdyne.github.io/eve-daytripper'
 
 export const get = id => {
