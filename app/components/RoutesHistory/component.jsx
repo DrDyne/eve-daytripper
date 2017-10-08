@@ -9,6 +9,7 @@ import ListSubheader from 'material-ui/List/ListSubheader'
 import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
 import { NavLink } from 'react-router-dom'
 import { SystemSecAvatar } from '../SystemSecAvatar'
+import RouteMenu from './RouteMenu'
 
 export const RoutesHistory = props => {
   const { routes } = props
@@ -43,7 +44,16 @@ export const RoutesHistory = props => {
           </Typography>
         </div>} />
 
-        { !route.isFavorite &&
+      { !route.isFavorite && <div style={{display: 'flex'}}>
+          <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignSelf: 'flex-start',
+            }}>
+            <ListItemText secondary="/" />
+            <ListItemText primary={route.jumps} />
+            <ListItemText secondary="/" />
+          </div>
           <ListItemText primary={<div>
             <Typography type="body1">
               {destination.name}
@@ -53,12 +63,10 @@ export const RoutesHistory = props => {
               {destination.sec.toFixed(2)}
             </Typography>
           </div>} />
-        }
+        </div>}
 
         <ListItemSecondaryAction>
-          <IconButton>
-            <MoreVert />
-          </IconButton>
+          <RouteMenu route={route} />
         </ListItemSecondaryAction>
       </ListItem>)
     })

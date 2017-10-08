@@ -25,10 +25,4 @@ export const mapStateToProps = state => ({
   systems: state.history.origins
 })
 
-export const mapDispatchToProps = dispatch => ({
-  setFavorite: system => { },
-  setAvoidance: system => { },
-  deleteRoute: route => { },
-})
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RoutesHistory))
+export default withRouter(connect(mapStateToProps)(RoutesHistory))
