@@ -34,36 +34,25 @@ export const RoutesHistory = props => {
         style={{
           textDecoration: 'none'
       }}>
-        <ListItemText primary={<div>
-          <Typography type="body1">
-            {origin.name}
-          </Typography>
-          <Typography type="caption">
-            <SystemSecAvatar system={origin} />
-            {origin.sec.toFixed(2)}
-          </Typography>
-        </div>} />
 
-      { !route.isFavorite && <div style={{display: 'flex'}}>
-          <div style={{
+        <ListItemText
+          primary={origin.name}
+          secondary={ <div> <SystemSecAvatar system={origin} /> {origin.sec.toFixed(2)} </div> }
+        />
+
+        { !route.isFavorite && <div style={{
               display: 'flex',
               flexDirection: 'row',
               alignSelf: 'flex-start',
             }}>
-            <ListItemText secondary="/" />
-            <ListItemText primary={route.jumps} />
-            <ListItemText secondary="/" />
+            <ListItemText primary={`/ ${route.jumps} /`} secondary="jumps" />
           </div>
-          <ListItemText primary={<div>
-            <Typography type="body1">
-              {destination.name}
-            </Typography>
-            <Typography type="caption">
-              <SystemSecAvatar system={destination} />
-              {destination.sec.toFixed(2)}
-            </Typography>
-          </div>} />
-        </div>}
+        }
+
+        { !route.isFavorite && <ListItemText
+          primary={destination.name}
+          secondary={<div> <SystemSecAvatar system={destination} /> {destination.sec.toFixed(2)} </div> }
+        /> }
 
         <ListItemSecondaryAction>
           <RouteMenu route={route} />

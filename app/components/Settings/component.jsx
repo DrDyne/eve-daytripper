@@ -3,18 +3,23 @@ import Collapse from 'material-ui/transitions/Collapse'
 import { Route, Link, NavLink } from 'react-router-dom'
 import {
   Button,
+  Checkbox,
   IconButton,
   Paper,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  ListItemSecondaryAction,
   TextField,
   Typography,
 } from 'material-ui'
 import ShowEmptyStockSwitch from './components/ShowEmptyStockSwitch'
 import RoutesHistory from '../RoutesHistory'
-import StarBorder from 'material-ui-icons/StarBorder';
+import DeleteSweep from 'material-ui-icons/DeleteSweep'
+import StarBorder from 'material-ui-icons/StarBorder'
+import FastForward from 'material-ui-icons/FastForward'
+import FreeBreakfast from 'material-ui-icons/FreeBreakfast'
 
 export class Settings extends React.Component {
   state = {
@@ -48,31 +53,43 @@ export class Settings extends React.Component {
         fleet
       </ListItem>
 
-      <ListItem button onClick={toggleFavoriteRoutes}>
-        <ListItemText primary={ `${layout.showFavoriteRoutes ? 'hide' : 'show'} favorite routes` } />
-        <ListItemIcon>
-          { layout.showFavoriteRoutes
-          ? <StarBorder />
-          : <StarBorder style={{fill: '#f50057'}} />
-          }
-        </ListItemIcon>
-      </ListItem>
-
-      <ListItem button onClick={toggleSafestShortestRoutes}>
-        <ListItemText primary={ `show ${layout.showShortestRoutes ? 'shortest' : 'safest'} routes` } />
-        <ListItemIcon>
-          { layout.showShortestRoutes
-          ? <StarBorder style={{fill: 'red'}} />
-          : <StarBorder style={{fill: 'blue'}} />
-          }
-        </ListItemIcon>
-      </ListItem>
-
       <Link to="/home/route">
         <ListItem button>
           <ListItemText primary="routes"/>
         </ListItem>
       </Link>
+
+      <Route path="/home/route" render={() => (<div>
+      <ListItem button onClick={toggleFavoriteRoutes}>
+        <ListItemIcon>
+          <StarBorder />
+        </ListItemIcon>
+        <ListItemText primary="Show favorite routes" />
+        <ListItemSecondaryAction>
+          <Checkbox
+            onClick={toggleFavoriteRoutes}
+            checked={layout.showFavoriteRoutes} />
+        </ListItemSecondaryAction>
+      </ListItem>
+
+      <ListItem button onClick={toggleSafestShortestRoutes}>
+        <ListItemIcon>
+          { layout.showShortestRoutes
+          ? <FastForward />
+          : <FreeBreakfast />
+          }
+        </ListItemIcon>
+        <ListItemText
+          primary={layout.showShortestRoutes ? 'Shortest' : 'Safest'}
+          secondary="routes"
+        />
+        <ListItemSecondaryAction>
+          <Checkbox
+            onClick={toggleSafestShortestRoutes}
+            checked={layout.showShortestRoutes}
+          />
+        </ListItemSecondaryAction>
+      </ListItem>
 
       <RoutesHistory />
 
@@ -83,7 +100,15 @@ export class Settings extends React.Component {
           const confirmClearRoutesHistory = !this.state.confirmClearRoutesHistory
           this.setState({confirmClearRoutesHistory})
       }}>
-        clear routes ({origins.length})
+
+        <ListItemIcon>
+          <DeleteSweep />
+        </ListItemIcon>
+
+        <ListItemText
+          primary="Clear routes"
+          secondary={<span>{origins.length} routes</span>}
+        />
       </ListItem>
 
       <Collapse in={this.state.confirmClearRoutesHistory}>
@@ -97,6 +122,7 @@ export class Settings extends React.Component {
           </ListItem>
         )} />
       </Collapse>
+    </div>)} />
 
     </List>}
   }

@@ -26,7 +26,7 @@ export class Menu extends React.Component {
 
   render () {
     const { route, gps } = this.props
-    const { addFavorite, deleteFavorite } = this.props
+    const { addFavorite, deleteFavorite, deleteRoute } = this.props
     const { anchor, show, onRequestClose } = this.props
 
     const { origin, destination } = route
@@ -47,6 +47,7 @@ export class Menu extends React.Component {
         <ListItemText primary="set favorite" />
       </ListItem>
     )
+
     const DeleteFavoriteListItem = ({system}) => (<div>
       <ListItem
         button
@@ -84,10 +85,14 @@ export class Menu extends React.Component {
         secondary="from history"
       />
     </ListItem> )
-    const DeleteRouteListItem = ({route}) => {
+
+    const DeleteRouteListItem = props => {
+      const { route } = props
+
       return ( <ListItem
           button
-          disabled={gps.favorites.find(fav => fav.id === destination.id)}
+          onClick={deleteRoute(origin, destination)}
+          disabled={gps.favorites.some(fav => fav.id === destination.id)}
         >
           <ListItemIcon>
             <Delete />
@@ -105,20 +110,30 @@ export class Menu extends React.Component {
       this.resetConfirmations()
       onRequestClose()
     }}>
+
       <DeleteRouteListItem route={route}/>
 
       <ListSubheader>
         <SystemSecAvatar system={origin} />{origin.name}
       </ListSubheader>
-      <AddFavoriteListItem system={origin} />
-      <DeleteFavoriteListItem system={origin} />
-      <DeleteFromHistoryListItem system={origin} />
 
-      <ListSubheader>
-        <SystemSecAvatar system={destination} />{destination.name}
-      </ListSubheader>
-      <AddFavoriteListItem system={destination} />
-      <DeleteFavoriteListItem system={destination} />
+      { gps.favorites.find(fav => fav.id === origin.id)
+      ? <DeleteFavoriteListItem system={origin} />
+      : <AddFavoriteListItem system={origin} />
+      }
+
+      { destination.name !== 'Jita' && <div>
+        <DeleteFromHistoryListItem system={origin} />
+
+        <ListSubheader>
+          <SystemSecAvatar system={destination} />{destination.name}
+        </ListSubheader>
+
+        { gps.favorites.find(fav => fav.id === destination.id)
+        ? <DeleteFavoriteListItem system={destination} />
+        : <AddFavoriteListItem system={destination} />
+        }
+      </div> }
     </MuiMenu>
   }
 }
