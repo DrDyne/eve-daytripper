@@ -85,13 +85,20 @@ export const deleteRouteByOrigin = (state, {origin}) => {
   return Object.assign({}, state, { routes })
 }
 
+export const deleteRoute = (state, {origin, destination}) => {
+  const routes = state.routes.filter(route => {
+    return !((origin.id === route.origin.id) && (destination.id === route.destination.id))
+  })
+  return Object.assign({}, state, { routes })
+}
+
 export const gps = (state=initialState, action) => {
   switch(action.type) {
 
     case CREATE_ROUTE:
       return createRoute(state, action)
     case DELETE_ROUTE:
-      return deleteRouteByOrigin(state, action)
+      return deleteRoute(state, action)
     case CLEAR_ROUTE_HISTORY:
       return Object.assign(state, {routes: []})
     case GPS_SEARCH:
