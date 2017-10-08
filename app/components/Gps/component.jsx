@@ -88,11 +88,23 @@ export const Gps = props => {
   </Paper>)
 }
 
+import {
+  Button,
+} from 'material-ui'
+import { SystemSecAvatar } from '../SystemSecAvatar'
+
 const OriginsHistory = props => {
   const { origins } = props
+
   return <Toolbar>
-    <Typography type="body2">
-      {origins.length} origins to display
-    </Typography>
+    { origins.slice(0,6).map(origin => (
+      <Button key={origin.id}>
+        <SystemSecAvatar system={origin} />
+        {origin.name}
+      </Button>
+    )) }
+
+    { origins.length > 6 && <Typography type="caption"> ... </Typography> }
+    <Typography type="caption"> total: {origins.length} </Typography>
   </Toolbar>
 }

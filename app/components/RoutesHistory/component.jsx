@@ -29,7 +29,7 @@ export const RoutesHistory = props => {
         onClick={() => {
           history.push(url)
         }}
-        key={`${origin.id}-${destination.id}`}
+        key={`route-history-${origin.id}-${destination.id}`}
         style={{
           textDecoration: 'none'
       }}>
