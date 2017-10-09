@@ -28,20 +28,6 @@ export const DestinationCard = ({system}) => (<Card elevation={0} raised={false}
           {system.sec.toFixed(2)}
         </Typography>
       </div>
-      <Typography type="caption">
-        destination
-      </Typography>
     </div>
   </CardContent>
-  {/*
-  <CardActions>
-    <a href={`http://evemaps.dotlan.net/system/${system.name}`} target="_blank">
-      <Button> dotlan </Button>
-    </a>
-
-    <a href={`https://zkillboard.com/system/${system.id}/`} target="_blank">
-      <Button> zkill </Button>
-    </a>
-  </CardActions>
-  */}
 </Card>)

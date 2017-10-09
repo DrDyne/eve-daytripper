@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import {
   Divider,
   Paper,
@@ -37,40 +37,101 @@ export const Gps = props => {
     { !!routes.length && (<div>
       <div style={{
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-start'
       }}>
         <Route path="/home/route/:origin" component={withRouter(({match}) => {
           const { origin } = routes.find(utils.byOriginName(match.params.origin))
           return <OriginCard system={origin} />
         })} />
 
-        <Route exact path="/home/route/:origin/:destination" exact component={withRouter(({match}) => {
+        <Route path="/home/route/:origin" exact component={withRouter(({match}) => {
+          const { origin } = routes.find(utils.byOriginName(match.params.origin))
+          return (<div style={{
+            display: 'flex',
+            alignSelf: 'flex-end',
+          }}>
+            <Button href={`http://evemaps.dotlan.net/system/${origin.name}`} target="_blank">
+              dotlan
+            </Button>
+
+            <Button href={`https://zkillboard.com/system/${origin.id}/`} target="_blank">
+              zkill
+            </Button>
+          </div>)
+        })} />
+
+        <Route exact path="/home/route/:origin/:destination" component={withRouter(({match}) => {
           const route = routes.find(utils.byName(match.params.origin, match.params.destination))
           if ( !route ) return null
-          
-          const systems = route[layout.showShortestRoutes ? 'shortest' : 'safest'].systems
-          return <div style={{
-            display: 'flex',
-            flexGrow: 1,
-            flexDirection: 'row',
-          }}>
-            <Paper
-              elevation={0}
-              style={{
-                display: 'flex',
-                flexGrow: 1,
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
+
+          const { systems } = route[layout.showShortestRoutes ? 'shortest' : 'safest']
+
+          return <div style={{flex: '1 1 auto'}}>
+            <div style={{
+              display: 'flex',
+              flexGrow: 1,
+              flexDirection: 'row',
             }}>
-              <Divider style={{display: 'flex', flexGrow: 1}} />
-              <RoutePath systems={systems} />
-              <Divider style={{display: 'flex', flexGrow: 1}} />
-            </Paper>
-            <DestinationCard system={route.destination} route={route} />
+              <Paper
+                elevation={0}
+                style={{
+                  display: 'flex',
+                  flexGrow: 1,
+                  height: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+              }}>
+                <Divider style={{display: 'flex', flexGrow: 1}} />
+                <RoutePath systems={systems} />
+                <Divider style={{display: 'flex', flexGrow: 1}} />
+              </Paper>
+              <DestinationCard system={route.destination} route={route} />
+            </div>
+
           </div>
         })} />
       </div>
+
+      <Route exact path="/home/route/:origin/:destination" exact component={withRouter(({match}) => {
+        const route = routes.find(utils.byName(match.params.origin, match.params.destination))
+        if ( !route ) return null
+        const { jumps } = route[layout.showShortestRoutes ? 'shortest' : 'safest']
+        const { origin, destination } = route
+
+        return <Toolbar dense style={{
+            flex: '1 1 auto',
+            justifyContent: 'space-between'
+          }}>
+          <div>
+            <Button href={`http://evemaps.dotlan.net/system/${origin.name}`} target="_blank">
+              dotlan
+            </Button>
+
+            <Button href={`https://zkillboard.com/system/${origin.id}/`} target="_blank">
+              zkill
+            </Button>
+          </div>
+
+          <Typography type="caption">
+            origin
+          </Typography>
+          <Typography type="headline">
+            {jumps}
+          </Typography>
+          <Typography type="caption">
+            destination
+          </Typography>
+
+          <div>
+            <Button href={`http://evemaps.dotlan.net/system/${destination.name}`} target="_blank">
+              dotlan
+            </Button>
+
+            <Button href={`https://zkillboard.com/system/${destination.id}/`} target="_blank">
+              zkill
+            </Button>
+          </div>
+        </Toolbar> })} />
 
 
       { !!layout.showFavoriteRoutes &&
@@ -101,10 +162,12 @@ const OriginsHistory = props => {
 
   return <Toolbar>
     { origins.slice(-6).reverse().map(origin => (
-      <Button key={origin.id}>
-        <SystemSecAvatar system={origin} />
-        {origin.name}
-      </Button>
+      <Link key={origin.id} to={`/home/route/${origin.name}`}>
+        <Button>
+          <SystemSecAvatar system={origin} />
+          {origin.name}
+        </Button>
+      </Link>
     )) }
 
     { origins.length > 6 && <Typography type="caption"> ... </Typography> }
