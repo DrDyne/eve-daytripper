@@ -31,7 +31,7 @@ export const OriginCard = ({system}) => (<Card raised={false} elevation={0}>
       <Typography type="caption"> origin</Typography>
     </div>
   </CardContent>
-  <CardActions>
+  {/*<CardActions>
     <a href={`http://evemaps.dotlan.net/system/${system.name}`} target="_blank">
       <Button> dotlan </Button>
     </a>
@@ -41,4 +41,5 @@ export const OriginCard = ({system}) => (<Card raised={false} elevation={0}>
     </a>
 
   </CardActions>
+  */}
 </Card>)

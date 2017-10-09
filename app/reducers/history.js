@@ -43,16 +43,16 @@ const byId = (origin, destination) => route => {
 
 export const createRoute = (state, action) => {
   const { systems } = action
-  const [origin, jumps, destination] = [
-    systems[0],
-    systems.length,
-    systems.slice().pop()
+  const [ origin, destination ] = [
+    systems.shortest[0],
+    systems.shortest.slice().pop()
   ]
+  
   const origins = state.origins.find(o => o.name === origin.name)
   ? state.origins
   : [...state.origins, origin]
 
-  console.log('push route to history:', origin, jumps, destination)
+  console.log('push route to history:', origin, destination)
 
   const savedRoute = state.routes.find(byId(origin, destination))
 
@@ -61,7 +61,7 @@ export const createRoute = (state, action) => {
   : Object.assign({}, state, {
     lastOrigin: origin,
     origins,
-    routes: [{origin, jumps, destination}, ...state.routes]
+    routes: [{origin, destination}, ...state.routes]
   })
 }
 

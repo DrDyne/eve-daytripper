@@ -1,6 +1,21 @@
-export const secCssId = sec => sec > 0
-  ? `sec-${sec.toString().slice(0,3).replace('.', '-')}`
-  : `sec-${sec.toString().slice(0,3).replace('.', '-')}`
+export const colors = [
+  'sec-1-0', // 1.0
+  'sec-0-9', // 0.9
+  'sec-0-8', // 0.8
+  'sec-0-7', // 0.7
+  'sec-0-6', // 0.6
+  'sec-0-5', // 0.5
+  'sec-0-4', // 0.4
+  'sec-0-3', // 0.3
+  'sec-0-2', // 0.2
+  'sec-0-1', // 0.1
+  'sec-0-0', // 0.0
+]
+
+export const secCssId = systemSec => colors.reduce((memo, hex, index) => {
+  const sec = 1 - (index/10)
+  return systemSec > sec ? memo : hex
+}, 'sec-0-0')
 
 export const securityClassLabel = sec => sec > 0.45 ? 'HS' : sec > 0.05 ? 'LS' : 'NS'
 

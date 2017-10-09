@@ -22,7 +22,8 @@ export const mapStateToProps = state => ({
     ? memo
     : memo.concat(route)
   }, []),
-  systems: state.history.origins
+  systems: state.history.origins,
+  showShortestRoutes: state.layout.showShortestRoutes
 })
 
 export default withRouter(connect(mapStateToProps)(RoutesHistory))

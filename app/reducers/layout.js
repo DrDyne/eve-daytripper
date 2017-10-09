@@ -11,6 +11,7 @@ import {
 import {
   TOGGLE_SHOW_EMPTY_STOCK,
   TOGGLE_FAVORITE_ROUTES,
+  TOGGLE_SHORTEST_ROUTES,
 } from '../actions/layout'
 
 const STOCK_POS_LEFT = 'left'
@@ -24,6 +25,7 @@ export const initialState = {
   showInfoDialog: false,
   showConfirmDeleteFavoritesDialog: false,
   showFavoriteRoutes: true,
+  showShortestRoutes: true,
 }
 
 const toggleSettingsMenu = state => {
@@ -56,6 +58,11 @@ const closeDeleteFavoriteDialog = state => {
   return Object.assign({}, state, {showConfirmDeleteFavoritesDialog})
 }
 
+const toggleShortestRoutes = state => {
+  const showShortestRoutes = !state.showShortestRoutes
+  return Object.assign({}, state, { showShortestRoutes })
+}
+
 export const layout = (state=initialState, action) => {
   switch ( action.type ) {
     case INSPECT_ITEM: return Object.assign({}, state, {showInfoDialog: true})
@@ -67,6 +74,7 @@ export const layout = (state=initialState, action) => {
     case DELETE_FAVORITE: return closeDeleteFavoriteDialog(state)
     case TOGGLE_SHOW_EMPTY_STOCK: return toggleShowEmptyStock(state)
     case TOGGLE_FAVORITE_ROUTES: return toggleFavoriteRoutes(state)
+    case TOGGLE_SHORTEST_ROUTES: return toggleShortestRoutes(state)
   }
   return state
 }

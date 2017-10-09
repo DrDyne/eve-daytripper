@@ -25,7 +25,7 @@ export class Menu extends React.Component {
   }
 
   render () {
-    const { route, gps } = this.props
+    const { route, gps, layout } = this.props
     const { addFavorite, deleteFavorite, deleteRoute } = this.props
     const { anchor, show, onRequestClose } = this.props
 
@@ -81,13 +81,14 @@ export class Menu extends React.Component {
         <DeleteSweep />
       </ListItemIcon>
       <ListItemText
-        primary={<div><SystemSecAvatar system={origin} />{origin.name}</div>}
+        primary={<span><SystemSecAvatar system={origin} />{origin.name}</span>}
         secondary="from history"
       />
     </ListItem> )
 
     const DeleteRouteListItem = props => {
       const { route } = props
+      const { jumps } = route[layout.showShortestRoutes ? 'shortest' : 'safest']
 
       return ( <ListItem
           button
@@ -97,9 +98,9 @@ export class Menu extends React.Component {
           <ListItemIcon>
             <Delete />
           </ListItemIcon>
-          <ListItemText primary={<div>
-            {origin.name}/{route.jumps}/{destination.name}
-          </div>} />
+          <ListItemText primary={<span>
+            {origin.name}/{jumps}/{destination.name}
+          </span>} />
       </ListItem> )
     }
 

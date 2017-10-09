@@ -93,6 +93,17 @@ export class Settings extends React.Component {
 
       <RoutesHistory />
 
+      <Collapse in={this.state.confirmClearRoutesHistory}>
+        <Route render={({history}) => (
+          <ListItem dense button onClick={() => {
+            clearHistory()
+            this.setState({confirmClearRoutesHistory: false})
+            history.push('/home/route')
+          }}>
+            <ListItemText secondary="confirm" />
+          </ListItem>
+        )} />
+      </Collapse>
       <ListItem
         button
         disabled={!origins.length}
@@ -111,17 +122,6 @@ export class Settings extends React.Component {
         />
       </ListItem>
 
-      <Collapse in={this.state.confirmClearRoutesHistory}>
-        <Route render={({history}) => (
-          <ListItem dense button onClick={() => {
-            clearHistory()
-            this.setState({confirmClearRoutesHistory: false})
-            history.push('/home/route')
-          }}>
-            <ListItemText secondary="confirm" />
-          </ListItem>
-        )} />
-      </Collapse>
     </div>)} />
 
     </List>}

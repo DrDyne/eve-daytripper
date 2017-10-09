@@ -46,6 +46,9 @@ export const Gps = props => {
 
         <Route exact path="/home/route/:origin/:destination" exact component={withRouter(({match}) => {
           const route = routes.find(utils.byName(match.params.origin, match.params.destination))
+          if ( !route ) return null
+          
+          const systems = route[layout.showShortestRoutes ? 'shortest' : 'safest'].systems
           return <div style={{
             display: 'flex',
             flexGrow: 1,
@@ -61,7 +64,7 @@ export const Gps = props => {
                 alignItems: 'center',
             }}>
               <Divider style={{display: 'flex', flexGrow: 1}} />
-              <RoutePath systems={route.systems} />
+              <RoutePath systems={systems} />
               <Divider style={{display: 'flex', flexGrow: 1}} />
             </Paper>
             <DestinationCard system={route.destination} route={route} />
@@ -97,7 +100,7 @@ const OriginsHistory = props => {
   const { origins } = props
 
   return <Toolbar>
-    { origins.slice(0,6).map(origin => (
+    { origins.slice(-6).reverse().map(origin => (
       <Button key={origin.id}>
         <SystemSecAvatar system={origin} />
         {origin.name}

@@ -37,23 +37,30 @@ export const initialState = {
 
 export const createRoute = (state, action) => {
   const { systems } = action
-  const [origin, jumps, destination] = [
-    systems[0],
-    systems.length,
-    systems.slice().pop()
+  const [origin, destination] = [
+    systems.shortest[0],
+    systems.shortest.slice().pop()
   ]
-  const avgSec = systems.reduce((m, s) => m + s.sec, 0) / jumps
-  const safetyScore = avgSec //* systems.reduce((m, s) => m + (-1+s.sec), 0) // higher = more dangerous
-  const bestSec = systems.reduce((memo, {sec}) => Math.max(sec, memo), -1)
-  const worstSec = systems.reduce((memo, {sec}) => Math.min(sec, memo), 1)
+
+  const safest = {
+    jumps: systems.safest.length,
+    systems: systems.safest,
+    bestSec: systems.safest.reduce((memo, {sec}) => Math.max(sec, memo), -1),
+    worstSec: systems.safest.reduce((memo, {sec}) => Math.min(sec, memo), 1),
+  }
+
+  const shortest = {
+    jumps: systems.shortest.length,
+    systems: systems.shortest,
+    bestSec: systems.shortest.reduce((memo, {sec}) => Math.max(sec, memo), -1),
+    worstSec: systems.shortest.reduce((memo, {sec}) => Math.min(sec, memo), 1),
+  }
+
   const routes = [{
     origin,
-    jumps,
     destination,
-    systems,
-    safetyScore,
-    bestSec,
-    worstSec,
+    safest,
+    shortest,
   }, ...state.routes]
   return Object.assign({}, state, { routes })
 }

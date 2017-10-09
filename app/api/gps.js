@@ -61,9 +61,9 @@ export const shortest = (origin, destination) => (
   route(origin, destination, {shortest: true})
 )
 
-export const safest = (origin, destination) => {
+export const safest = (origin, destination) => (
   route(origin, destination, {safest :true})
-}
+)
 
 export default {
   identify,

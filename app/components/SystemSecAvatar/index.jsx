@@ -27,9 +27,10 @@ export const secToHex = systemSec => {
 }
 
 export const SystemSecAvatar = ({system, size}) => {
-  return <Avatar style={{
+  return <span style={{
     width: size || 10,
     height: size || 10,
+    borderRadius: size || 10,
     backgroundColor: secToHex(system.sec),
     display: 'inline-block',
     marginRight: 5

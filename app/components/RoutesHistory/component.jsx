@@ -12,7 +12,7 @@ import { SystemSecAvatar } from '../SystemSecAvatar'
 import RouteMenu from './RouteMenu'
 
 export const RoutesHistory = props => {
-  const { routes } = props
+  const { routes, showShortestRoutes } = props
   const { history } = props // router history
 
   return (<div style={{
@@ -20,7 +20,7 @@ export const RoutesHistory = props => {
   }}>
     { routes.map(route => {
       const { origin, destination } = route
-      const shortSec = origin.sec.toFixed(2)
+      const { jumps } = route[showShortestRoutes ? 'shortest' : 'safest']
       const url = route.isFavorite
       ? `/home/route/${origin.name}`
       : `/home/route/${origin.name}/${destination.name}`
@@ -37,7 +37,7 @@ export const RoutesHistory = props => {
 
         <ListItemText
           primary={origin.name}
-          secondary={ <div> <SystemSecAvatar system={origin} /> {origin.sec.toFixed(2)} </div> }
+          secondary={ <span> <SystemSecAvatar system={origin} /> {origin.sec.toFixed(2)} </span> }
         />
 
         { !route.isFavorite && <div style={{
@@ -45,13 +45,13 @@ export const RoutesHistory = props => {
               flexDirection: 'row',
               alignSelf: 'flex-start',
             }}>
-            <ListItemText primary={`/ ${route.jumps} /`} secondary="jumps" />
+            <ListItemText primary={`/ ${jumps} /`} secondary="jumps" />
           </div>
         }
 
         { !route.isFavorite && <ListItemText
           primary={destination.name}
-          secondary={<div> <SystemSecAvatar system={destination} /> {destination.sec.toFixed(2)} </div> }
+          secondary={<span> <SystemSecAvatar system={destination} /> {destination.sec.toFixed(2)} </span> }
         /> }
 
         <ListItemSecondaryAction>

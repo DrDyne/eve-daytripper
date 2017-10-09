@@ -44,7 +44,11 @@ const createRoute = (origin, destination) => (dispatch, getState, {api}) => {
 
   if ( alreadyExists ) return Promise.resolve(alreadyExists)
 
-  return api.gps.route(origin, destination)
+  return Promise.all([
+    api.gps.shortest(origin, destination),
+    api.gps.safest(origin, destination)
+  ])
+  .then(([shortest, safest]) => ({shortest, safest}))
 }
 
 const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
@@ -88,6 +92,7 @@ const gpsBusyDone = () => ({ type: GPS_BUSY_DONE })
 export const search = (origin, destination) => (dispatch, getState, {api}) => {
   if ( origin ) dispatch(searchOrigin(origin))
   if ( destination ) dispatch(searchDestination(destination))
+  const { layout } = getState
 
   dispatch(gpsBusy())
 
@@ -102,7 +107,7 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
   .then(route => { // why do I receive the root state here ???
     console.log('created route:', route)
 
-    return dispatch(createFavoriteRoutes(route[0]))
+    return dispatch(createFavoriteRoutes(route.shortest[0]))
     .then(fav => [route, ...fav])
     .then(routes => {
       return routes.map(r => dispatch(saveRoute(r)))

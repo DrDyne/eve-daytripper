@@ -33,6 +33,7 @@ export const DestinationCard = ({system}) => (<Card elevation={0} raised={false}
       </Typography>
     </div>
   </CardContent>
+  {/*
   <CardActions>
     <a href={`http://evemaps.dotlan.net/system/${system.name}`} target="_blank">
       <Button> dotlan </Button>
@@ -42,4 +43,5 @@ export const DestinationCard = ({system}) => (<Card elevation={0} raised={false}
       <Button> zkill </Button>
     </a>
   </CardActions>
+  */}
 </Card>)
