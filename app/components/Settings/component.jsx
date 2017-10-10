@@ -51,18 +51,18 @@ export class Settings extends React.Component {
         </ListItem>
       </Link>
 
-      <ListItem>
+      <ListItem divider>
         fleet
       </ListItem>
 
-      <ListItem button href="/home/route">
-        <ListItemIcon>
-          <Navigation />
-        </ListItemIcon>
-        <ListItemText primary="navigation"/>
-      </ListItem>
-
-      <Divider />
+      <Link to="/home/route">
+        <ListItem button divider>
+          <ListItemIcon>
+            <Navigation />
+          </ListItemIcon>
+          <ListItemText primary="navigation"/>
+        </ListItem>
+      </Link>
 
       <Route path="/home/route" render={props => (<ListItem
         button
