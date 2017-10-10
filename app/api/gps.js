@@ -1,10 +1,22 @@
-export const identified = {}
-export const mapSolarSystem = null // cache /static/mapSolarSystem.json !
-const baseUrl = 'https://drdyne.github.io/eve-daytripper'
+let cache = {
+  baseUrl: 'https://drdyne.github.io/eve-daytripper',
+  identified: {},
+  mapSolarSystems: []
+}
+
+export const mapSolarSystemsCache = () => {
+  return ( cache.mapSolarSystems.length )
+  ? Promise.resolve(cache.mapSolarSystems)
+  : fetch(cache.baseUrl + `/static/mapSolarSystems.json`)
+  .then(response => response.json())
+  .then(json => {
+    cache.mapSolarSystems = json
+    return json
+  })
+}
 
 export const get = id => {
-  return fetch(baseUrl + `/static/mapSolarSystems.json`)
-  .then(response => response.json())
+  return mapSolarSystemsCache()
   .then(systems => systems.find(s => id === s.solarSystemID))
   .then(system => ({
     id: system.solarSystemID,
@@ -15,14 +27,13 @@ export const get = id => {
 
 export const identify = name => {
   const Name = name.toUpperCase()
-  if ( identified[Name] ) return Promise.resolve(identified[Name])
+  if ( cache.identified[Name] ) return Promise.resolve(cache.identified[Name])
 
   //static content served from gh-pages... check /docs/static/typeids/***.json
   //https://drdyne.github.io/eve-daytripper/static/typeids/A.json
 
   //return fetch(`/static/typeids/${cat}.json`)
-  return fetch(baseUrl + `/static/mapSolarSystems.json`)
-  .then(response => response.json())
+  return mapSolarSystemsCache()
   .then(systems => systems.find(s => Name === s.solarSystemName.toUpperCase()))
   .then(system => {
     if ( !system ) return Promise.reject(`Unknown system: ${Name}`)
@@ -30,12 +41,12 @@ export const identify = name => {
     const { solarSystemID, solarSystemName, security } = system
     console.log(`identified ${solarSystemID}:${solarSystemName}`)
 
-    identified[Name] = {
+    cache.identified[Name] = {
       id: solarSystemID,
       Name: solarSystemName,
       sec: security
     }
-    return identified[Name]
+    return cache.identified[Name]
   })
 }
 

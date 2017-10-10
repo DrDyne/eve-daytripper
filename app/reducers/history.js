@@ -47,7 +47,7 @@ export const createRoute = (state, action) => {
     systems.shortest[0],
     systems.shortest.slice().pop()
   ]
-  
+
   const origins = state.origins.find(o => o.name === origin.name)
   ? state.origins
   : [...state.origins, origin]
