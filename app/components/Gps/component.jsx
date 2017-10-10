@@ -19,7 +19,8 @@ export const Gps = props => {
   const { match, favorites, routes, origins, layout } = props
 
   return (<Paper elevation={8} style={{
-    marginBottom: 2
+    marginBottom: 2,
+    width: '100%',
   }}>
     <Toolbar style={{
         display: 'flex',
@@ -98,7 +99,9 @@ export const Gps = props => {
         const { jumps } = route[layout.showShortestRoutes ? 'shortest' : 'safest']
         const { origin, destination } = route
 
-        return <Toolbar dense style={{
+        return <Toolbar
+          disableGutters
+          style={{
             flex: '1 1 auto',
             justifyContent: 'space-between'
           }}>
@@ -115,9 +118,11 @@ export const Gps = props => {
           <Typography type="caption">
             origin
           </Typography>
-          <Typography type="headline">
-            {jumps}
-          </Typography>
+          <Button href={`http://evemaps.dotlan.net/route/${origin.name}:${destination.name}`} target="_blank">
+            {origin.name} / <Typography type="headline">
+              {jumps}
+            </Typography> / {destination.name}
+          </Button>
           <Typography type="caption">
             destination
           </Typography>

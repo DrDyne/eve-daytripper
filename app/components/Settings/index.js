@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Settings } from './component'
 //import { toggleSettingsMenu } from '../../actions'
 import { layout, clearRouteHistory } from '../../actions'
@@ -13,4 +14,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Settings))

@@ -4,6 +4,7 @@ import { Route, Link, NavLink } from 'react-router-dom'
 import {
   Button,
   Checkbox,
+  Divider,
   IconButton,
   Paper,
   List,
@@ -20,6 +21,8 @@ import DeleteSweep from 'material-ui-icons/DeleteSweep'
 import StarBorder from 'material-ui-icons/StarBorder'
 import FastForward from 'material-ui-icons/FastForward'
 import FreeBreakfast from 'material-ui-icons/FreeBreakfast'
+import Navigation from 'material-ui-icons/Navigation'
+import ListIcon from 'material-ui-icons/List'
 
 export class Settings extends React.Component {
   state = {
@@ -39,13 +42,12 @@ export class Settings extends React.Component {
         <ShowEmptyStockSwitch />
       </ListItem>
 
-      <ListItem>
-        //TODO display percentages instead of item images
-      </ListItem>
-
       <Link to="/home">
         <ListItem button>
-          <ListItemText primary="home"/>
+          <ListItemIcon>
+            <ListIcon />
+          </ListItemIcon>
+          <ListItemText primary="inventory"/>
         </ListItem>
       </Link>
 
@@ -53,14 +55,18 @@ export class Settings extends React.Component {
         fleet
       </ListItem>
 
-      <Link to="/home/route">
-        <ListItem button>
-          <ListItemText primary="routes"/>
-        </ListItem>
-      </Link>
+      <ListItem button href="/home/route">
+        <ListItemIcon>
+          <Navigation />
+        </ListItemIcon>
+        <ListItemText primary="navigation"/>
+      </ListItem>
 
-      <Route path="/home/route" render={() => (<div>
-      <ListItem button onClick={toggleFavoriteRoutes}>
+      <Divider />
+
+      <Route path="/home/route" render={props => (<ListItem
+        button
+        onClick={toggleFavoriteRoutes}>
         <ListItemIcon>
           <StarBorder />
         </ListItemIcon>
@@ -70,9 +76,11 @@ export class Settings extends React.Component {
             onClick={toggleFavoriteRoutes}
             checked={layout.showFavoriteRoutes} />
         </ListItemSecondaryAction>
-      </ListItem>
+      </ListItem>) } />
 
-      <ListItem button onClick={toggleSafestShortestRoutes}>
+      <Route path="/home/route" render={props => (<ListItem
+        button
+        onClick={toggleSafestShortestRoutes}>
         <ListItemIcon>
           { layout.showShortestRoutes
           ? <FastForward />
@@ -89,22 +97,21 @@ export class Settings extends React.Component {
             checked={layout.showShortestRoutes}
           />
         </ListItemSecondaryAction>
-      </ListItem>
+      </ListItem> )} />
 
-      <RoutesHistory />
+      <Route path="/home/route" component={RoutesHistory} />
 
-      <Collapse in={this.state.confirmClearRoutesHistory}>
-        <Route render={({history}) => (
+      <Route render={({history}) => ( <Collapse in={this.state.confirmClearRoutesHistory}>
           <ListItem dense button onClick={() => {
             clearHistory()
             this.setState({confirmClearRoutesHistory: false})
             history.push('/home/route')
           }}>
-            <ListItemText secondary="confirm" />
+            <ListItemText primary="confirm" style={{textAlign: 'right'}}/>
           </ListItem>
-        )} />
-      </Collapse>
-      <ListItem
+      </Collapse> )} />
+
+    <Route path="/home/route" render={() => ( <ListItem
         button
         disabled={!origins.length}
         onClick={() => {
@@ -118,11 +125,9 @@ export class Settings extends React.Component {
 
         <ListItemText
           primary="Clear routes"
-          secondary={<span>{origins.length} routes</span>}
+          secondary={<span>{origins.length} origins / {gps.routes.length} routes</span>}
         />
-      </ListItem>
-
-    </div>)} />
+    </ListItem> )} />
 
     </List>}
   }
