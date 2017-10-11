@@ -38,10 +38,6 @@ export class Settings extends React.Component {
       width: this.props.width,
       height: '100%',
     }} >
-      <ListItem>
-        <ShowEmptyStockSwitch />
-      </ListItem>
-
       <Link to="/home">
         <ListItem button>
           <ListItemIcon>
@@ -51,12 +47,14 @@ export class Settings extends React.Component {
         </ListItem>
       </Link>
 
-      <ListItem divider>
+      <ListItem>
         fleet
       </ListItem>
 
+      <ListItem divider />
+
       <Link to="/home/route">
-        <ListItem button divider>
+        <ListItem button>
           <ListItemIcon>
             <Navigation />
           </ListItemIcon>
@@ -111,7 +109,7 @@ export class Settings extends React.Component {
           </ListItem>
       </Collapse> )} />
 
-    <Route path="/home/route" render={() => ( <ListItem
+      <Route path="/home/route" render={() => ( <ListItem
         button
         disabled={!origins.length}
         onClick={() => {
@@ -127,7 +125,11 @@ export class Settings extends React.Component {
           primary="Clear routes"
           secondary={<span>{origins.length} origins / {gps.routes.length} routes</span>}
         />
-    </ListItem> )} />
+      </ListItem> )} />
+
+      <ListItem>
+        <ShowEmptyStockSwitch />
+      </ListItem>
 
     </List>}
   }
