@@ -9,6 +9,7 @@ import {
 } from './index.js'
 
 export const isWormhole = name => /^J[0-9]{6}$/.test(name)
+export const matchRoute = (origin, system) => route => ((route.origin.id === origin.id) && (route.destination.id === system.id))
 
 const byOriginId = id => route => route.origin.id === id
 
@@ -28,12 +29,19 @@ export const saveRoute = systems => ({
   systems
 })
 
-export const addFavorite = system => (getState, dispatch, {api}) => {
+export const addFavorite = system => (dispatch, getState, {api}) => {
   dispatch({ type: GPS_FAVORITE, system })
 
-  console.log('add fav', system)
-  const { origins } = getState().history
-  // for each favorites , cr
+  const { gps, history } = getState()
+  const favoriteRoutes = history.origins
+  .filter(origin => origin.id !== system.id)
+  .filter(origin => !gps.routes.some(matchRoute(origin, system)))
+  .map(origin => {
+    return dispatch(createRoute(origin, system))
+    .then(route => dispatch(saveRoute(route)))
+  })
+
+  return Promise.all(favoriteRoutes)
 }
 
 const createRoute = (origin, destination) => (dispatch, getState, {api}) => {
@@ -52,11 +60,13 @@ const createRoute = (origin, destination) => (dispatch, getState, {api}) => {
 }
 
 const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
-  const { favorites } = getState().gps
-  return Promise.all(favorites.map(destination => {
-    if ( origin.id === destination.id ) return
-    return dispatch(createRoute(origin, destination))
-  }))
+  const { favorites, routes } = getState().gps
+  const favoriteRoutes = favorites
+  .filter(destination => origin.id !== destination.id )
+  .filter(destination => !routes.some(matchRoute(origin, destination)))
+  .map(destination => dispatch(createRoute(origin, destination)))
+
+  return Promise.all(favoriteRoutes)
 }
 
 export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
