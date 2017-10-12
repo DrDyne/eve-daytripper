@@ -67,6 +67,7 @@ const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
   .map(destination => dispatch(createRoute(origin, destination)))
 
   return Promise.all(favoriteRoutes)
+  .then(routes => routes.filter(route => !!route))
 }
 
 export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
@@ -78,14 +79,12 @@ export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
   return api.gps.identify(raw)
   .then(origin => {
     return routes.find(byOriginId(origin.id))
-    ? Promise.reject('route already exists') // at least, its origin
+    ? Promise.reject('route already exists') // at least, its origin.
     : origin
   })
   .then(origin => dispatch(createFavoriteRoutes(origin)))
   .then(routes => {
-    return routes
-    .filter(route => !!route)
-    .map(route => dispatch(saveRoute(route)))
+    return routes.map(route => dispatch(saveRoute(route)))
   })
   .catch(err => {
     if ( 'route already exists' !== err ) throw err
@@ -100,8 +99,8 @@ const gpsBusy = () => ({ type: GPS_BUSY })
 const gpsBusyDone = () => ({ type: GPS_BUSY_DONE })
 
 export const search = (origin, destination) => (dispatch, getState, {api}) => {
-  if ( origin ) dispatch(searchOrigin(origin))
-  if ( destination ) dispatch(searchDestination(destination))
+  //if ( origin ) dispatch(searchOrigin(origin))
+  //if ( destination ) dispatch(searchDestination(destination))
   const { layout } = getState
 
   dispatch(gpsBusy())
@@ -110,11 +109,11 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
     api.gps.identify(origin),
     api.gps.identify(destination)
   ])
-  .then(identified => {
-    console.log('search successful, now create route', identified)
-    return dispatch(createRoute(identified[0], identified[1])) // TODO create shortest, safest
+  .then(([origin, destination]) => {
+    console.log('search successful, now create route', [origin, destination])
+    return dispatch(createRoute(origin, destination))
   })
-  .then(route => { // why do I receive the root state here ???
+  .then(route => {
     console.log('created route:', route)
 
     return dispatch(createFavoriteRoutes(route.shortest[0]))
