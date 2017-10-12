@@ -89,12 +89,6 @@ export class Settings extends React.Component {
           primary={layout.showShortestRoutes ? 'Shortest' : 'Safest'}
           secondary="routes"
         />
-        <ListItemSecondaryAction>
-          <Checkbox
-            onClick={toggleSafestShortestRoutes}
-            checked={layout.showShortestRoutes}
-          />
-        </ListItemSecondaryAction>
       </ListItem> )} />
 
       <Route path="/home/route" component={RoutesHistory} />
