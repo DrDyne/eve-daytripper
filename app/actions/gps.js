@@ -6,6 +6,7 @@ import {
   GPS_FAVORITE_REMOVE,
   CREATE_ROUTE,
   DELETE_ROUTE,
+  DELETE_SYSTEM,
 } from './index.js'
 
 export const isWormhole = name => /^J[0-9]{6}$/.test(name)
@@ -22,6 +23,11 @@ export const deleteRoute = (origin, destination) => ({
   type: DELETE_ROUTE,
   origin,
   destination
+})
+
+export const deleteHistory = system => ({
+  type: DELETE_SYSTEM,
+  system
 })
 
 export const saveRoute = systems => ({

@@ -38,6 +38,7 @@ export const SET_CAPACITY = 'capacity:set'
 
 export const CREATE_ROUTE = 'gps:route:create'
 export const DELETE_ROUTE = 'gps:route:delete'
+export const DELETE_SYSTEM = 'gps:system:delete'
 export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
 export const GPS_FAVORITE = 'gps:favorites:add'
 export const GPS_SEARCH = 'gps:search'
