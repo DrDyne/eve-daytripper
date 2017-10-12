@@ -41,14 +41,16 @@ const Root = props => (<div className="app">
 
 </div>)
 
-const mapStateToProps = state => state.layout
+const mapStateToProps = state => state
 export default withRouter(connect(mapStateToProps)(Root))
 
 
 import {
+  Avatar,
   Divider,
   Drawer,
   Toolbar,
+  Typography,
 } from 'material-ui'
 import PasteRecipient from './components/PasteRecipient'
 const Test = props => {
@@ -62,6 +64,8 @@ const Test = props => {
     }
   }
 
+  const { char } = props
+
   return (<div style={classes.appFrame}>
     <Drawer type="persistent"
       open={true}
@@ -73,14 +77,33 @@ const Test = props => {
       <div style={{
         width: '100%',
       }}>
+
         <Toolbar
           disableGutters
           style={{
             width: drawerWidth
         }}>
-          close
+          <div style={{
+              padding: 5,
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+            <Avatar
+              alt={char.name}
+              src={char.portrait}
+              style={{
+                width: 64,
+                height: 64,
+                marginRight: 5,
+              }}
+              />
+            <Typography type="body2">
+              {char.name}
+            </Typography>
+          </div>
         </Toolbar>
-        <Divider />
+
         <div style={{
             height: '100%',
             width: drawerWidth
