@@ -15,34 +15,48 @@ import style from './side-to-side.css'
 export const SideToSideLayout = props => {
   const { activeTab } = props
   return 0 === activeTab
-  ? (<Grid container className={style.root}>
-    <Grid item xs={12} sm={7} md={6}>
+  ? (<div style={{
+      display: 'flex',
+    }}>
+    <div style={{
+      flexGrow: 1,
+      padding: 15
+    }}>
       <LootListHeader />
       <LootList />
       <LootListFooter />
-    </Grid>
+    </div>
 
-    <Grid item xs={12} sm={5} md={6}>
+    <div style={{
+      flexGrow: 1,
+      padding: 15
+    }}>
       <StockListHeader />
       <StockList />
-    </Grid>
-  </Grid>)
+    </div>
+  </div>)
 
   : 1 === activeTab
-  ? (<Grid container className={style.root}>
-    <Grid item xs={12}>
+  ? (<div style={{display: 'flex'}}>
+    <div style={{
+      flexGrow: 1,
+      padding: 15
+    }}>
       <StockListHeader />
       <StockList />
-    </Grid>
-  </Grid>)
+    </div>
+  </div>)
 
   : 2 === activeTab
-  ? (<Grid container className={style.root}>
-    <Grid item xs={12}>
+  ? (<div style={{display: 'flex'}}>
+    <div style={{
+      flexGrow: 1,
+      padding: 15
+    }}>
       <LootListHeader />
       <LootList />
-    </Grid>
-  </Grid>)
+    </div>
+  </div>)
 
   : null
 }

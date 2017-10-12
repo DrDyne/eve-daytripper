@@ -1,9 +1,11 @@
 import * as layout from './layout'
 import * as inventory from './inventory'
+import * as gps from './gps'
 
 export {
+  inventory,
   layout,
-  inventory
+  gps,
 }
 
 export const SET_BREADCRUMBS = 'breadcrumbs:set'
@@ -22,6 +24,7 @@ export const SET_STOCK = 'stock:set'
 export const REMOVE_STOCK = 'stock:remove'
 
 export const INPUT_PASTE = 'input:paste'
+export const INPUT_PASTE_DONE = 'input:paste:done'
 export const UNDO_PASTE = 'paste:undo'
 export const LOAD_INVENTORY = 'inventory:load'
 export const SAVE_INVENTORY = 'inventory:save'
@@ -33,6 +36,16 @@ export const JUMP_TO = 'system:set'
 export const BOARD_SHIP = 'ship:set'
 export const SET_CAPACITY = 'capacity:set'
 
+export const CREATE_ROUTE = 'gps:route:create'
+export const DELETE_ROUTE = 'gps:route:delete'
+export const DELETE_SYSTEM = 'gps:system:delete'
+export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
+export const GPS_FAVORITE = 'gps:favorites:add'
+export const GPS_SEARCH = 'gps:search'
+export const GPS_BUSY = 'gps:busy'
+export const GPS_BUSY_DONE = 'gps:busy:done'
+
+export const CLEAR_ROUTE_HISTORY = 'history:routes:clear'
 
 export const setBreadcrumbs = items => ({
   type: SET_BREADCRUMBS,
@@ -61,6 +74,10 @@ export const inputPaste = clipboard => ({
   type: INPUT_PASTE,
   clipboard,
   raw: clipboard.getData('Text')
+})
+
+export const inputPasteDone = () => ({
+  type: INPUT_PASTE_DONE,
 })
 
 export const setStock = ({id, name, qty}) => ({
@@ -144,4 +161,13 @@ export const setCapacity = m3 => ({
 export const saveInventory = inventory => ({
   type: SAVE_INVENTORY,
   inventory
+})
+
+export const deleteRouteByOrigin = origin => ({
+  type: GPS_DELETE_ROUTE,
+  origin
+})
+
+export const clearRouteHistory = () => ({
+  type: CLEAR_ROUTE_HISTORY
 })

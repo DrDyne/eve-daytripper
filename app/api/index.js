@@ -1,10 +1,10 @@
 import { soundex } from './utils'
 import inventory from './inventory'
-import map from './map'
+import gps from './gps'
 import user from './user'
 
 export default {
   inventory,
   user,
-  map,
+  gps,
 }

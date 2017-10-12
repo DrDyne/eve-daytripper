@@ -1,6 +1,10 @@
 import React from 'react'
 import style from './style.scss'
+import { Redirect } from 'react-router-dom'
+import Collapse from 'material-ui/transitions/Collapse'
 import {
+  Paper,
+  LinearProgress,
   Typography
 } from 'material-ui'
 
@@ -21,7 +25,7 @@ export class PasteRecipient extends React.Component {
 
   render () {
     const { hovered, focused, pasted } = this.state
-    const { parsedItems } = this.props
+    const { parsedItems, parsedSystem, busy } = this.props
     const css = {
       root: {
         background: !hovered
@@ -34,7 +38,7 @@ export class PasteRecipient extends React.Component {
       },
     }
 
-    return (<div className={style.root}
+    return (<Paper className={style.root}
       style={css.root}
       onPaste={this.paste}>
       <div id={style.recipient}
@@ -48,6 +52,9 @@ export class PasteRecipient extends React.Component {
           </Typography>
         </div>) }
       </div>
-    </div>)
+      <Collapse in={busy}>
+        <LinearProgress mode="query" />
+      </Collapse>
+    </Paper>)
   }
 }

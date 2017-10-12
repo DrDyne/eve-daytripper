@@ -22,13 +22,13 @@ const muiTheme = createMuiTheme()
 
 const WrappedRoot = (<AppContainer>
   <Provider store={store}>
-  <Router>
   <MuiThemeProvider theme={muiTheme}>
   <I18nextProvider i18n={I18n}>
+  <Router>
     <Root />
+  </Router>
   </I18nextProvider>
   </MuiThemeProvider>
-  </Router>
   </Provider>
 </AppContainer>)
 

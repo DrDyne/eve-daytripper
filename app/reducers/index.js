@@ -6,6 +6,7 @@ import { history } from './history'
 import { user } from './user'
 import { char } from './char'
 import { fleet } from './fleet'
+import { gps } from './gps'
 
 const Reducers = combineReducers({
   layout,
@@ -15,6 +16,7 @@ const Reducers = combineReducers({
   history,
   user,
   char,
+  gps,
 })
 
 export default Reducers
