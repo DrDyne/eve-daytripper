@@ -11,6 +11,7 @@ import { SystemSecAvatar } from '../../../SystemSecAvatar'
 export class Menu extends React.Component {
   state = {
     confirmDeleteDestinationFromFavorites: false,
+    confirmDeleteSystemHistory: false,
   }
 
   toggleConfirm = action => () => {
@@ -26,11 +27,11 @@ export class Menu extends React.Component {
 
   render () {
     const { route, gps, layout } = this.props
-    const { addFavorite, deleteFavorite, deleteRoute } = this.props
+    const { addFavorite, deleteFavorite, deleteRoute, deleteHistory } = this.props
     const { anchor, show, onRequestClose } = this.props
 
     const { origin, destination } = route
-    const isFavorite = gps.favorites.find(fav => fav.id === destination.id)
+    const isFavorite = gps.favorites.some(fav => fav.id === destination.id)
 
     const AddFavoriteListItem = ({system}) => (
       <ListItem
@@ -44,7 +45,7 @@ export class Menu extends React.Component {
         <ListItemIcon>
           <StarBorder  style={{fill: '#F50057'}} />
         </ListItemIcon>
-        <ListItemText primary="set favorite" />
+        <ListItemText primary="Set favorite" />
       </ListItem>
     )
 
@@ -76,15 +77,36 @@ export class Menu extends React.Component {
       </Collapse>
     </div>)
 
-    const DeleteFromHistoryListItem = ({system}) => ( <ListItem button>
-      <ListItemIcon>
-        <DeleteSweep />
-      </ListItemIcon>
-      <ListItemText
-        primary={<span><SystemSecAvatar system={origin} />{origin.name}</span>}
-        secondary="from history"
-      />
-    </ListItem> )
+    const DeleteFromHistoryListItem = ({system}) => {
+      return <div>
+        <ListItem
+          button
+          onClick={this.toggleConfirm('DeleteSystemHistory')}>
+        <ListItemIcon>
+          <DeleteSweep />
+        </ListItemIcon>
+        <ListItemText
+          primary={<span><SystemSecAvatar system={system} />{system.name}</span>}
+          secondary="from history"
+        />
+      </ListItem>
+        <Collapse
+          in={this.state.confirmDeleteSystemHistory}
+          transitionDuration="auto"
+          unmountOnExit
+        >
+          <ListItem button dense style={{textAlign: 'right'}}
+            onClick={() => {
+              deleteHistory(system)
+              this.resetConfirmations()
+              onRequestClose()
+            }}
+          >
+            <ListItemText inset primary="Confirm" />
+          </ListItem>
+        </Collapse>
+      </div>
+    }
 
     const DeleteRouteListItem = props => {
       const { route } = props
@@ -93,7 +115,7 @@ export class Menu extends React.Component {
       return ( <ListItem
           button
           onClick={deleteRoute(origin, destination)}
-          disabled={gps.favorites.some(fav => fav.id === destination.id)}
+          disabled={isFavorite}
         >
           <ListItemIcon>
             <Delete />
@@ -112,29 +134,37 @@ export class Menu extends React.Component {
       onRequestClose()
     }}>
 
+      { !isFavorite &&
       <DeleteRouteListItem route={route}/>
+      }
+
 
       <ListSubheader>
         <SystemSecAvatar system={origin} />{origin.name}
       </ListSubheader>
 
-      { gps.favorites.find(fav => fav.id === origin.id)
-      ? <DeleteFavoriteListItem system={origin} />
-      : <AddFavoriteListItem system={origin} />
+      { !gps.favorites.find(fav => fav.id === origin.id)
+      ? <AddFavoriteListItem system={origin} />
+      : 'Jita' === origin.name
+      ? null
+      : <DeleteFavoriteListItem system={origin} />
       }
 
-      { destination.name !== 'Jita' && <div>
-        <DeleteFromHistoryListItem system={origin} />
+      <DeleteFromHistoryListItem system={origin} />
 
+      { 'Jita' !== destination.name && <div>
         <ListSubheader>
           <SystemSecAvatar system={destination} />{destination.name}
         </ListSubheader>
 
-        { gps.favorites.find(fav => fav.id === destination.id)
-        ? <DeleteFavoriteListItem system={destination} />
-        : <AddFavoriteListItem system={destination} />
+        { !isFavorite
+        ? <AddFavoriteListItem system={destination} />
+        : <DeleteFavoriteListItem system={destination} />
         }
+
+        <DeleteFromHistoryListItem system={destination} />
       </div> }
+
     </MuiMenu>
   }
 }
