@@ -6,6 +6,7 @@ import {
   GPS_SEARCH,
   CREATE_ROUTE,
   DELETE_ROUTE,
+  DELETE_SYSTEM,
   CLEAR_ROUTE_HISTORY,
 } from '../actions'
 
@@ -99,6 +100,15 @@ export const deleteRoute = (state, {origin, destination}) => {
   return Object.assign({}, state, { routes })
 }
 
+export const deleteSystem = (state, {system}) => {
+  const routes = state.routes.filter(r => {
+    return (r.origin.id !== system.id)
+    && (r.destination.id !== system.id)
+  })
+
+  return Object.assign({}, state, { routes })
+}
+
 export const gps = (state=initialState, action) => {
   switch(action.type) {
 
@@ -106,6 +116,8 @@ export const gps = (state=initialState, action) => {
       return createRoute(state, action)
     case DELETE_ROUTE:
       return deleteRoute(state, action)
+    case DELETE_SYSTEM:
+      return deleteSystem(state, action)
     case CLEAR_ROUTE_HISTORY:
       return Object.assign(state, {routes: []})
     case GPS_SEARCH:
