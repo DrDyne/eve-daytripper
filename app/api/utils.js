@@ -7,6 +7,7 @@ const blacklist = [
   '#',
   `\\`,
 ]
+export const isWormhole = name => /^J[0-9]{6}$/.test(name.toUpperCase())
 
 export const soundex = (str) => {
   let chars = str.toLowerCase().split('')

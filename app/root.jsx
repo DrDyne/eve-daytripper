@@ -30,7 +30,7 @@ const Root = props => (<div className="app">
       }}>
         <AppBar />
 
-        <Route path="/home/route" component={Gps} />
+        <Route path="/home/nav" component={Gps} />
 
         <AppContent style={{width: '100%'}} />
 
@@ -120,7 +120,7 @@ const Test = props => {
     }}>
 
       <section>
-        <Route path="/home/route" component={() => (<Toolbar disableGutters>
+        <Route path="/home/nav" component={() => (<Toolbar disableGutters>
           <Gps />
         </Toolbar>)} />
 

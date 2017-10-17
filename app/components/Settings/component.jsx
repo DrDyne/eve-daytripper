@@ -53,7 +53,7 @@ export class Settings extends React.Component {
 
       <ListItem divider />
 
-      <Link to="/home/route">
+      <Link to="/home/nav">
         <ListItem button>
           <ListItemIcon>
             <Navigation />
@@ -62,7 +62,7 @@ export class Settings extends React.Component {
         </ListItem>
       </Link>
 
-      <Route path="/home/route" render={props => (<ListItem
+      <Route path="/home/nav" render={props => (<ListItem
         button
         onClick={toggleFavoriteRoutes}>
         <ListItemIcon>
@@ -76,7 +76,7 @@ export class Settings extends React.Component {
         </ListItemSecondaryAction>
       </ListItem>) } />
 
-      <Route path="/home/route" render={props => (<ListItem
+      <Route path="/home/nav" render={props => (<ListItem
         button
         onClick={toggleSafestShortestRoutes}>
         <ListItemIcon>
@@ -91,19 +91,19 @@ export class Settings extends React.Component {
         />
       </ListItem> )} />
 
-      <Route path="/home/route" component={RoutesHistory} />
+      <Route path="/home/nav" component={RoutesHistory} />
 
       <Route render={({history}) => ( <Collapse in={this.state.confirmClearRoutesHistory}>
           <ListItem dense button onClick={() => {
             clearHistory()
             this.setState({confirmClearRoutesHistory: false})
-            history.push('/home/route')
+            history.push('/home/nav')
           }}>
             <ListItemText primary="confirm" style={{textAlign: 'right'}}/>
           </ListItem>
       </Collapse> )} />
 
-      <Route path="/home/route" render={() => ( <ListItem
+      <Route path="/home/nav" render={() => ( <ListItem
         button
         disabled={!origins.length}
         onClick={() => {

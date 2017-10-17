@@ -8,6 +8,7 @@ import {
   SAVE_INVENTORY,
   GPS_BUSY,
   GPS_BUSY_DONE,
+  GPS_IDENTIFIED_SYSTEM,
 } from '../actions'
 import { parseClipboardFromGameClientToJson } from './utils'
 
@@ -109,13 +110,16 @@ export const history = (state=initialState, action) => {
       return createRoute(state, action)
 
     case CLEAR_ROUTE_HISTORY:
-      return Object.assign(state, { routes: [], origins: [] })
+      return Object.assign({}, state, { routes: [], origins: [] })
 
     case GPS_BUSY:
-      return Object.assign(state, { busy: true })
+      return Object.assign({}, state, { busy: true })
 
     case GPS_BUSY_DONE:
-      return Object.assign(state, { busy: false })
+      return Object.assign({}, state, { busy: false })
+
+    case GPS_IDENTIFIED_SYSTEM:
+      return Object.assign({}, state, { origins: [...state.origins, action.system]})
   }
 
   return state

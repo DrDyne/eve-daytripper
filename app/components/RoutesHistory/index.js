@@ -23,6 +23,8 @@ export const mapStateToProps = state => ({
     : memo.concat(route)
   }, []),
   systems: state.history.origins,
+  favorites: state.gps.favorites,
+  wormholes: state.history.origins.filter(({sec}) => -0.99 === sec),
   showShortestRoutes: state.layout.showShortestRoutes
 })
 

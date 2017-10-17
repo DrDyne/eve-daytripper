@@ -35,7 +35,7 @@ export class ControlInputs extends React.Component {
     }}>
 
       <Route
-        path="/home/route"
+        path="/home/nav"
         render={() => <div style={{
             width: '100%',
             display: 'flex'

@@ -1,3 +1,7 @@
+import {
+  isWormhole
+} from './utils'
+
 let cache = {
   baseUrl: 'https://drdyne.github.io/eve-daytripper',
   identified: {},
@@ -43,7 +47,7 @@ export const identify = name => {
 
     cache.identified[Name] = {
       id: solarSystemID,
-      Name: solarSystemName,
+      name: solarSystemName,
       sec: security
     }
     return cache.identified[Name]
@@ -53,6 +57,12 @@ export const identify = name => {
 const Jita = '30000142'
 const Hek = '30002053'
 export const route = (origin, destination, options={shortest, safest}) => {
+  if ( isWormhole(origin.name) )
+    return Promise.reject({"error":"No route found", isWormhole: 'origin'})
+
+  if ( isWormhole(destination.name) )
+    return Promise.reject({"error":"No route found", isWormhole: 'destination'})
+
   const flag = options.shortest
   ? 'shortest'
   : options.safest

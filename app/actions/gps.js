@@ -1,6 +1,7 @@
 import {
   GPS_BUSY,
   GPS_BUSY_DONE,
+  GPS_IDENTIFIED_SYSTEM,
   GPS_SEARCH,
   GPS_FAVORITE,
   GPS_FAVORITE_REMOVE,
@@ -9,7 +10,6 @@ import {
   DELETE_SYSTEM,
 } from './index.js'
 
-export const isWormhole = name => /^J[0-9]{6}$/.test(name)
 export const matchRoute = (origin, system) => route => ((route.origin.id === origin.id) && (route.destination.id === system.id))
 
 const byOriginId = id => route => route.origin.id === id
@@ -82,7 +82,11 @@ export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
 
   if ( raw.length > 25 ) return
 
-  return api.gps.identify(raw)
+  return api.gps.identify(raw.trim())
+  .then(origin => {
+    dispatch(addOriginToHistory(origin))
+    return origin
+  })
   .then(origin => {
     return routes.find(byOriginId(origin.id))
     ? Promise.reject('route already exists') // at least, its origin.
@@ -117,6 +121,8 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
   ])
   .then(([origin, destination]) => {
     console.log('search successful, now create route', [origin, destination])
+
+    dispatch(addOriginToHistory(origin))
     return dispatch(createRoute(origin, destination))
   })
   .then(route => {
@@ -134,3 +140,8 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
   })
   .then(() => dispatch(gpsBusyDone()))
 }
+
+export const addOriginToHistory = system => ({
+  type: GPS_IDENTIFIED_SYSTEM,
+  system
+})
