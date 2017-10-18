@@ -96,10 +96,9 @@ export const identify = name => {
 
 export const identifyWormhole = system => {
   console.log(system)
-  const whid = wormholeId(system)
 
   return Promise.all([
-    whStaticsCache(),
+    whStaticsCache(wormholeId(system)),
     whSignaturesCache(),
     whEffectsCache(),
   ])
