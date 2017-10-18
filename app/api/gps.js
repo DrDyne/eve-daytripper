@@ -1,20 +1,59 @@
 import {
-  isWormhole
+  isWormhole,
+  wormholeId
 } from './utils'
 
 let cache = {
-  baseUrl: 'https://drdyne.github.io/eve-daytripper',
+  baseUrl: 'https://drdyne.github.io/eve-daytripper/static',
   identified: {},
-  mapSolarSystems: []
+  mapSolarSystems: [],
+  wh: {
+    effects: null,
+    signatures: null,
+    statics: {},
+  }
 }
 
-export const mapSolarSystemsCache = () => {
+const mapSolarSystemsCache = () => {
   return ( cache.mapSolarSystems.length )
   ? Promise.resolve(cache.mapSolarSystems)
-  : fetch(cache.baseUrl + `/static/mapSolarSystems.json`)
+  : fetch(cache.baseUrl + `/mapSolarSystems.json`)
   .then(response => response.json())
   .then(json => {
     cache.mapSolarSystems = json
+    return json
+  })
+}
+
+const whSignaturesCache = () => {
+  return ( cache.wh.signatures )
+  ? Promise.resolve(cache.wh.signatures)
+  : fetch(cache.baseUrl + '/wh/signatures.json')
+  .then(response => response.json())
+  .then(json => {
+    cache.wh.signatures = json
+    return json
+  })
+}
+
+const whEffectsCache = () => {
+  return ( cache.wh.effects )
+  ? Promise.resolve(cache.wh.effects)
+  : fetch(cache.baseUrl + '/wh/effects.json')
+  .then(response => response.json())
+  .then(json => {
+    cache.wh.effects = json
+    return json
+  })
+}
+
+const whStaticsCache = id => {
+  return ( cache.wh.statics[id] )
+  ? Promise.resolve(cache.wh.statics[id])
+  : fetch(`${cache.baseUrl}/wh/statics/${id}.json`)
+  .then(response => response.json())
+  .then(json => {
+    cache.wh.statics[id] = json
     return json
   })
 }
@@ -52,6 +91,24 @@ export const identify = name => {
     }
     return cache.identified[Name]
   })
+  .then(system => isWormhole(system.name) ? identifyWormhole(system) : system)
+}
+
+export const identifyWormhole = system => {
+  console.log(system)
+  const whid = wormholeId(system)
+
+  return Promise.all([
+    whStaticsCache(),
+    whSignaturesCache(),
+    whEffectsCache(),
+  ])
+  .then(([statics, signatures, effects]) => {
+    console.log(system, statics, signatures, effects)
+
+    return system
+  })
+
 }
 
 const Jita = '30000142'
