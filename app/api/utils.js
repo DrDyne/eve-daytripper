@@ -8,6 +8,7 @@ const blacklist = [
   `\\`,
 ]
 export const isWormhole = name => /^J[0-9]{6}$/.test(name.toUpperCase())
+export const wormholeId = system => system.name.toUpperCase().replace(/[J-]/g, '').split('').reduce((sum, i) => sum+parseInt(i), 0)
 
 export const soundex = (str) => {
   let chars = str.toLowerCase().split('')
