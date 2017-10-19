@@ -98,14 +98,20 @@ export const identifyWormhole = system => {
   console.log(system)
 
   return Promise.all([
-    whStaticsCache(wormholeId(system)),
+    whStaticsCache(wormholeId(system))
+    .then(statics => statics[system.name] || []),
     whSignaturesCache(),
-    whEffectsCache(),
+    whEffectsCache(wormholeId(system))
+    .then(effects => effects[system.name])
   ])
   .then(([statics, signatures, effects]) => {
     console.log(system, statics, signatures, effects)
 
-    return system
+    return Object.assign(system, {
+      wormhole: true,
+      statics: statics.map(sig => Object.assign({ sig }, signatures[sig] || {})),
+      effects,
+    })
   })
 
 }
