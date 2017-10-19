@@ -8,7 +8,8 @@ let cache = {
   identified: {},
   mapSolarSystems: [],
   wh: {
-    effects: null,
+    effectlabels: null,
+    effects: {},
     signatures: null,
     statics: {},
   }
@@ -36,18 +37,50 @@ const whSignaturesCache = () => {
   })
 }
 
-const whEffectsCache = () => {
-  return ( cache.wh.effects )
-  ? Promise.resolve(cache.wh.effects)
-  : fetch(cache.baseUrl + '/wh/effects.json')
-  .then(response => response.json())
-  .then(json => {
-    cache.wh.effects = json
-    return json
+const whEffectsCache = system => {
+  const id = wormholeId(system)
+
+  const effectLabels = cache.wh.effectLabels
+    ? Promise.resolve(cache.wh.effectLabels)
+    : fetch(cache.baseUrl + '/wh/effects.json')
+    .then(response => response.json())
+    .then(json => {
+      cache.wh.effectLabels = json
+      return json
+    })
+
+  const whEffect = cache.wh.effects[id]
+    ? Promise.resolve(cache.wh.effects)
+    : fetch(cache.baseUrl + `/wh/effects/${id}.json`)
+    .then(response => {
+      if ( !response.ok ) throw 'no-effect'
+      return response.json()
+    })
+    .then(json => {
+      cache.wh.effects[id] = json
+      return json
+    })
+    .catch(err => {
+      if ( 'no-effect' === err )
+        return Promise.resolve({})
+      throw err
+    })
+
+  return Promise.all([
+    effectLabels,
+    whEffect
+  ])
+  .then(([labels, effects]) => {
+    if ( !effects[system.name] ) return
+
+    return {
+      [effects[system.name]]: labels[effects[system.name]]
+    }
   })
 }
 
-const whStaticsCache = id => {
+const whStaticsCache = system => {
+  const id = wormholeId(system)
   return ( cache.wh.statics[id] )
   ? Promise.resolve(cache.wh.statics[id])
   : fetch(`${cache.baseUrl}/wh/statics/${id}.json`)
@@ -98,20 +131,22 @@ export const identifyWormhole = system => {
   console.log(system)
 
   return Promise.all([
-    whStaticsCache(wormholeId(system))
+    whStaticsCache(system)
     .then(statics => statics[system.name] || []),
     whSignaturesCache(),
-    whEffectsCache(wormholeId(system))
-    .then(effects => effects[system.name])
+    whEffectsCache(system)
   ])
-  .then(([statics, signatures, effects]) => {
-    console.log(system, statics, signatures, effects)
+  .then(([statics, signatures, effect]) => {
+    console.log(system, statics, signatures, effect)
 
     return Object.assign(system, {
       wormhole: true,
       statics: statics.map(sig => Object.assign({ sig }, signatures[sig] || {})),
-      effects,
-    })
+    },
+      effect
+      ? { effect }
+      : null
+    )
   })
 
 }
