@@ -6,16 +6,16 @@ const makePath = filename => `docs/static/wh/statics/${filename}.json`
 console.log('>>> whstatics to chunks (checksum: 2603)')
 console.log(`>> ${Object.keys(json).length} wormholes`)
 
-const whs = Object.keys(json).map(id => {
-  const sum = id.toUpperCase().replace(/[J-]/g, '').split('').reduce((sum, i) => sum+parseInt(i), 0)
-  return { id, sum }
+const whs = Object.keys(json).map(name => {
+  const sum = name.toUpperCase().replace(/[J-]/g, '').split('').reduce((sum, i) => sum+parseInt(i), 0)
+  return { name, sum }
 })
-.reduce((memo, {id, sum}) => {
+.reduce((memo, {name, sum}) => {
   //return Object.assign(memo, { [sum]: (memo[sum] + 1) || 1 })
   if ( !memo[sum] )
-    memo[sum] = { [id]: json[id] }
+    memo[sum] = { [name]: json[name] }
   else
-    memo[sum][id] = json[id]
+    memo[sum][name] = json[name]
 
   return memo
 }, {})

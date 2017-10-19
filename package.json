@@ -12,7 +12,8 @@
     "update-default-reg": "npm update --registry=https://registry.npmjs.org",
     "typeids-to-chunks": "babel-node npm-scripts/typeids-to-chunks",
     "typeids-to-names": "babel-node npm-scripts/typeids-to-names",
-    "wh-statics": "babel-node npm-scripts/whstatics-to-chunks"
+    "wh-statics": "babel-node npm-scripts/whstatics-to-chunks",
+    "wh-effects": "babel-node npm-scripts/universe-to-wheffects"
   },
   "repository": {
     "type": "git",
