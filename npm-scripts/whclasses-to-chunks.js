@@ -21,17 +21,17 @@ const fileContent = wormholes
   return {
     id: system[WH_ID],
     name: system[WH_NAME].toUpperCase(),
-    wClass: system[WH_CLASS],
+    jClass: system[WH_CLASS],
   }
 })
-.map(({id, name, wClass}) => {
+.map(({id, name, jClass}) => {
   const sum = name.toUpperCase().replace(/[J-]/g, '').split('').reduce((sum, i) => sum+parseInt(i), 0) || '@'
-  return { id, name, sum, wClass }
+  return { id, name, sum, jClass }
 })
-.reduce((memo, {name, sum, wClass}) => {
+.reduce((memo, {name, sum, jClass}) => {
   ( !memo[sum] )
-  ? memo[sum] = { [name]: wClass }
-  : memo[sum][name] = wClass
+  ? memo[sum] = { [name]: jClass }
+  : memo[sum][name] = jClass
   return memo
 }, {})
 //console.log(fileContent, '... <- fileContent')

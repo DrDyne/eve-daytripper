@@ -12,6 +12,7 @@ let cache = {
     effects: {},
     signatures: null,
     statics: {},
+    jClasses: {},
   }
 }
 
@@ -79,6 +80,18 @@ const whEffectsCache = system => {
   })
 }
 
+const whJClassesCache = system => {
+  const id = wormholeId(system)
+  return ( cache.wh.jClasses[id] )
+  ? Promise.resolve(cache.wh.jClasses[id])
+  : fetch(`${cache.baseUrl}/wh/classes/${id}.json`)
+  .then(res => res.json())
+  .then(json => {
+    cache.wh.jClasses[id] = json
+    return json
+  })
+}
+
 const whStaticsCache = system => {
   const id = wormholeId(system)
   return ( cache.wh.statics[id] )
@@ -134,13 +147,16 @@ export const identifyWormhole = system => {
     whStaticsCache(system)
     .then(statics => statics[system.name] || []),
     whSignaturesCache(),
+    whJClassesCache(system)
+    .then(jClasses => jClasses[system.name]),
     whEffectsCache(system)
   ])
-  .then(([statics, signatures, effect]) => {
-    console.log(system, statics, signatures, effect)
+  .then(([statics, signatures, jClass, effect]) => {
+    console.log(system, statics, signatures, jClass, effect)
 
     return Object.assign(system, {
-      wormhole: true,
+      wormhole: true, //TODO: rename this key to "wh"
+      jClass,
       statics: statics.map(sig => Object.assign({ sig }, signatures[sig] || {})),
     },
       effect
