@@ -13,7 +13,8 @@
     "typeids-to-chunks": "babel-node npm-scripts/typeids-to-chunks",
     "typeids-to-names": "babel-node npm-scripts/typeids-to-names",
     "wh-statics": "babel-node npm-scripts/whstatics-to-chunks",
-    "wh-effects": "babel-node npm-scripts/universe-to-wheffects"
+    "wh-effects": "babel-node npm-scripts/universe-to-wheffects",
+    "wh-classes": "babel-node npm-scripts/whclasses-to-chunks"
   },
   "repository": {
     "type": "git",
