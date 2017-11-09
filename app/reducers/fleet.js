@@ -3,41 +3,31 @@ import {
   FLEET_ASSIGN,
   FLEET_INVITE,
   FLEET_KICK,
-  FLEET_SET_COMMANDER,
-} from '../actions'
+  FLEET_SET_COMMANDER
+} from '../actions/fleet'
 
 export const initialState = {
-  commander: {},
+  commander: null,
   members: []
 }
 
-export const createCommander = ({id, name, portrait}, type) => ({
+export const createMember = ({id, name}, role) => ({
   id,
   name,
-  portrait,
-  role: 'commander',
-  type: type || 'explorer'
-})
-
-export const createMember = ({id, name, portrait}, type) => ({
-  id,
-  name,
-  portrait,
-  role: 'member',
-  type: type || 'explorer',
+  role: role || 'explorer',
 })
 
 export const addMember = (state, action) => {
-  const member = createMember(action)
-  return Object.assign({}, state, {
-    members: state.members.push(member)
-  })
+  const { id, name, role } = action
+  const member = createMember({id, name}, role)
+  const members = [...state.members, member]
+  return Object.assign({}, state, { members })
 }
 
 export const assign = (state, action) => {
-  const { id, type } = action
+  const { id, role } = action
   if ( id === state.commander.id ) {
-    const commander = createCommander(state.commander, type)
+    const commander = createCommander(state.commander, role)
     return Object.assign({}, state, { commander })
   }
 
@@ -45,7 +35,7 @@ export const assign = (state, action) => {
   return Object.assign({}, state, {
     members: state.members.map(m => {
       if ( id !== m.id ) return m
-      return Object.assign(m, {type})
+      return Object.assign(m, {role})
     })
   })
 }
@@ -56,8 +46,12 @@ export const kick = (state, id) => {
   })
 }
 
+export const assignCommander = (state, id) => {
+  return Object.assign({}, state, { commander: id })
+}
+
 export const fleet = (state=initialState, action) => {
-  const { id, type } = action
+  const { id, role } = action
 
   switch (action.type) {
     case FLEET_ADD_MEMBER:
@@ -73,8 +67,7 @@ export const fleet = (state=initialState, action) => {
       return kick(state, id)
 
     case FLEET_SET_COMMANDER:
-      const commander = createCommander(action)
-      return Object.assign({}, state, { commander })
+      return assignCommander(state, id)
   }
 
   return state

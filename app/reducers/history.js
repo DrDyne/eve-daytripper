@@ -1,15 +1,18 @@
 import {
-  CREATE_ROUTE,
   CLEAR_ROUTE_HISTORY,
   INPUT_PASTE,
   INPUT_PASTE_DONE,
   INSPECT_ITEM,
   UNDO_PASTE,
   SAVE_INVENTORY,
+} from '../actions'
+
+import {
+  CREATE_ROUTE,
   GPS_BUSY,
   GPS_BUSY_DONE,
   GPS_IDENTIFIED_SYSTEM,
-} from '../actions'
+} from '../actions/gps'
 import { parseClipboardFromGameClientToJson } from './utils'
 
 export const initialState = {

@@ -1,16 +1,15 @@
-import {
-  GPS_BUSY,
-  GPS_BUSY_DONE,
-  GPS_IDENTIFIED_SYSTEM,
-  GPS_SEARCH,
-  GPS_FAVORITE,
-  GPS_FAVORITE_REMOVE,
-  CREATE_ROUTE,
-  DELETE_ROUTE,
-  DELETE_SYSTEM,
-} from './index.js'
+export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
+export const GPS_FAVORITE = 'gps:favorites:add'
+export const GPS_SEARCH = 'gps:search'
+export const GPS_BUSY = 'gps:busy'
+export const GPS_BUSY_DONE = 'gps:busy:done'
+export const GPS_IDENTIFIED_SYSTEM = 'gps:identified:system'
 
-export const matchRoute = (origin, system) => route => ((route.origin.id === origin.id) && (route.destination.id === system.id))
+export const CREATE_ROUTE = 'gps:route:create'
+export const DELETE_ROUTE = 'gps:route:delete'
+export const DELETE_SYSTEM = 'gps:system:delete'
+
+const matchRoute = (origin, system) => route => ((route.origin.id === origin.id) && (route.destination.id === system.id))
 
 const byOriginId = id => route => route.origin.id === id
 

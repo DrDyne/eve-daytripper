@@ -1,11 +1,15 @@
 import * as layout from './layout'
 import * as inventory from './inventory'
 import * as gps from './gps'
+import * as user from './user'
+import * as fleet from './fleet'
 
 export {
   inventory,
+  fleet,
   layout,
   gps,
+  user,
 }
 
 export const SET_BREADCRUMBS = 'breadcrumbs:set'
@@ -30,21 +34,10 @@ export const LOAD_INVENTORY = 'inventory:load'
 export const SAVE_INVENTORY = 'inventory:save'
 export const UPDATE_INVENTORY_FROM_PASTE = 'inventory:update'
 
-export const SAVE_CREDENTIALS = 'user:credentials:save'
 export const SET_CHAR_INFO = 'char:set'
 export const JUMP_TO = 'system:set'
 export const BOARD_SHIP = 'ship:set'
 export const SET_CAPACITY = 'capacity:set'
-
-export const CREATE_ROUTE = 'gps:route:create'
-export const DELETE_ROUTE = 'gps:route:delete'
-export const DELETE_SYSTEM = 'gps:system:delete'
-export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
-export const GPS_FAVORITE = 'gps:favorites:add'
-export const GPS_SEARCH = 'gps:search'
-export const GPS_BUSY = 'gps:busy'
-export const GPS_BUSY_DONE = 'gps:busy:done'
-export const GPS_IDENTIFIED_SYSTEM = 'gps:identified:system'
 
 export const CLEAR_ROUTE_HISTORY = 'history:routes:clear'
 
@@ -129,29 +122,45 @@ export const showInfoDialog = id => (dispatch, getState, {api}) => {
 }
 
 export const oauthCallback = creds => (dispatch, getState, {api}) => {
-  return api.user.authenticate(creds.access_token)
-  .then(json => ({
-    id: json.CharacterID,
-    name: json.CharacterName,
-  }))
-  // then sign-in to cognito using json.id, return {id, name}
-  .then(({id, name}) => {
-    dispatch(setCharacterInfo({id, name}))
-    dispatch(saveCredentials(creds))
+
+  return api.user.ccpIdentify(creds.access_token)
+  .then(json => {
+    console.log('auth success', json)
+    return {
+      id: json.CharacterID,
+      name: json.CharacterName,
+    }
   })
-  .catch(console.error.bind('oauth err'))
+  .then(character => {
+    dispatch(setCharacterInfo(character))
+
+    // save new characterId to cognito profile instead
+    //api.user.cognitoIdentify(character)
+    //.then(cognitoCreds => {
+    //  console.log(cognitoCreds,
+    //    cognitoCreds.getAccessToken(),
+    //    cognitoCreds.getAccessToken().getJwtToken()
+    //  )
+    //})
+    //// .then( load app state from /inventory
+    //.catch(err => {
+    //  console.error(err)
+    //  throw err
+    //})
+
+
+    return character
+  })
+  .catch(err => {
+    console.error('oauth err', err)
+    throw err
+  })
 }
 
 export const setCharacterInfo = ({id, name}) => ({
   type: SET_CHAR_INFO,
   id,
   name,
-})
-
-export const saveCredentials = ({access_token, expires_in}) => ({
-  type: SAVE_CREDENTIALS,
-  token: access_token,
-  expires: expires_in,
 })
 
 export const setCapacity = m3 => ({

@@ -40,7 +40,7 @@ export const AppBar = ({toggleSettingsMenu, char}) => {
       </Toolbar>
 
       <PasteRecipient />
-      
+
     </MuiAppBar>
   </div>)
 }

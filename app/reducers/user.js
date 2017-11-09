@@ -1,15 +1,13 @@
-import { SAVE_CREDENTIALS } from '../actions'
+import {
+  SAVE_CREDENTIALS
+} from '../actions/user'
 
 export const initialState = {
-  cognitoId: null,
-  token: null,
-  expires: null,
-  type: 'Bearer'
+  Authorization: null
 }
 
 export const user = (state=initialState, action) => {
   if ( SAVE_CREDENTIALS !== action.type ) return state
 
-  const { token, expires } = action
-  return Object.assign({}, state, { token, expires })
+  return Object.assign({}, state, { Authorization: action.token })
 }

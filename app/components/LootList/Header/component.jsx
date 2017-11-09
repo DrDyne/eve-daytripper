@@ -19,8 +19,8 @@ export class Header extends React.Component {
     //TODO check layout.showPostPasteActions instead of delta total isk
     const nextTotal = nextProps.inventory.total
     console.log(nextTotal, this.props.inventory.total, nextTotal.isk !== this.props.inventory.total.isk)
-    if ( nextTotal.isk !== this.props.inventory.total.isk )
-      this.setState({ showPostPasteActions: true })
+    //if ( nextTotal.isk !== this.props.inventory.total.isk )
+    //  this.setState({ showPostPasteActions: true })
   }
 
   render () {

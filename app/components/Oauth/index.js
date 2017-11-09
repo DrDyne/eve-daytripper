@@ -5,9 +5,7 @@ import { Oauth } from './component'
 
 
 export const mapStateToProps = state => ({
-  id: state.char.id,
-  name: state.char.name,
-  portrait: state.char.portrait
+  char: state.char
 })
 
 export const mapDispatchToProps = dispatch => ({

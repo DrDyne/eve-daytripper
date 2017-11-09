@@ -12,8 +12,10 @@ import * as utils from '../utils'
 
 export const RouteCard = ({showShortestRoutes, route, favorites}) => {
   const { systems, jumps } = route[showShortestRoutes ? 'shortest' : 'safest']
-  return <Card>
-  <CardContent>
+  return (<Card>
+  <CardContent style={{
+    paddingBottom: 0
+  }}>
     <div style={{
         display: 'flex',
         flexDirection: 'row',
@@ -54,4 +56,4 @@ export const RouteCard = ({showShortestRoutes, route, favorites}) => {
       <RouteMenu route={route} />
     </div>
   </CardActions>
-</Card> }
+</Card>) }

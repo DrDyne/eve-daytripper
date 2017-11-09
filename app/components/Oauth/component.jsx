@@ -14,6 +14,7 @@ export const parseCredentials = hash => {
   //... hence, forget about CCP's access token and use CognitoId's instead
 export class Oauth extends React.Component {
   componentWillMount () {
+    console.log('here')
     const { id, authenticate } = this.props
     if ( !id ) {
       const creds = parseCredentials(location.hash)
@@ -22,7 +23,7 @@ export class Oauth extends React.Component {
   }
 
   render () {
-    const { name, portrait } = this.props
+    const { name, portrait, isAuthenticated } = this.props
     return (<div>
       <p>
         Welcome {name}, loading your inventory...
@@ -34,6 +35,7 @@ export class Oauth extends React.Component {
         <a href="/login"> login </a>
         <a href="/home"> home </a>
       </div>
+      { isAuthenticated && <Redirect to="/home" /> }
     </div>)
   }
 }
