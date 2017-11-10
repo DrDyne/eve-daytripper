@@ -8,7 +8,7 @@ import {
 } from 'material-ui/List'
 
 export const FleetMemberListItem = props => {
-  const { id, name, role } = props.item
+  const { id, name, role } = props.data
   const src = `http://image.eveonline.com/Character/${id}_64.jpg`
 
   return (

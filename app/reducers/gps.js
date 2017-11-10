@@ -3,13 +3,12 @@ import {
   GPS_FAVORITE_REMOVE,
   GPS_AVOID,
   GPS_AVOID_REMOVE,
-  GPS_SEARCH,
   CREATE_ROUTE,
   DELETE_ROUTE,
   DELETE_SYSTEM,
 } from '../actions/gps'
 
-import { 
+import {
   CLEAR_ROUTE_HISTORY,
 } from '../actions'
 
@@ -33,10 +32,6 @@ export const initialState = {
   }],
   avoidance: [],
   routes: [],
-  search: {
-    origin: '',
-    destination: '',
-  }
 }
 
 export const createRoute = (state, action) => {
@@ -67,16 +62,6 @@ export const createRoute = (state, action) => {
     shortest,
   }, ...state.routes]
   return Object.assign({}, state, { routes })
-}
-
-export const search = (state, action) => {
-  const { origin, destination } = action
-  const search = {
-    origin: origin || state.origin,
-    destination: destination || state.destination,
-  }
-
-  return Object.assign({}, state, { search })
 }
 
 export const addFavorite = (state, {system}) => {
@@ -114,7 +99,6 @@ export const deleteSystem = (state, {system}) => {
 
 export const gps = (state=initialState, action) => {
   switch(action.type) {
-
     case CREATE_ROUTE:
       return createRoute(state, action)
     case DELETE_ROUTE:
@@ -123,8 +107,6 @@ export const gps = (state=initialState, action) => {
       return deleteSystem(state, action)
     case CLEAR_ROUTE_HISTORY:
       return Object.assign(state, {routes: []})
-    case GPS_SEARCH:
-      return search(state, action)
     case GPS_FAVORITE:
       return addFavorite(state, action)
     case GPS_FAVORITE_REMOVE:

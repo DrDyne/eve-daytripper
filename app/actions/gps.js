@@ -1,6 +1,5 @@
 export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
 export const GPS_FAVORITE = 'gps:favorites:add'
-export const GPS_SEARCH = 'gps:search'
 export const GPS_BUSY = 'gps:busy'
 export const GPS_BUSY_DONE = 'gps:busy:done'
 export const GPS_IDENTIFIED_SYSTEM = 'gps:identified:system'
@@ -13,26 +12,14 @@ const matchRoute = (origin, system) => route => ((route.origin.id === origin.id)
 
 const byOriginId = id => route => route.origin.id === id
 
-export const deleteFavorite = system => ({
-  type: GPS_FAVORITE_REMOVE,
-  system
-})
+export const deleteFavorite = system => ({ type: GPS_FAVORITE_REMOVE, system })
+export const deleteRoute = (origin, destination) => ({ type: DELETE_ROUTE, origin, destination })
+export const deleteHistory = system => ({ type: DELETE_SYSTEM, system })
+export const saveRoute = systems => ({ type: CREATE_ROUTE, systems })
+const gpsBusy = () => ({ type: GPS_BUSY })
+const gpsBusyDone = () => ({ type: GPS_BUSY_DONE })
+export const addOriginToHistory = system => ({ type: GPS_IDENTIFIED_SYSTEM, system })
 
-export const deleteRoute = (origin, destination) => ({
-  type: DELETE_ROUTE,
-  origin,
-  destination
-})
-
-export const deleteHistory = system => ({
-  type: DELETE_SYSTEM,
-  system
-})
-
-export const saveRoute = systems => ({
-  type: CREATE_ROUTE,
-  systems
-})
 
 export const addFavorite = system => (dispatch, getState, {api}) => {
   dispatch({ type: GPS_FAVORITE, system })
@@ -102,14 +89,7 @@ export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
   })
 }
 
-export const searchOrigin = origin => ({ type: GPS_SEARCH, origin })
-export const searchDestination = destination => ({ type: GPS_SEARCH, destination })
-const gpsBusy = () => ({ type: GPS_BUSY })
-const gpsBusyDone = () => ({ type: GPS_BUSY_DONE })
-
 export const search = (origin, destination) => (dispatch, getState, {api}) => {
-  //if ( origin ) dispatch(searchOrigin(origin))
-  //if ( destination ) dispatch(searchDestination(destination))
   const { layout } = getState
 
   dispatch(gpsBusy())
@@ -139,8 +119,3 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
   })
   .then(() => dispatch(gpsBusyDone()))
 }
-
-export const addOriginToHistory = system => ({
-  type: GPS_IDENTIFIED_SYSTEM,
-  system
-})

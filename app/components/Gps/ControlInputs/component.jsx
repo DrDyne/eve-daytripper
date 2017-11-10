@@ -27,16 +27,16 @@ export class ControlInputs extends React.Component {
   }
 
   render () {
-    // working on parsing gpsControlinputs
-    return <div style={{
+    return (<div style={{
       display: 'flex',
       flexGrow: '1',
       justifyContent: 'center',
     }}>
 
       <Route
-        path="/home/nav"
-        render={() => <div style={{
+        path="/home"
+        render={() => (
+          <div style={{
             width: '100%',
             display: 'flex'
           }}>
@@ -51,9 +51,10 @@ export class ControlInputs extends React.Component {
               label="To"
               style={{ flexGrow: 1 }}
             />
-          </div>}
+          </div>
+        )}
       />
 
-    </div>
+    </div>)
   }
 }

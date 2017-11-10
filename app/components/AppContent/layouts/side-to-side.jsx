@@ -20,7 +20,8 @@ export const SideToSideLayout = props => {
     }}>
     <div style={{
       flexGrow: 1,
-      padding: 15
+      padding: 15,
+      paddingTop: 0,
     }}>
       <LootListHeader />
       <LootList />
@@ -29,7 +30,8 @@ export const SideToSideLayout = props => {
 
     <div style={{
       flexGrow: 1,
-      padding: 15
+      padding: 15,
+      paddingTop: 0,
     }}>
       <StockListHeader />
       <StockList />

@@ -18,21 +18,21 @@ import * as utils from './utils'
 export const Gps = props => {
   const { match, favorites, routes, origins, layout } = props
 
-  return (<Paper elevation={8} style={{
+  return (<Paper style={{
     marginBottom: 2,
     width: '100%',
   }}>
     <Toolbar style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignContent: 'stretch',
+      display: 'flex',
+      flexDirection: 'row',
+      alignContent: 'stretch',
     }}>
       <GpsControlInputs style={{
-          display: 'flex',
-          flexGrow: '1',
-          justifyContent: 'center',
+        display: 'flex',
+        flexGrow: '1',
+        justifyContent: 'center',
       }} />
-      <GpsCloseButton />
+      <Route path="/home/nav" component={GpsCloseButton} />
     </Toolbar>
 
     <div style={{
@@ -44,7 +44,7 @@ export const Gps = props => {
         return origin ? <OriginCard system={origin} /> : null
       }} />
 
-      <Route path="/home/nav/:origin" render={({match}) => {
+      <Route exact path="/home/nav/:origin" render={({match}) => {
         const origin = origins.find(({name}) => name === match.params.origin)
         return origin ? (<div style={{
           display: 'flex',
@@ -143,7 +143,7 @@ export const Gps = props => {
       <RoutesToFavorites favorites={favorites} routes={routes} origin={match.params.origin} />
     )} /> }
 
-    <Route path="/home/nav/" exact render={() => (<OriginsHistory origins={origins}/>)} />
+    <Route path="/home" exact render={() => (<OriginsHistory origins={origins}/>)} />
 
   </Paper>)
 }

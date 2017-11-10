@@ -11,35 +11,19 @@ import {
 } from './layouts'
 import style from './style.scss'
 
-export class AppContent extends React.Component {
-  state = {
-    activeTab: 0,
-  }
+export const AppContent = props => {
+  //const { activeTab } = this.state
+  const { layout, activeTab } = props
 
-  changeTab = (event, tabIndex) => {
-    this.setState({activeTab: tabIndex})
-  }
+  return (<Paper className={style.root}>
+    { 'tabs' === layout.contentLayout &&
+      <TabsLayout {...props} />
+    }
 
-  render () {
-    const { activeTab } = this.state
-    const { layout } = this.props
+    { 'side-to-side' === layout.contentLayout &&
+      <SideToSideLayout {...props} />
+    }
 
-    return (<Paper className={style.root}>
-      <Tabs value={activeTab} onChange={this.changeTab}>
-        <Tab label="Total" />
-        <Tab label="Stock" />
-        <Tab label="Loot" />
-      </Tabs>
-
-      { 'tabs' === layout.contentLayout &&
-        <TabsLayout {...this.props} {...this.state}/>
-      }
-
-      { 'side-to-side' === layout.contentLayout &&
-        <SideToSideLayout {...this.props} {...this.state} />
-      }
-
-      <InfoDialog />
-    </Paper>)
-  }
+    <InfoDialog />
+  </Paper>)
 }

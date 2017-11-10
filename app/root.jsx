@@ -81,11 +81,9 @@ const Test = props => {
         width: '100%',
       }}>
 
-        
-
         <div style={{
-            height: '100%',
-            width: drawerWidth
+          height: '100%',
+          width: drawerWidth
         }}>
           <Settings />
         </div>
@@ -99,13 +97,13 @@ const Test = props => {
     }}>
 
       <section>
-        <Route path="/home/nav" component={() => (<Toolbar disableGutters>
-          <Gps />
-        </Toolbar>)} />
-
         <Toolbar disableGutters>
           <PasteRecipient />
         </Toolbar>
+
+        <Route path="/home" component={() => (<Toolbar disableGutters>
+          <Gps />
+        </Toolbar>)} />
       </section>
 
       <section>

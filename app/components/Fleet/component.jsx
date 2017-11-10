@@ -3,15 +3,18 @@ import { Button } from 'material-ui'
 import { ListItem } from 'material-ui/List'
 import { FleetMemberListItem } from './FleetMemberListItem'
 
-export const Fleet = props => {
-  const { testLoadCharacter } = props
-  const { members } = props
+export class Fleet extends React.Component {
 
-  return (<div>
-    <ListItem button onClick={testLoadCharacter}>
-      Test load character
-    </ListItem>
+  componentDidMount () {
+    const { loadFleet } = this.props
+    loadFleet()
+  }
 
-    { members.map(m => <FleetMemberListItem item={m} key={m.id}/>) }
-  </div>)
+  render () {
+    const { members } = this.props
+
+    return (<div>
+      { members.map(m => <FleetMemberListItem data={m} key={m.id}/>) }
+    </div>)
+  }
 }

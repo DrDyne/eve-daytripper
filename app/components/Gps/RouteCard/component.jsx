@@ -14,24 +14,26 @@ export const RouteCard = ({showShortestRoutes, route, favorites}) => {
   const { systems, jumps } = route[showShortestRoutes ? 'shortest' : 'safest']
   return (<Card>
   <CardContent style={{
-    paddingBottom: 0
+    paddingBottom: 0,
+    paddingTop: 8
   }}>
     <div style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        borderBottom: '1px solid #eee',
     }}>
       { favorites.find(fav => fav === route.origin.name) &&
-        <Typography type="headline" component="h2">
+        <Typography type="subheading">
           route.origin.name
         </Typography>
       }
 
-      <Typography type="headline" component="h2">
+      <Typography type="subheading">
         {jumps}
       </Typography>
 
-      <Typography type="headline" component="h2">
+      <Typography type="subheading">
         {route.destination.name}
       </Typography>
     </div>
@@ -39,7 +41,9 @@ export const RouteCard = ({showShortestRoutes, route, favorites}) => {
     <div style={{display: 'flex', flexDirection: 'column'}}>
       <Typography type="caption" style={{marginBottom: 6}}> { route.origin.name} </Typography>
       <RoutePath systems={systems} />
+      { /*
       <Typography type="caption" style={{textAlign: 'right'}}> { route.destination.name} </Typography>
+      */ }
     </div>
   </CardContent>
   <CardActions>

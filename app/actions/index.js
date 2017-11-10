@@ -41,73 +41,25 @@ export const SET_CAPACITY = 'capacity:set'
 
 export const CLEAR_ROUTE_HISTORY = 'history:routes:clear'
 
-export const setBreadcrumbs = items => ({
-  type: SET_BREADCRUMBS,
-  items
-})
-
-export const setBreadcrumbsColor = color => ({
-  type: SET_BREADCRUMBS_COLOR,
-  color
-})
-
-export const changeTab = activeTab => ({
-  type: CHANGE_TAB,
-  activeTab
-})
-
-export const toggleSettingsMenu = () => ({
-  type: SETTINGS_MENU_TOGGLE
-})
-
-export const swapListLayout = () => ({
-  type: SWAP_STOCK_AND_LOOT_LISTS
-})
-
-export const inputPaste = clipboard => ({
-  type: INPUT_PASTE,
-  clipboard,
-  raw: clipboard.getData('Text')
-})
-
-export const inputPasteDone = () => ({
-  type: INPUT_PASTE_DONE,
-})
-
-export const setStock = ({id, name, qty}) => ({
-  type: SET_STOCK,
-  id, name, qty
-})
-
-export const setItemQty = ({id, name, qty}) => ({
-  type: SET_ITEM_QTY,
-  id, name, qty
-})
-
-export const addOrUpdateItem = ({id, name, qty, m3, isk}) => ({
-  type: ADD_ITEM,
-  id, name, qty, m3, isk
-})
-
-export const deleteItem = ({name}) => ({
-  type: DELETE_ITEM,
-  name
-})
-
-export const setItemInfo = (item, info) => ({
-  type: SET_ITEM_INFO,
-  name: item.name,
-  info
-})
-
-export const inspectItem = item => ({
-  type: INSPECT_ITEM,
-  item
-})
-
-export const closeInspect = () => ({
-  type: INSPECT_CLOSE
-})
+export const setBreadcrumbs = items => ({ type: SET_BREADCRUMBS, items })
+export const setBreadcrumbsColor = color => ({ type: SET_BREADCRUMBS_COLOR, color })
+export const changeTab = activeTab => ({ type: CHANGE_TAB, activeTab })
+export const toggleSettingsMenu = () => ({ type: SETTINGS_MENU_TOGGLE })
+export const swapListLayout = () => ({ type: SWAP_STOCK_AND_LOOT_LISTS })
+export const inputPaste = clipboard => ({ type: INPUT_PASTE, clipboard, raw: clipboard.getData('Text') })
+export const inputPasteDone = () => ({ type: INPUT_PASTE_DONE, })
+export const setStock = ({id, name, qty}) => ({ type: SET_STOCK, id, name, qty })
+export const setItemQty = ({id, name, qty}) => ({ type: SET_ITEM_QTY, id, name, qty })
+export const addOrUpdateItem = ({id, name, qty, m3, isk}) => ({ type: ADD_ITEM, id, name, qty, m3, isk })
+export const deleteItem = ({name}) => ({ type: DELETE_ITEM, name })
+export const setItemInfo = (item, info) => ({ type: SET_ITEM_INFO, name: item.name, info })
+export const inspectItem = item => ({ type: INSPECT_ITEM, item })
+export const closeInspect = () => ({ type: INSPECT_CLOSE })
+export const setCharacterInfo = ({id, name}) => ({ type: SET_CHAR_INFO, id, name, })
+export const setCapacity = m3 => ({ type: SET_CAPACITY, m3, })
+export const saveInventory = inventory => ({ type: SAVE_INVENTORY, inventory })
+export const deleteRouteByOrigin = origin => ({ type: GPS_DELETE_ROUTE, origin })
+export const clearRouteHistory = () => ({ type: CLEAR_ROUTE_HISTORY })
 
 export const showInfoDialog = id => (dispatch, getState, {api}) => {
   const { inventory } = getState()
@@ -156,28 +108,3 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
     throw err
   })
 }
-
-export const setCharacterInfo = ({id, name}) => ({
-  type: SET_CHAR_INFO,
-  id,
-  name,
-})
-
-export const setCapacity = m3 => ({
-  type: SET_CAPACITY,
-  m3,
-})
-
-export const saveInventory = inventory => ({
-  type: SAVE_INVENTORY,
-  inventory
-})
-
-export const deleteRouteByOrigin = origin => ({
-  type: GPS_DELETE_ROUTE,
-  origin
-})
-
-export const clearRouteHistory = () => ({
-  type: CLEAR_ROUTE_HISTORY
-})

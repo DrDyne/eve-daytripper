@@ -12,9 +12,17 @@ export const RoutesToFavorites = props => {
     { favorites
       .map(fav => routes.find(byName(origin, fav.name)))
       .filter(route => !!route)
-      .map(route => <Grid item xs={12} sm={6} md={3} key={`${route.origin.id}-${route.destination.id}`}>
-        <RouteCard route={route} />
-      </Grid>)
+      .map(route => (
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={3}
+          key={`${route.origin.id}-${route.destination.id}`}
+        >
+          <RouteCard route={route} />
+        </Grid>
+      ))
     }
   </Grid>)
 }

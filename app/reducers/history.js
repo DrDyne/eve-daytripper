@@ -13,6 +13,7 @@ import {
   GPS_BUSY_DONE,
   GPS_IDENTIFIED_SYSTEM,
 } from '../actions/gps'
+
 import { parseClipboardFromGameClientToJson } from './utils'
 
 export const initialState = {

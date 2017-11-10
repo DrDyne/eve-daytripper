@@ -9,13 +9,13 @@ import * as utils from '../utils'
 export const RoutePath = ({systems}) => {
   const short = utils.shortRoute(systems)
 
-  return <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center'
+  return (<div style={{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center'
   }}>
     { short.systems.map(s => {
-      return <div
+      return (<div
         key={`${s.class}:${s.jumps}:${s.systems[0].name}-${s.systems.slice().pop().name}`}
         style={{
           display: 'flex',
@@ -24,14 +24,14 @@ export const RoutePath = ({systems}) => {
           alignItems: 'center',
         }}
       >
-        <Typography type="body2">
+        <Typography type="caption">
           {s.class}
         </Typography>
 
         <Avatar className={utils.secCssId(s.worstSec)}>
           {s.jumps}
         </Avatar>
-      </div>
+      </div>)
     }) }
-  </div>
+  </div>)
 }

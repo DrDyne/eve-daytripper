@@ -12,7 +12,7 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   //WIP Button
-  testLoadCharacter: () => {
+  loadFleet: () => {
     api.user.getFleet()
     .then(fleet => {
       console.log('fleet', fleet)
