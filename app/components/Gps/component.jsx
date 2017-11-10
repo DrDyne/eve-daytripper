@@ -114,17 +114,9 @@ export const Gps = props => {
           </Button>
         </div>
 
-        <Typography type="caption">
-          origin
-        </Typography>
         <Button href={`http://evemaps.dotlan.net/route/${origin.name}:${destination.name}`} target="_blank">
-          {origin.name} / <Typography type="headline">
-            {jumps}
-          </Typography> / {destination.name}
+          route ({jumps})
         </Button>
-        <Typography type="caption">
-          destination
-        </Typography>
 
         <div>
           <Button href={`http://evemaps.dotlan.net/system/${destination.name}`} target="_blank">

@@ -12,7 +12,7 @@ import * as utils from '../utils'
 
 export const RouteCard = ({showShortestRoutes, route, favorites}) => {
   const { systems, jumps } = route[showShortestRoutes ? 'shortest' : 'safest']
-  return (<Card>
+  return (<Card elevation={0}>
   <CardContent style={{
     paddingBottom: 0,
     paddingTop: 8
