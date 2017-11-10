@@ -15,9 +15,6 @@ export const RoutesToFavorites = props => {
       .map(route => (
         <Grid
           item
-          xs={12}
-          sm={6}
-          md={3}
           key={`${route.origin.id}-${route.destination.id}`}
         >
           <RouteCard route={route} />

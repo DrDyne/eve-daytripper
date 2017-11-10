@@ -25,8 +25,6 @@ export const DestinationCard = ({system}) => (<Card elevation={0} raised={false}
       }}>
         <div style={{
           display: 'flex',
-          alignItems: 'baseline',
-          paddingTop: 10
         }} >
           <Typography type="headline" style={{marginRight: 10}}>
             {system.name}

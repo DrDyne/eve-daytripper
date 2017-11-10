@@ -31,11 +31,13 @@ export const OriginCard = ({system}) => (<Card raised={false} elevation={0}>
           <Typography type="headline" style={{marginRight: 10}}>
             {system.name}
           </Typography>
+          {/*
           <TextField
             label="K162"
             style={{
               width: 40,
           }} />
+          */}
         </div>
         <Typography type="caption">
           <SystemSecAvatar system={system} />
