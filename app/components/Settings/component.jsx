@@ -98,7 +98,7 @@ export class Settings extends React.Component {
               !layout.inventoryVisibility && (
                 0 === activeTab
                 ? 'total'
-                : 1 === activeTab
+                : 2 === activeTab
                 ? 'loot'
                 : 'stock'
               )
@@ -120,20 +120,20 @@ export class Settings extends React.Component {
         <ListItem
           button
           dense
-          onClick={changeTab(1)}
+          onClick={changeTab(2)}
           style={{ paddingLeft: 32 }}
         >
-          <Avatar style={inventoryStyle[1]}> $ </Avatar>
+          <Avatar style={inventoryStyle[2]}> $ </Avatar>
           <ListItemText primary="Loot"/>
         </ListItem>
 
         <ListItem
           button
           dense
-          onClick={changeTab(2)}
+          onClick={changeTab(1)}
           style={{ paddingLeft: 32 }}
         >
-          <Avatar style={inventoryStyle[2]}> <ShoppingCart /> </Avatar>
+          <Avatar style={inventoryStyle[1]}> <ShoppingCart /> </Avatar>
           <ListItemText primary="Stock"/>
         </ListItem>
 
