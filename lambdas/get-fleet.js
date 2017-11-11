@@ -1,31 +1,12 @@
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
+import * as utils from './utils'
 
 exports.handler = (event, context, done) => {
-    const username = event.requestContext.authorizer.claims['cognito:username']
+  const username = event.requestContext.authorizer.claims['cognito:username']
 
-    getFleet(username)
-    .then(fleet => {
-      done(null, {
-        statusCode: 200,
-        body: JSON.stringify(fleet),
-        headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' }
-      })
-    })
-}
-
-const getFleet = id => {
-
-  return new Promise((resolve, reject) => {
-    s3.getObject({
-        Bucket: "eve-daytripper-fleets",
-        Key: id + '.json'
-    }, (err, data) => {
-       if ( err ) reject(err)
-       resolve(data)
-    })
+  utils.getFleet(username)
+  .then(fleet => {
+    done(null, utils.response.json(fleet))
   })
-  .then(data => data.Body.toString())
 }
 
 function errorResponse(errorMessage, awsRequestId, callback) {
