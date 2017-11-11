@@ -1,5 +1,6 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 
 module.exports = {
   entry: {
@@ -14,6 +15,9 @@ module.exports = {
   externals: {
     'aws-sdk': 'commonjs aws-sdk'
   },
+  plugins: [
+    new UglifyJSPlugin()
+  ],
   output: {
     filename: '[name].lambda.js',
     path: path.resolve(__dirname, 'dist')
