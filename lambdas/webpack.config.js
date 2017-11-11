@@ -1,15 +1,15 @@
 const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-
 module.exports = {
   entry: {
     getFleet: './get-fleet.js',
     getInventory: './get-inventory.js',
+    getGps: './get-gps.js',
   },
   loader: {
     test: /\.js$/,
-    exclude: /(aws-sdk|node_modules|bower_components|public\/)/,
+    exclude: /(node_modules|bower_components|public\/)/,
     loader: "babel-loader"
   },
   externals: {
