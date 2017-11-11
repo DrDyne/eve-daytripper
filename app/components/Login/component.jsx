@@ -1,6 +1,5 @@
 import React from 'react'
 import style from './style.css'
-import { Grid } from 'material-ui'
 import {
   Route
 } from 'react-router-dom'
@@ -9,6 +8,11 @@ import {
   LoginForm,
   SignupForm,
 } from './Forms'
+import {
+  Grid,
+  List,
+  ListItem,
+} from 'material-ui'
 
 export class Login extends React.Component {
   state = {
@@ -17,6 +21,8 @@ export class Login extends React.Component {
     showForm: 'signup',
     confirmPassword: '',
     email: '',
+
+    $focused: '',
   }
 
   validCredentials = () => {
@@ -34,32 +40,61 @@ export class Login extends React.Component {
   }
 
   render () {
-    const { username, password, rememberMe } = this.state
+    const { username, password } = this.state
 
-    return (<Grid container className={style.root}>
-      <Route render={({history}) => ( <SignupForm
-        onChange={this.onChange}
-        {...this.props}
-        signup={() => {
-          const { username, password, confirmPassword, email } = this.state
-          if ( password !== confirmPassword ) return
-          if ( !this.passwordStrongEnough(password) ) return
-          if ( username.length < 4 ) return
-          if ( !email ) return
+    return (<div className={style.root}>
 
-          this.props.signup(username, password, email)
-        }} />
-      )} />
+      <LoginBranding />
 
-      <Route render={({history}) => ( <LoginForm
-        onChange={this.onChange}
-        {...this.props}
-        login={() => {
-          const { username, password } = this.state
-          this.props.login(username, password)
-          .then(() => history.push('/home'))
-        }} />
-      )} />
-    </Grid>)
+      <Grid container spacing={24} style={{
+        width: 600,
+        margin: '0 auto',
+      }}>
+        <Grid item style={{
+          flexGrow: 'signup' === this.state.focused ? 0 : 1
+        }}>
+          <Route render={({history}) => ( <LoginForm
+            onChange={this.onChange}
+            {...this.props}
+            login={() => {
+              const { username, password } = this.state
+              this.props.login(username, password)
+              .then(() => history.push('/home'))
+            }} />
+          )} />
+        </Grid>
+
+        <Grid item style={{
+          flexGrow: 'login' === this.state.focused ? 0 : 1,
+        }}>
+          <Route render={({history}) => ( <SignupForm
+            onChange={this.onChange}
+            {...this.props}
+            signup={() => {
+              const { username, password, confirmPassword, email } = this.state
+              if ( password !== confirmPassword ) return
+              if ( !this.passwordStrongEnough(password) ) return
+              if ( username.length < 4 ) return
+              if ( !email ) return
+
+              this.props.signup(username, password, email)
+            }} />
+          )} />
+        </Grid>
+      </Grid>
+
+    </div>)
   }
+}
+
+import {
+  Typography
+} from 'material-ui'
+const LoginBranding = props => {
+  return (<Typography type="display4" style={{
+    textAlign: 'center',
+    marginBottom: '0.5em',
+  }}>
+    Eve-daytripper
+  </Typography>)
 }

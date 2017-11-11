@@ -1,5 +1,7 @@
 import React from 'react'
 import {
+  Card,
+  CardContent,
   List,
   ListItem,
   ListItemText,
@@ -12,7 +14,7 @@ import style from './style.css'
 export const SignupForm = props => {
   const { onChange, signup } = props
 
-  return (<List
+  return (<Card><CardContent><List
     className={style.signupForm}
   >
     <ListItem>
@@ -20,6 +22,7 @@ export const SignupForm = props => {
         label="Username"
         name="username"
         onChange={onChange}
+        fullWidth
       />
     </ListItem>
 
@@ -29,6 +32,7 @@ export const SignupForm = props => {
         type="password"
         name="password"
         onChange={onChange}
+        fullWidth
       />
     </ListItem>
 
@@ -38,6 +42,7 @@ export const SignupForm = props => {
         name="confirmPassword"
         type="password"
         onChange={onChange}
+        fullWidth
       />
     </ListItem>
 
@@ -47,11 +52,12 @@ export const SignupForm = props => {
         helperText="Only used to reset your password"
         name="email"
         onChange={onChange}
+        fullWidth
       />
     </ListItem>
 
     <ListItem button onClick={signup}>
       Sign up
     </ListItem>
-  </List>)
+  </List></CardContent></Card>)
 }

@@ -1,5 +1,7 @@
 import React from 'react'
 import {
+  Card,
+  CardContent,
   Checkbox,
   List,
   ListItem,
@@ -12,7 +14,7 @@ import style from './style.css'
 export const LoginForm = props => {
   const { rememberMe } = props
   const { onChange, toggleRememberMe, login, signup } = props
-  return (<List
+  return (<Card><CardContent><List
     className={style.loginForm}
   >
     <ListItem>
@@ -20,6 +22,7 @@ export const LoginForm = props => {
         label="Username"
         name="username"
         onChange={onChange}
+        fullWidth
       />
     </ListItem>
 
@@ -29,6 +32,7 @@ export const LoginForm = props => {
         type="password"
         name="password"
         onChange={onChange}
+        fullWidth
       />
     </ListItem>
 
@@ -47,5 +51,5 @@ export const LoginForm = props => {
     <ListItem button onClick={() => console.log('reset password')}>
       Reset password
     </ListItem>
-  </List>)
+  </List></CardContent></Card>)
 }
