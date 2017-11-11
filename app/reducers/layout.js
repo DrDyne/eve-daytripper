@@ -17,10 +17,16 @@ import {
   TOGGLE_SIDE_NAVIGATION,
 } from '../actions/layout'
 
+import {
+  GPS_BUSY,
+  GPS_BUSY_DONE,
+} from '../actions/gps'
+
 const STOCK_POS_LEFT = 'left'
 const STOCK_POS_RIGHT = 'right'
 
 export const initialState = {
+  gpsBusy: false,
   contentLayout: 'side-to-side', // 'side-to-side', 'tabs'
   stockListPosition: STOCK_POS_LEFT,
   settingsMenuOpen: false,
@@ -99,6 +105,8 @@ export const layout = (state=initialState, action) => {
     case TOGGLE_SIDE_FLEET: return toggleFleetVisibility(state)
     case TOGGLE_SIDE_INVENTORY: return toggleInventoryVisibility(state)
     case TOGGLE_SIDE_NAVIGATION: return toggleNavigationVisibility(state)
+    case GPS_BUSY: return Object.assign({}, state, { gpsBusy: true })
+    case GPS_BUSY_DONE: return Object.assign({}, state, { gpsBusy: false })
   }
   return state
 }

@@ -4,19 +4,18 @@ import { TextField } from 'material-ui'
 
 export class ControlInputs extends React.Component {
   state = {
-    search: {
-      origin: '',
-      destination: '',
-    },
+    origin: '',
+    destination: '',
   }
 
   onChange = target => event => {
-    const search = Object.assign({}, this.state.search, { [target]: event.target.value })
-    this.setState({ search }, this.search)
+    const search = Object.assign({}, this.state, { [target]: event.target.value })
+    const { origin, destination } = search
+    this.setState({ origin, destination }, this.search)
   }
 
   search = () => {
-    const { origin, destination } = this.state.search
+    const { origin, destination } = this.state
     console.log('searching...', origin, '/', destination)
 
     if ( origin.length < 3 ) return

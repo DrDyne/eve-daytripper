@@ -9,15 +9,12 @@ import {
 
 import {
   CREATE_ROUTE,
-  GPS_BUSY,
-  GPS_BUSY_DONE,
   GPS_IDENTIFIED_SYSTEM,
 } from '../actions/gps'
 
 import { parseClipboardFromGameClientToJson } from './utils'
 
 export const initialState = {
-  busy: false,
   lastPasted: {
     raw: '',
     items: [],
@@ -28,11 +25,6 @@ export const initialState = {
       isk: 0,
       m3: 0,
     }
-  },
-  lastOrigin: {
-    id: null,
-    name: null,
-    sec: null
   },
   paste: [],
   inventory: [],
@@ -70,10 +62,18 @@ export const createRoute = (state, action) => {
   })
 }
 
+export const addSystemToOrigins = (state, action) => {
+  const { system } = action
+  const byName = name => s => name === s.name
+  const origins = state.origins.find(byName(system.name))
+  ? state.origins
+  : [...state.origins, action.system]
+
+  return Object.assign({}, state, { origins })
+}
+
 export const history = (state=initialState, action) => {
   switch (action.type) {
-    case INPUT_PASTE_DONE:
-      return Object.assign({}, state, {busy: false})
 
     case INPUT_PASTE:
       const { raw } = action
@@ -82,7 +82,6 @@ export const history = (state=initialState, action) => {
 
       console.log({date,items,raw})
       return Object.assign({}, state, {
-        busy: true,
         lastPasted: {
           date,
           items,
@@ -116,14 +115,8 @@ export const history = (state=initialState, action) => {
     case CLEAR_ROUTE_HISTORY:
       return Object.assign({}, state, { routes: [], origins: [] })
 
-    case GPS_BUSY:
-      return Object.assign({}, state, { busy: true })
-
-    case GPS_BUSY_DONE:
-      return Object.assign({}, state, { busy: false })
-
     case GPS_IDENTIFIED_SYSTEM:
-      return Object.assign({}, state, { origins: [...state.origins, action.system]})
+      return addSystemToOrigins(state, action)
   }
 
   return state

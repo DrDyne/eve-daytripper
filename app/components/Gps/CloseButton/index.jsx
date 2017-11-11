@@ -7,3 +7,5 @@ export const CloseButton = withRouter(({history}) => (
 <IconButton onClick={() => history.push('/home')}>
   <Close />
 </IconButton>))
+
+export default CloseButton
