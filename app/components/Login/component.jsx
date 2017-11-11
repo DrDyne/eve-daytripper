@@ -83,6 +83,9 @@ export class Login extends React.Component {
         </Grid>
       </Grid>
 
+      <footer>
+        This application has been created under the EVE Developer License Agreement.
+      </footer>
     </div>)
   }
 }

@@ -245,12 +245,21 @@ export class Settings extends React.Component {
         </ListItem>
       )} />
 
-      <ListItem button dense>
-        <Avatar>
-          <ExitToApp />
-        </Avatar>
-        <ListItemText secondary="SIGN OUT" />
-      </ListItem>
+      <Route render={({history}) => (
+        <ListItem
+          button
+          dense
+          onClick={() => {
+            console.log('//do addition signout logic here...')
+            history.push('/login')
+          }}
+        >
+          <Avatar>
+            <ExitToApp />
+          </Avatar>
+          <ListItemText secondary="SIGN OUT" />
+        </ListItem>
+      )} />
 
     </List>)}
   }

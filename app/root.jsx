@@ -41,7 +41,6 @@ const Root = props => (<div className="app">
       */}
     </div> )} />
   </Switch>
-
 </div>)
 
 const mapStateToProps = state => state
@@ -109,6 +108,11 @@ const Test = props => {
       <section>
         <AppContent style={{width: '100%'}} />
       </section>
+
+      <footer>
+        This application has been created under the EVE Developer License Agreement.
+      </footer>
+
     </main>
   </div>)
 }
