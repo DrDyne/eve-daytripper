@@ -38,8 +38,6 @@ import RoutesHistory from '../RoutesHistory'
 export class Settings extends React.Component {
   state = {
     confirmClearRoutesHistory: false,
-    fleetVisibility: false,
-    navSettingsVisibility: false,
   }
 
   render () {
@@ -51,6 +49,9 @@ export class Settings extends React.Component {
       activeTab,
       toggleFavoriteRoutes,
       toggleSafestShortestRoutes,
+      toggleInventoryVisibility,
+      toggleFleetVisibility,
+      toggleNavigationVisibility,
       clearHistory,
       changeTab
     } = this.props
@@ -64,28 +65,25 @@ export class Settings extends React.Component {
       width: this.props.width,
       height: '100%',
     }} >
-      <ListItem button dense onClick={() => {
-        const fleetVisibility = !this.state.fleetVisibility
-        this.setState({ fleetVisibility })
-      }}>
+      <ListItem button dense onClick={toggleFleetVisibility}>
         <Avatar> <Group /> </Avatar>
         <ListItemText
           primary="FLEET"
-          secondary={ this.state.fleetVisibility && `${fleet.members.length} members` }
+          secondary={ !layout.fleetVisibility && (
+            1 === fleet.members.length
+            ? fleet.members[0].name
+            : `${fleet.members.length} members`
+          ) }
         />
       </ListItem>
 
-      <Collapse in={!this.state.fleetVisibility}>
+      <Collapse in={layout.fleetVisibility}>
         <Fleet />
         <ListItem divider />
       </Collapse>
 
       <Route render={({history}) => (
-        <ListItem button dense onClick={() => {
-          const inventoryVisibility = !this.state.inventoryVisibility
-          this.setState({ inventoryVisibility })
-          history.push('/home')
-        }}>
+        <ListItem button dense onClick={toggleInventoryVisibility}>
           <Avatar>
             { 0 === activeTab
             ? <BusinessCenter />
@@ -97,16 +95,18 @@ export class Settings extends React.Component {
           <ListItemText
             primary="INVENTORY"
             secondary={
-              0 === activeTab
-              ? 'total'
-              : 1 === activeTab
-              ? 'loot'
-              : 'stock'
+              !layout.inventoryVisibility && (
+                0 === activeTab
+                ? 'total'
+                : 1 === activeTab
+                ? 'loot'
+                : 'stock'
+              )
           } />
         </ListItem>
       )} />
 
-      <Collapse in={this.state.inventoryVisibility}>
+      <Collapse in={layout.inventoryVisibility}>
         <ListItem
           button
           dense
@@ -137,20 +137,58 @@ export class Settings extends React.Component {
           <ListItemText primary="Stock"/>
         </ListItem>
 
+        <ListItem
+          button
+          dense
+          style={{ paddingLeft: 32 }}
+        >
+          <ShowEmptyStockSwitch />
+        </ListItem>
+
         <ListItem divider />
       </Collapse>
 
       <Route render={({history}) => (
-        <ListItem button dense onClick={() => {
-          const navSettingsVisibility = !this.state.navSettingsVisibility
-          this.setState({ navSettingsVisibility })
-        }} >
+        <ListItem button dense onClick={toggleNavigationVisibility}>
           <Avatar> <Navigation /> </Avatar>
-          <ListItemText primary="NAVIGATION"/>
+          <ListItemText
+            primary="NAVIGATION"
+            secondary={
+              !layout.navigationVisibility &&
+              (layout.showFavoriteRoutes && layout.showShortestRoutes
+                ? 'shortest, show fav.'
+                : !layout.showFavoriteRoutes && layout.showShortestRoutes
+                ? 'shortest, hide fav.'
+                : !layout.showFavoriteRoutes && !layout.showShortestRoutes
+                ? 'safest, hide fav.'
+                : 'safest, show fav.'
+              )
+            }
+          />
         </ListItem>
       )} />
 
-      <Collapse in={this.state.navSettingsVisibility}>
+      <Collapse in={layout.navigationVisibility}>
+        <ListItem
+          button
+          dense
+          onClick={toggleSafestShortestRoutes}
+          style={{
+            paddingLeft: 32
+          }}
+        >
+          <Avatar>
+            { layout.showShortestRoutes
+            ? <FastForward />
+            : <FreeBreakfast />
+            }
+          </Avatar>
+          <ListItemText
+            primary={layout.showShortestRoutes ? 'Shortest' : 'Safest'}
+            secondary="routes"
+          />
+        </ListItem>
+
         <ListItem
           button
           dense
@@ -170,26 +208,6 @@ export class Settings extends React.Component {
               ? 'Show'
               : 'Hide'
             }
-          />
-        </ListItem>
-
-        <ListItem
-          button
-          dense
-          onClick={toggleSafestShortestRoutes}
-          style={{
-            paddingLeft: 32
-          }}
-        >
-          <Avatar>
-            { layout.showShortestRoutes
-            ? <FastForward />
-            : <FreeBreakfast />
-            }
-          </Avatar>
-          <ListItemText
-            primary={layout.showShortestRoutes ? 'Shortest' : 'Safest'}
-            secondary="routes"
           />
         </ListItem>
       </Collapse>
@@ -226,10 +244,6 @@ export class Settings extends React.Component {
           />
         </ListItem>
       )} />
-
-      <ListItem>
-        <ShowEmptyStockSwitch />
-      </ListItem>
 
       <ListItem button dense>
         <Avatar>

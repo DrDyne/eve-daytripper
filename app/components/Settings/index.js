@@ -9,6 +9,9 @@ const mapDispatchToProps = dispatch => ({
   //toggle: () => dispatch(toggleSettingsMenu()),
   toggleSafestShortestRoutes: () => dispatch(layout.toggleSafestShortestRoutes()),
   toggleFavoriteRoutes: () => dispatch(layout.toggleFavoriteRoutes()),
+  toggleInventoryVisibility: () => dispatch(layout.toggleInventoryVisibility()),
+  toggleFleetVisibility: () => dispatch(layout.toggleFleetVisibility()),
+  toggleNavigationVisibility: () => dispatch(layout.toggleNavigationVisibility()),
   clearHistory: () => dispatch(clearRouteHistory()),
   changeTab: index => () => dispatch(changeTab(index))
 })

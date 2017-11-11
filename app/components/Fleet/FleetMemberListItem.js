@@ -12,7 +12,7 @@ export const FleetMemberListItem = props => {
   const src = `http://image.eveonline.com/Character/${id}_64.jpg`
 
   return (
-    <ListItem button dense {...props}>
+    <ListItem dense {...props}>
       <Avatar
         alt={name}
         src={src}

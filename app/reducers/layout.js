@@ -12,6 +12,9 @@ import {
   TOGGLE_SHOW_EMPTY_STOCK,
   TOGGLE_FAVORITE_ROUTES,
   TOGGLE_SHORTEST_ROUTES,
+  TOGGLE_SIDE_FLEET,
+  TOGGLE_SIDE_INVENTORY,
+  TOGGLE_SIDE_NAVIGATION,
 } from '../actions/layout'
 
 const STOCK_POS_LEFT = 'left'
@@ -26,6 +29,9 @@ export const initialState = {
   showConfirmDeleteFavoritesDialog: false,
   showFavoriteRoutes: true,
   showShortestRoutes: true,
+  fleetVisibility: true,
+  inventoryVisibility: false,
+  navigationVisibility: false,
 }
 
 const toggleSettingsMenu = state => {
@@ -63,6 +69,21 @@ const toggleShortestRoutes = state => {
   return Object.assign({}, state, { showShortestRoutes })
 }
 
+const toggleFleetVisibility = state => {
+  const fleetVisibility = !state.fleetVisibility
+  return Object.assign({}, state, { fleetVisibility })
+}
+
+const toggleInventoryVisibility = state => {
+  const inventoryVisibility = !state.inventoryVisibility
+  return Object.assign({}, state, { inventoryVisibility })
+}
+
+const toggleNavigationVisibility = state => {
+  const navigationVisibility = !state.navigationVisibility
+  return Object.assign({}, state, { navigationVisibility })
+}
+
 export const layout = (state=initialState, action) => {
   switch ( action.type ) {
     case INSPECT_ITEM: return Object.assign({}, state, {showInfoDialog: true})
@@ -75,6 +96,9 @@ export const layout = (state=initialState, action) => {
     case TOGGLE_SHOW_EMPTY_STOCK: return toggleShowEmptyStock(state)
     case TOGGLE_FAVORITE_ROUTES: return toggleFavoriteRoutes(state)
     case TOGGLE_SHORTEST_ROUTES: return toggleShortestRoutes(state)
+    case TOGGLE_SIDE_FLEET: return toggleFleetVisibility(state)
+    case TOGGLE_SIDE_INVENTORY: return toggleInventoryVisibility(state)
+    case TOGGLE_SIDE_NAVIGATION: return toggleNavigationVisibility(state)
   }
   return state
 }
