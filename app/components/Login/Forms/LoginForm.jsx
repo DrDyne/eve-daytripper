@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   Checkbox,
+  Divider,
   List,
   ListItem,
   ListItemText,
@@ -47,6 +48,8 @@ export const LoginForm = props => {
     <ListItem button onClick={login}>
       Login
     </ListItem>
+
+    <Divider />
 
     <ListItem button onClick={() => console.log('reset password')}>
       Reset password
