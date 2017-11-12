@@ -30,8 +30,6 @@ export const REMOVE_STOCK = 'stock:remove'
 export const INPUT_PASTE = 'input:paste'
 export const INPUT_PASTE_DONE = 'input:paste:done'
 export const UNDO_PASTE = 'paste:undo'
-export const LOAD_INVENTORY = 'inventory:load'
-export const SAVE_INVENTORY = 'inventory:save'
 export const UPDATE_INVENTORY_FROM_PASTE = 'inventory:update'
 
 export const SET_CHAR_INFO = 'char:set'
@@ -39,6 +37,7 @@ export const JUMP_TO = 'system:set'
 export const BOARD_SHIP = 'ship:set'
 export const SET_CAPACITY = 'capacity:set'
 
+export const HISTORY_INIT = 'history:init'
 export const CLEAR_ROUTE_HISTORY = 'history:routes:clear'
 
 export const setBreadcrumbs = items => ({ type: SET_BREADCRUMBS, items })
@@ -57,9 +56,9 @@ export const inspectItem = item => ({ type: INSPECT_ITEM, item })
 export const closeInspect = () => ({ type: INSPECT_CLOSE })
 export const setCharacterInfo = ({id, name}) => ({ type: SET_CHAR_INFO, id, name, })
 export const setCapacity = m3 => ({ type: SET_CAPACITY, m3, })
-export const saveInventory = inventory => ({ type: SAVE_INVENTORY, inventory })
 export const deleteRouteByOrigin = origin => ({ type: GPS_DELETE_ROUTE, origin })
 export const clearRouteHistory = () => ({ type: CLEAR_ROUTE_HISTORY })
+export const initHistory = origins => ({ type: HISTORY_INIT, origins })
 
 export const showInfoDialog = id => (dispatch, getState, {api}) => {
   const { inventory } = getState()
@@ -106,5 +105,18 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
   .catch(err => {
     console.error('oauth err', err)
     throw err
+  })
+}
+
+export const loadProfile = () => (dispatch, getState, {api}) => {
+  console.log('load user profile using api to fetch s3')
+
+  return api.user.loadProfile()
+  .then(Profile => {
+    console.log(Profile)
+    dispatch(gps.init(Profile.gps))
+    dispatch(fleet.init(Profile.fleet))
+    dispatch(inventory.init(Profile.inventory))
+    dispatch(initHistory(Profile.gps.origins))
   })
 }

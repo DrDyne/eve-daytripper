@@ -5,11 +5,6 @@ import { FleetMemberListItem } from './FleetMemberListItem'
 
 export class Fleet extends React.Component {
 
-  componentDidMount () {
-    const { loadFleet } = this.props
-    loadFleet()
-  }
-
   render () {
     const { members } = this.props
 

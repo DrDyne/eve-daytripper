@@ -149,12 +149,34 @@ export const login = (method, username, password) => {
 
 export const resetPassword = email => { }
 
-export const getFleet = () => apiClient.getFleet()
+export const loadProfile = () => {
+  return Promise.all([
+    apiClient.getFleet(),
+    apiClient.getInventory(),
+    apiClient.getGps(),
+  ])
+  .then(([fleet, inventory, Gps]) => {
+    return {
+      gps: {
+        routes: Gps.routes,
+        favorites: Gps.favorites,
+        avoidance: Gps.avoidance,
+      },
+      origins: Gps.origins,
+      inventory,
+      fleet,
+    }
+  })
+}
+
+export const saveProfile = state => {
+  console.log('TODO')
+}
 
 export default {
   ccpIdentify,
   signup,
   login,
   resetPassword,
-  getFleet,
+  loadProfile,
 }

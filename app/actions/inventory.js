@@ -5,7 +5,15 @@ import {
   saveInventory,
 } from './index.js'
 
+export const INVENTORY_INIT = 'inventory:init'
+
 const byName = name => i => i.name === name
+
+export const init = ({items, stock}) => ({
+  type: INVENTORY_INIT,
+  items,
+  stock
+})
 
 export const clearMissingItemsAfterPaste = () => (dispatch, getState) => {
   const { inventory, history } = getState()

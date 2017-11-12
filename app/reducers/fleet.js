@@ -3,7 +3,8 @@ import {
   FLEET_ASSIGN,
   FLEET_INVITE,
   FLEET_KICK,
-  FLEET_SET_COMMANDER
+  FLEET_INIT,
+  FLEET_SET_COMMANDER,
 } from '../actions/fleet'
 
 export const initialState = {
@@ -50,6 +51,11 @@ export const assignCommander = (state, id) => {
   return Object.assign({}, state, { commander: id })
 }
 
+export const init = (state, action) => {
+  const { members } = action
+  return Objet.assign({}, initialState, { members })
+}
+
 export const fleet = (state=initialState, action) => {
   const { id, role } = action
 
@@ -65,6 +71,9 @@ export const fleet = (state=initialState, action) => {
 
     case FLEET_KICK:
       return kick(state, id)
+
+    case FLEET_INIT:
+      return init(state, action)
 
     case FLEET_SET_COMMANDER:
       return assignCommander(state, id)

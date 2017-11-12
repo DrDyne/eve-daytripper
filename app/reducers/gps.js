@@ -3,6 +3,7 @@ import {
   GPS_FAVORITE_REMOVE,
   GPS_AVOID,
   GPS_AVOID_REMOVE,
+  GPS_RESET,
   CREATE_ROUTE,
   DELETE_ROUTE,
   DELETE_SYSTEM,
@@ -111,6 +112,8 @@ export const gps = (state=initialState, action) => {
       return addFavorite(state, action)
     case GPS_FAVORITE_REMOVE:
       return removeFavorite(state, action)
+    case GPS_RESET:
+      return initialState
   }
 
   return state

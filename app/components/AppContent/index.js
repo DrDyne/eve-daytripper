@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { changeTab } from '../../actions'
+import { changeTab, loadProfile } from '../../actions'
 import { AppContent } from './component'
 
 const mapStateToProps = state => ({
@@ -7,4 +7,8 @@ const mapStateToProps = state => ({
   activeTab: state.activeTab,
 })
 
-export default connect(mapStateToProps)(AppContent)
+const mapDispatchToProps = dispatch => ({
+  loadProfile: () => dispatch(loadProfile())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContent)

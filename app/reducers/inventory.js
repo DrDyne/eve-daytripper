@@ -6,6 +6,7 @@ import {
   SET_CAPACITY,
   SET_STOCK,
   SET_ITEM_INFO,
+  INVENTORY_RESET,
   UPDATE_INVENTORY_FROM_PASTE,
 } from '../actions'
 import { parseClipboardFromGameClientToJson } from './utils'
@@ -115,6 +116,9 @@ export const inventory = (state=initialState, action) => {
 
     case SET_CAPACITY:
       return Object.assign({}, state, { capacity: action.m3 })
+
+    case INVENTORY_RESET:
+      return initialState
   }
 
   return state

@@ -13,6 +13,7 @@ import style from './style.scss'
 
 export class AppContent extends React.Component {
   componentWillMount () {
+    this.props.loadProfile()
   }
 
   render () {
