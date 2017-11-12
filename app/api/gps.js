@@ -1,14 +1,17 @@
 import {
   isWormhole,
-  wormholeId
+  wormholeId,
+  whEffectValues
 } from './utils'
+import whEffectLabels from './wh-effects.json'
+import whSignatures from './signatures.json'
 
 let cache = {
   baseUrl: 'https://drdyne.github.io/eve-daytripper/static',
   identified: {},
   mapSolarSystems: [],
   wh: {
-    effectlabels: null,
+    effectlabels: whEffectLabels,
     effects: {},
     signatures: null,
     statics: {},
@@ -38,17 +41,26 @@ const whSignaturesCache = () => {
   })
 }
 
-const whEffectsCache = system => {
-  const id = wormholeId(system)
+// jClass = C1, C2, C3, C4, C5, C6
+// effectName = Wolf-RayetStar, Pulsar, ...
+const whEffectLabelsAs = (jClass, effectName) => {
+  return cache.wh.effectLabels[effectName]
+  .map(({base, name, neg, bad}) => {
+    const value = whEffectValues(base, jClass)
+    return {
+      label: name,
+      value,
+      neg,
+      bad,
+    }
+  })
+}
 
-  const effectLabels = cache.wh.effectLabels
-    ? Promise.resolve(cache.wh.effectLabels)
-    : fetch(cache.baseUrl + '/wh/effects.json')
-    .then(response => response.json())
-    .then(json => {
-      cache.wh.effectLabels = json
-      return json
-    })
+const whEffectsCache = system => {
+  if ( 'C13' === system.jClass )
+    return Promise.resolve( whEffectLabelsAs('C6', 'Wolf-RayetStar') )
+
+  const id = wormholeId(system)
 
   const whEffect = cache.wh.effects[id]
     ? Promise.resolve(cache.wh.effects)
@@ -67,16 +79,11 @@ const whEffectsCache = system => {
       throw err
     })
 
-  return Promise.all([
-    effectLabels,
-    whEffect
-  ])
-  .then(([labels, effects]) => {
-    if ( !effects[system.name] ) return
-
-    return {
-      [effects[system.name]]: labels[effects[system.name]]
-    }
+  return whEffect
+  .then(effects => {
+    const whEffectName = effects[system.name]
+    if ( !whEffectName ) return
+    return whEffectLabelsAs(system.jClass, whEffectName)
   })
 }
 

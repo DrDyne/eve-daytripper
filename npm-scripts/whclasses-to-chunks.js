@@ -1,19 +1,22 @@
-import json from '../app/store/universe.json'
+//TODO generate fom wh-classes.csv instead
+
+import json from '../app/store/wh-classes.json'
 import fs from 'fs'
 
 const makePath = fileName => `docs/static/wh/classes/${fileName}.json`
 const WH_ID = 'id'
-const WH_NAME = 'system'
-const WH_CLASS = 'class'
+const WH_NAME = 'name'
+const WH_CLASS = 'jClass'
 
 console.log('>>> whclasses to chunks (checksum: 2603)')
 
-const wormholes = Object.keys(json)
-.filter(systemId => {
-  const system = json[systemId]
-  return system.hasOwnProperty(WH_CLASS)
-})
-.map(id => Object.assign({}, json[id], { id }))
+//const wormholes = Object.keys(json)
+//.filter(systemId => {
+  //const system = json[systemId]
+  //return system.hasOwnProperty(WH_CLASS)
+//})
+//.map(id => Object.assign({}, json[id], { id }))
+const wormholes = json
 console.log(`>> ${Object.keys(wormholes).length} wormholes`)
 
 const fileContent = wormholes

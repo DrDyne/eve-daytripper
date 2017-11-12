@@ -9,7 +9,7 @@ import {
   Typography
 } from 'material-ui'
 import { SystemSecAvatar } from '../../SystemSecAvatar'
-
+import { isWormhole } from '../../../api/utils'
 export const OriginCard = ({system}) => (<Card raised={false} elevation={0}>
   <CardContent style={{
     paddingTop: 0,
@@ -42,6 +42,9 @@ export const OriginCard = ({system}) => (<Card raised={false} elevation={0}>
         <Typography type="caption">
           <SystemSecAvatar system={system} />
           {system.sec.toFixed(2)}
+          { isWormhole(system.name) &&
+            ` / C${system.jClass}`
+          }
         </Typography>
       </div>
     </div>
