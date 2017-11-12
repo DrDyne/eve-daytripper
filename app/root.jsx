@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from './components/Login'
 import Oauth from './components/Oauth'
-import Layout from './Layout'
+import AppLayout from './AppLayout'
 
 const Root = props => (<div className="app">
   <Switch>
@@ -23,7 +23,7 @@ const Root = props => (<div className="app">
         height: '100%',
         width: '100%',
       }}>
-        <Layout open={true} />
+        <AppLayout open={true} />
 
       </div>
     )} />

@@ -14,7 +14,7 @@ import PasteRecipient from './components/PasteRecipient'
 import PasteActions from './components/PasteActions'
 import Settings from './components/Settings'
 
-export const Layout = props => {
+export const AppLayout = props => {
   const drawerWidth = 240
   const classes = {
     appFrame: {
@@ -76,4 +76,4 @@ export const Layout = props => {
   </div>)
 }
 
-export default Layout
+export default AppLayout

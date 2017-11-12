@@ -11,19 +11,23 @@ import {
 } from './layouts'
 import style from './style.scss'
 
-export const AppContent = props => {
-  //const { activeTab } = this.state
-  const { layout, activeTab } = props
+export class AppContent extends React.Component {
+  componentWillMount () {
+  }
 
-  return (<Paper className={style.root}>
-    { 'tabs' === layout.contentLayout &&
-      <TabsLayout {...props} />
-    }
+  render () {
+    const { layout, activeTab } = this.props
 
-    { 'side-to-side' === layout.contentLayout &&
-      <SideToSideLayout {...props} />
-    }
+    return (<Paper className={style.root}>
+      { 'tabs' === layout.contentLayout &&
+        <TabsLayout {...this.props} />
+      }
 
-    <InfoDialog />
-  </Paper>)
+      { 'side-to-side' === layout.contentLayout &&
+        <SideToSideLayout {...this.props} />
+      }
+
+      <InfoDialog />
+    </Paper>)
+  }
 }
