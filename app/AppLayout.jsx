@@ -68,10 +68,6 @@ export const AppLayout = props => {
         <AppContent style={{width: '100%'}} />
       </section>
 
-      <footer>
-        This application has been created under the EVE Developer License Agreement.
-      </footer>
-
     </main>
   </div>)
 }

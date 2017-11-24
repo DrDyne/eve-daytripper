@@ -1,22 +1,13 @@
 import React from 'react'
 import Collapse from 'material-ui/transitions/Collapse'
 import { Route, Link, NavLink } from 'react-router-dom'
-import {
-  Avatar,
-  Button,
-  Checkbox,
-  Divider,
-  IconButton,
-  Paper,
-  List,
-  TextField,
-  Typography,
-} from 'material-ui'
-import {
+import Avatar from 'material-ui/Avatar'
+import List, {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
 } from 'material-ui/List'
+import Typography from 'material-ui/Typography'
 import {
   BusinessCenter,
   DeleteSweep,
@@ -53,12 +44,12 @@ export class Settings extends React.Component {
       toggleFleetVisibility,
       toggleNavigationVisibility,
       clearHistory,
-      changeTab
+      changeTab,
     } = this.props
     const { origins } = history
 
     const inventoryStyle = {
-      [activeTab]: { backgroundColor: 'red' },
+      [activeTab]: { backgroundColor: layout.primaryColor },
     }
 
     return (<List style={{
@@ -198,7 +189,7 @@ export class Settings extends React.Component {
           }}
         >
           <Avatar style={{
-            backgroundColor: layout.showFavoriteRoutes ? 'rgb(245, 0, 87)' : null
+            backgroundColor: layout.showFavoriteRoutes ? layout.primaryColor : null
           }}>
             <StarBorder />
           </Avatar>
@@ -245,6 +236,8 @@ export class Settings extends React.Component {
         </ListItem>
       )} />
 
+      <ListItem divider />
+
       <Route render={({history}) => (
         <ListItem
           button
@@ -260,6 +253,12 @@ export class Settings extends React.Component {
           <ListItemText secondary="SIGN OUT" />
         </ListItem>
       )} />
+
+      <ListItem>
+        <Typography type="caption">
+          This application has been created under the EVE Developer License Agreement.
+        </Typography>
+      </ListItem>
 
     </List>)}
   }

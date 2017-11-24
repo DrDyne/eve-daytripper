@@ -38,6 +38,8 @@ export const initialState = {
   fleetVisibility: true,
   inventoryVisibility: false,
   navigationVisibility: false,
+
+  primaryColor: 'rgb(245, 0, 87)',
 }
 
 const toggleSettingsMenu = state => {

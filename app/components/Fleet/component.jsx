@@ -1,15 +1,15 @@
 import React from 'react'
 import { Button } from 'material-ui'
-import { ListItem } from 'material-ui/List'
 import { FleetMemberListItem } from './FleetMemberListItem'
+import AddMemberButton from './AddMemberButton'
 
-export class Fleet extends React.Component {
+export const Fleet = props => {
+  const { members } = props
 
-  render () {
-    const { members } = this.props
-
-    return (<div>
-      { members.map(m => <FleetMemberListItem data={m} key={m.id}/>) }
-    </div>)
-  }
+  return (<div>
+    { members.map(m => <FleetMemberListItem data={m} key={m.id}/>) }
+    { 0 === members.length && (
+      <AddMemberButton />
+    )}
+  </div>)
 }
