@@ -125,23 +125,3 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
   })
   .then(() => dispatch(gpsBusyDone()))
 }
-
-//usage:
-// import { sync } from '../actions/gps'
-// const mapDispatchToProps = dispatch => ({
-//   saveGps: () => dispatch(sync().save())
-// })
-export const sync = () => (dispatch, getState, {api}) => {
-  const { gps, history } = getState()
-
-  return {
-    save: () => {
-      const { favorites, avoidance, routes } = gps
-      const { origins } = history
-
-      //return api.gps.save(...)
-    },
-    load: () => {
-    }
-  }
-}

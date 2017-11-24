@@ -2,7 +2,6 @@ import {
   addOrUpdateItem,
   setStock,
   deleteItem,
-  saveInventory,
 } from './index.js'
 
 export const INVENTORY_INIT = 'inventory:init'
@@ -49,9 +48,4 @@ export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
   })
 
   return Promise.all(identifications)
-}
-
-
-export const save = () => (dispatch, getState) => {
-  dispatch(saveInventory(getState().inventory))
 }
