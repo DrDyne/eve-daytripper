@@ -6,11 +6,11 @@ import { Route } from 'react-router-dom'
 
 export const AddMemberButton = props => {
   const { color } = props
-
+  
   return (
     <Route render={({history}) => (
       <ListItem button dense onClick={() => {
-        console.log('redirect to ccp auth')
+        history.push('/home/fleet-add')
       }}>
         <Avatar style={{backgroundColor: color}}>
           <GroupAddIcon />

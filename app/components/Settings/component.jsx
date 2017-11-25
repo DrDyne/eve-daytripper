@@ -54,7 +54,8 @@ export class Settings extends React.Component {
 
     return (<List style={{
       width: this.props.width,
-      height: '100%',
+      height: '100vh',
+      overflowY: 'auto',
     }} >
       <ListItem button dense onClick={toggleFleetVisibility}>
         <Avatar> <Group /> </Avatar>

@@ -84,6 +84,7 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
   })
   .then(character => {
     dispatch(setCharacterInfo(character))
+    dispatch(fleet.add(character))
 
     // save new characterId to cognito profile instead
     //api.user.cognitoIdentify(character)

@@ -2,14 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from './components/Login'
-import Oauth from './components/Oauth'
+import Oauth from './components/CcpAuthenticate/OAuth'
 import AppLayout from './AppLayout'
 
 const Root = props => (<div className="app">
   <Switch>
     <Route exact path="/" component={() => (
       <Redirect to="/login" />
-
     )} />
 
     <Route path="/login" component={Login} />
@@ -22,6 +21,7 @@ const Root = props => (<div className="app">
         position: 'relative',
         height: '100%',
         width: '100%',
+        overflowY: 'hidden',
       }}>
         <AppLayout open={true} />
 

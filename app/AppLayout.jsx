@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import {
   Avatar,
   Divider,
@@ -13,6 +13,7 @@ import Gps from './components/Gps'
 import PasteRecipient from './components/PasteRecipient'
 import PasteActions from './components/PasteActions'
 import Settings from './components/Settings'
+import CcpAuthenticate from './components/CcpAuthenticate'
 
 export const AppLayout = props => {
   const drawerWidth = 240
@@ -21,54 +22,62 @@ export const AppLayout = props => {
       position: 'relative',
       display: 'flex',
       width: '100%',
-      height: '100%',
     }
   }
 
   return (<div style={classes.appFrame}>
-    <Drawer type="persistent"
-      open={true}
+    <div
       style={{
-      position: 'relative',
-      height: '100%',
-      width: drawerWidth
-    }}>
+        position: 'relative',
+        width: drawerWidth,
+        background: 'white',
+        height: '100vh',
+      }}
+    >
       <div style={{
         width: '100%',
       }}>
 
         <div style={{
-          height: '100%',
+          height: '100vh',
           width: drawerWidth
         }}>
           <Settings />
         </div>
       </div>
-    </Drawer>
+    </div>
 
-    <main style={{
-      display: 'flex',
-      flexDirection: 'column',
-      flexGrow: 1
-    }}>
+    <Switch>
+      <Route path="/home/fleet-add" render={CcpAuthenticate} />
 
-      <section>
-        <Toolbar disableGutters>
-          <PasteRecipient />
-        </Toolbar>
+      <Route path="/home" render={() => (
+        <main style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          height: '100vh',
+          overflowY: 'auto'
+        }}>
 
-        <Route path="/home" component={() => (
-          <Toolbar disableGutters>
-            <Gps />
-          </Toolbar>
-        )} />
-      </section>
+          <section>
+            <Toolbar disableGutters>
+              <PasteRecipient />
+            </Toolbar>
 
-      <section>
-        <AppContent style={{width: '100%'}} />
-      </section>
+            <Route path="/home" component={() => (
+              <Toolbar disableGutters>
+                <Gps />
+              </Toolbar>
+            )} />
+          </section>
 
-    </main>
+          <section>
+            <AppContent style={{width: '100%'}} />
+          </section>
+
+        </main>
+      )} />
+    </Switch>
   </div>)
 }
 

@@ -55,7 +55,7 @@ const getSession = cognitoUser => {
     if ( err ) {
       return console.log('could not find session, please log in again')
     }
-    console.log('got session', session)
+    //console.log('got session', session)
     const token = session.getIdToken().getJwtToken()
     apiClient.credentials({token})
   })
@@ -68,7 +68,7 @@ export const ccpIdentify = token => {
     headers: { 'x-ccp-authorization': `Bearer ${token}`, },
     mode: 'cors',
   }
-  console.log('headers:', options)
+  //console.log('headers:', options)
 
   // aws/auth is a reverse http proxy to ccp's login server.
   // header x-ccp-authorization is mapped to Authorization on aws->ccp side
@@ -105,7 +105,6 @@ export const signup = (method, username, password, optional) => {
 }
 
 export const login = (method, username, password) => {
-  console.log('>>> login:', username, password)
   const creds = new AuthenticationDetails({ Username: username, Password: password })
   const cognitoUser = new CognitoUser({ Username: username, Pool: userPool })
 

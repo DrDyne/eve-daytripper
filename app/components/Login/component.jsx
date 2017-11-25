@@ -3,7 +3,6 @@ import style from './style.css'
 import {
   Route
 } from 'react-router-dom'
-import config from './config'
 import {
   LoginForm,
   SignupForm,

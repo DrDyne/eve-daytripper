@@ -1,0 +1,18 @@
+.container {
+  background-image: url('Images/bg_main.jpg');
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonContainer {
+}
+
+.buttonBackground {
+  background-image: url('Images/EVE_SSO_Login_Buttons_Large_Black.png');
+  width: 270px;
+  height: 45px;
+}

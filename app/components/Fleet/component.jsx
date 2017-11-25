@@ -8,7 +8,7 @@ export const Fleet = props => {
 
   return (<div>
     { members.map(m => <FleetMemberListItem data={m} key={m.id}/>) }
-    { 0 === members.length && (
+    { true && ( //0 === members.length && (
       <AddMemberButton />
     )}
   </div>)

@@ -23,7 +23,9 @@ module.exports = {
   resolve: {
     alias: {
       joi: 'joi-browser',
-      moment: 'moment/moment.js'
+      moment: 'moment/moment.js',
+      App: path.resolve(__dirname, './app'),
+      Images: path.resolve(__dirname, './images')
     },
     extensions: ['.js', '.jsx']
   },
