@@ -52,14 +52,17 @@ export class Login extends React.Component {
         <Grid item style={{
           flexGrow: 'signup' === this.state.focused ? 0 : 1
         }}>
-          <Route render={({history}) => ( <LoginForm
-            onChange={this.onChange}
-            {...this.props}
-            login={() => {
-              const { username, password } = this.state
-              this.props.login(username, password)
-              .then(() => history.push('/home'))
-            }} />
+          <Route render={({history}) => (
+            <LoginForm
+              onChange={this.onChange}
+              {...this.props}
+              login={() => {
+                const { username, password } = this.state
+                this.props.login(username, password)
+                .then(() => history.push('/home'))
+                .catch(console.warn)
+              }}
+            />
           )} />
         </Grid>
 

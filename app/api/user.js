@@ -104,6 +104,11 @@ export const signup = (method, username, password, optional) => {
   })
 }
 
+export const logout = () => {
+  const cognitoUser = userPool.getCurrentUser()
+  return Promise.resolve(cognitoUser && cognitoUser.signOut())
+}
+
 export const login = (method, username, password) => {
   const creds = new AuthenticationDetails({ Username: username, Password: password })
   const cognitoUser = new CognitoUser({ Username: username, Pool: userPool })
@@ -116,9 +121,10 @@ export const login = (method, username, password) => {
   })
   .catch(err => {
     console.error('failed to log in', err)
+    throw err
   })
-  .then(result => {
-    const token = result.getIdToken().getJwtToken()
+  .then(result => result.getIdToken().getJwtToken())
+  .then(token => {
 
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
       IdentityPoolId: aws.identityPoolId,
@@ -176,6 +182,7 @@ export default {
   ccpIdentify,
   signup,
   login,
+  logout,
   resetPassword,
   loadProfile,
 }

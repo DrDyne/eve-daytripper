@@ -2,7 +2,9 @@ import { connect } from 'react-redux'
 import { Login } from './component'
 import { user } from '../../actions'
 
-export const mapStateToProps = state => ({})
+export const mapStateToProps = state => ({
+  loginError: state.user.loginError
+})
 
 export const mapDispatchToProps = dispatch => ({
   login: (username, password) => dispatch(user.loginCognito(username, password)),

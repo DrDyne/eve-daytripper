@@ -45,6 +45,7 @@ export class Settings extends React.Component {
       toggleNavigationVisibility,
       clearHistory,
       changeTab,
+      logout
     } = this.props
     const { origins } = history
 
@@ -245,6 +246,7 @@ export class Settings extends React.Component {
           dense
           onClick={() => {
             console.log('//do addition signout logic here...')
+            logout()
             history.push('/login')
           }}
         >

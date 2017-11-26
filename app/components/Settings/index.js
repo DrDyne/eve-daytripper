@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Settings } from './component'
 //import { toggleSettingsMenu } from '../../actions'
-import { layout, clearRouteHistory, changeTab } from '../../actions'
+import { layout, clearRouteHistory, changeTab, user } from '../../actions'
 
 const mapStateToProps = state => state
 const mapDispatchToProps = dispatch => ({
@@ -13,7 +13,8 @@ const mapDispatchToProps = dispatch => ({
   toggleFleetVisibility: () => dispatch(layout.toggleFleetVisibility()),
   toggleNavigationVisibility: () => dispatch(layout.toggleNavigationVisibility()),
   clearHistory: () => dispatch(clearRouteHistory()),
-  changeTab: index => () => dispatch(changeTab(index))
+  changeTab: index => () => dispatch(changeTab(index)),
+  logout: () => dispatch(user.logout())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Settings))
