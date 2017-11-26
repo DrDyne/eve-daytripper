@@ -4,17 +4,28 @@ import {
   CardContent,
   Checkbox,
   Divider,
-  List,
-  ListItem,
-  ListItemText,
+  FormLabel,
   TextField,
   Typography,
 } from 'material-ui'
+import
+  List, {
+  ListItem,
+  ListItemText,
+} from 'material-ui/List'
 import style from './style.css'
 
 export const LoginForm = props => {
-  const { rememberMe } = props
-  const { onChange, toggleRememberMe, login, signup } = props
+  const {
+    rememberMe,
+    onChange,
+    toggleRememberMe,
+    login,
+    loginError,
+    signup
+  } = props
+
+  console.log(loginError)
   return (<Card><CardContent><List
     className={style.loginForm}
   >
@@ -38,15 +49,20 @@ export const LoginForm = props => {
     </ListItem>
 
     <ListItem dense button onClick={toggleRememberMe}>
-      <Checkbox
-        checked={rememberMe}
-      />
-
       <ListItemText primary="Remember Me" />
+      <Checkbox checked={rememberMe} />
     </ListItem>
 
     <ListItem button onClick={login}>
       Login
+    </ListItem>
+
+    <ListItem style={{
+      display: loginError ? 'inherit' : 'none'
+    }}>
+      <FormLabel error>
+        Invalid credentials
+      </FormLabel>
     </ListItem>
 
     <Divider />

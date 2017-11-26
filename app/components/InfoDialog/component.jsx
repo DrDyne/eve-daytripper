@@ -17,15 +17,12 @@ export const InfoDialog = props => {
     open={show}
     onRequestClose={hideDialog}
   >
-    <DialogTitle>
-      {item.name}
-      <GameItemAvatar id={item.id} size={64} style={{float: 'right'}}/>
-    </DialogTitle>
-
     <div style={{
         padding: 25,
         maxWidth: 360
     }}>
+      <GameItemAvatar id={item.id} size={64} style={{float: 'right'}}/>
+      <Typography type="headline">{item.name}</Typography>
       <Description text={item.info.description} />
     </div>
   </Dialog>)
@@ -34,5 +31,5 @@ export const InfoDialog = props => {
 export const Description = props => {
   const { text } = props
   const textWithoutTags = text.replace(/=showinfo:[0-9]+/g, '')
-  return <Typography type="body2" dangerouslySetInnerHTML={{__html: textWithoutTags}} />
+  return <Typography type="body1" dangerouslySetInnerHTML={{__html: textWithoutTags}} />
 }
