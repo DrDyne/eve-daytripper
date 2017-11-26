@@ -3,7 +3,8 @@ import { Login } from './component'
 import { user } from '../../actions'
 
 export const mapStateToProps = state => ({
-  loginError: state.user.loginError
+  loginError: state.user.loginError,
+  signupError: state.user.signupError
 })
 
 export const mapDispatchToProps = dispatch => ({

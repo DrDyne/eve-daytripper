@@ -98,7 +98,7 @@ export const Content = props => {
           </Button>
         </div>
 
-        <Button href={`http://evemaps.dotlan.net/route/${origin.name}:${destination.name}`} target="_blank">
+        <Button raised color="primary" href={`http://evemaps.dotlan.net/route/${origin.name}:${destination.name}`} target="_blank">
           route ({jumps})
         </Button>
 

@@ -1,17 +1,12 @@
 import React from 'react'
 import style from './style.css'
-import {
-  Route
-} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import {
   LoginForm,
   SignupForm,
 } from './Forms'
-import {
-  Grid,
-  List,
-  ListItem,
-} from 'material-ui'
+import Grid from 'material-ui/Grid'
+import List, { ListItem } from 'material-ui/List'
 
 export class Login extends React.Component {
   state = {
@@ -21,7 +16,9 @@ export class Login extends React.Component {
     confirmPassword: '',
     email: '',
 
-    $focused: '',
+    $focused: 'login',
+    errorPasswordsDontMatch: false,
+    errorPasswordTooWeak: false,
   }
 
   validCredentials = () => {
@@ -38,6 +35,15 @@ export class Login extends React.Component {
     this.setState({ [name]: value })
   }
 
+  resetValidation = () => {
+    this.setState({
+      errorPasswordsDontMatch: false,
+      errorPasswordTooWeak: false,
+    })
+  }
+
+  focus = form => () => this.setState({ $focused: form })
+
   render () {
     const { username, password } = this.state
 
@@ -49,15 +55,22 @@ export class Login extends React.Component {
         width: 600,
         margin: '0 auto',
       }}>
-        <Grid item style={{
-          flexGrow: 'signup' === this.state.focused ? 0 : 1
-        }}>
+        <Grid item
+          onMouseEnter={this.focus('login')}
+          style={{
+            flexGrow: 'signup' === this.state.$focused ? 0 : 1,
+            transition: '0.2s ease-in'
+          }}
+        >
           <Route render={({history}) => (
             <LoginForm
               onChange={this.onChange}
               {...this.props}
               login={() => {
                 const { username, password } = this.state
+                if ( !username ) return this.setState({ errorMissingUsername: true })
+                if ( !password ) return this.setState({ errorMissingPassword: true })
+
                 this.props.login(username, password)
                 .then(() => history.push('/home'))
                 .catch(console.warn)
@@ -66,21 +79,30 @@ export class Login extends React.Component {
           )} />
         </Grid>
 
-        <Grid item style={{
-          flexGrow: 'login' === this.state.focused ? 0 : 1,
-        }}>
-          <Route render={({history}) => ( <SignupForm
-            onChange={this.onChange}
-            {...this.props}
-            signup={() => {
-              const { username, password, confirmPassword, email } = this.state
-              if ( password !== confirmPassword ) return
-              if ( !this.passwordStrongEnough(password) ) return
-              if ( username.length < 4 ) return
-              if ( !email ) return
+        <Grid item
+          onMouseEnter={this.focus('signup')}
+          style={{
+            flexGrow: 'login' === this.state.$focused ? 0 : 1,
+            transition: '0.2s ease-in'
+          }}
+        >
+          <Route render={({history}) => (
+            <SignupForm
+              onChange={this.onChange}
+              {...this.props}
+              showErrorPasswordsDontMatch={this.state.errorPasswordsDontMatch}
+              showErrorPasswordTooWeak={this.state.showErrorPasswordTooWeak}
+              signup={() => {
+                const { username, password, confirmPassword, email } = this.state
+                if ( password !== confirmPassword ) return this.setState({ errorPasswordsDontMatch: true })
+                if ( !this.passwordStrongEnough(password) ) return this.setState({ errorPasswordTooWeak: true })
+                if ( username.length < 4 ) return
+                if ( !email ) return
 
-              this.props.signup(username, password, email)
-            }} />
+                this.resetValidation()
+                this.props.signup(username, password, email)
+              }}
+            />
           )} />
         </Grid>
       </Grid>
