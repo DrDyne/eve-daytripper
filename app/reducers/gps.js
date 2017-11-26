@@ -4,6 +4,7 @@ import {
   GPS_AVOID,
   GPS_AVOID_REMOVE,
   GPS_RESET,
+  GPS_INIT,
   CREATE_ROUTE,
   DELETE_ROUTE,
   DELETE_SYSTEM,
@@ -98,6 +99,10 @@ export const deleteSystem = (state, {system}) => {
   return Object.assign({}, state, { routes })
 }
 
+export const init = (state, {routes, favorites, avoidance}) => {
+  return Object.assign({}, state, { routes, favorites, avoidance })
+}
+
 export const gps = (state=initialState, action) => {
   switch(action.type) {
     case CREATE_ROUTE:
@@ -114,6 +119,8 @@ export const gps = (state=initialState, action) => {
       return removeFavorite(state, action)
     case GPS_RESET:
       return initialState
+    case GPS_INIT:
+      return init(state, action)
   }
 
   return state

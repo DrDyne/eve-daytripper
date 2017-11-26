@@ -19,6 +19,7 @@ export const init = ({routes, favorites, avoidance}) => ({
   favorites,
   avoidance,
 })
+
 export const deleteFavorite = system => ({ type: GPS_FAVORITE_REMOVE, system })
 export const deleteRoute = (origin, destination) => ({ type: DELETE_ROUTE, origin, destination })
 export const deleteHistory = system => ({ type: DELETE_SYSTEM, system })

@@ -6,27 +6,42 @@ import {
   SET_CAPACITY,
   SET_STOCK,
   SET_ITEM_INFO,
-  INVENTORY_RESET,
   UPDATE_INVENTORY_FROM_PASTE,
-} from '../actions'
+} from 'App/actions'
+import {
+  INVENTORY_INIT ,
+  INVENTORY_RESET,
+} from 'App/actions/inventory'
 import { parseClipboardFromGameClientToJson } from './utils'
 
 export const initialState = {
-  capacity: 400,
+  capacity: 5,
   total: {
-    isk: 527854.52,
-    m3: 27,
+    isk: 0, //527854.52,
+    m3: 0, //27,
   },
-  items: [{
-    name: '10MN Afterburner I', qty: 1, id: 12056, m3: 25, isk: 46321.04
-  }, {
-    name: 'Nanite Repair Paste', qty: 200, id: 28668, m3: 2, isk: 481533.48
-  }],
-  stock: [{
-    name: 'Core Scanner Probe I', qty: 8, id: 30013
-  }, {
-    name: 'Nanite Repair Paste', qty: 18, id: 28668
-  }],
+  items: [],
+  stock: [],
+  //  [{
+  //  name: '10MN Afterburner I', qty: 1, id: 12056, m3: 25, isk: 46321.04
+  //}, {
+  //  name: 'Nanite Repair Paste', qty: 200, id: 28668, m3: 2, isk: 481533.48
+  //}],
+  //stock: [{
+  //  name: 'Core Scanner Probe I', qty: 8, id: 30013
+  //}, {
+  //  name: 'Nanite Repair Paste', qty: 18, id: 28668
+  //}],
+}
+
+export const init = (state, action) => {
+  const { capacity, total, items, stock } = action
+  return Object.assign({}, state, {
+    capacity,
+    total,
+    items,
+    stock
+  })
 }
 
 export const byId = id => i => i.id === id
@@ -119,6 +134,9 @@ export const inventory = (state=initialState, action) => {
 
     case INVENTORY_RESET:
       return initialState
+
+    case INVENTORY_INIT:
+      return init(state, action)
   }
 
   return state

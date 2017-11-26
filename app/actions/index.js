@@ -58,7 +58,7 @@ export const setCharacterInfo = ({id, name}) => ({ type: SET_CHAR_INFO, id, name
 export const setCapacity = m3 => ({ type: SET_CAPACITY, m3, })
 export const deleteRouteByOrigin = origin => ({ type: GPS_DELETE_ROUTE, origin })
 export const clearRouteHistory = () => ({ type: CLEAR_ROUTE_HISTORY })
-export const initHistory = origins => ({ type: HISTORY_INIT, origins })
+export const initHistory = (origins, routes) => ({ type: HISTORY_INIT, origins, routes })
 
 export const showInfoDialog = id => (dispatch, getState, {api}) => {
   const { inventory } = getState()
@@ -115,9 +115,9 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
   return api.user.loadProfile()
   .then(Profile => {
     console.log(Profile)
+    dispatch(initHistory(Profile.origins, Profile.gps.routes))
     dispatch(gps.init(Profile.gps))
     dispatch(fleet.init(Profile.fleet))
     dispatch(inventory.init(Profile.inventory))
-    dispatch(initHistory(Profile.gps.origins))
   })
 }

@@ -5,6 +5,7 @@ import {
   INSPECT_ITEM,
   UNDO_PASTE,
   SAVE_INVENTORY,
+  HISTORY_INIT,
 } from '../actions'
 
 import {
@@ -72,6 +73,11 @@ export const addSystemToOrigins = (state, action) => {
   return Object.assign({}, state, { origins })
 }
 
+export const init = (state, action) => {
+  const { routes, origins } = action
+  return Object.assign({}, state, { origins, routes })
+}
+
 export const history = (state=initialState, action) => {
   switch (action.type) {
 
@@ -117,6 +123,9 @@ export const history = (state=initialState, action) => {
 
     case GPS_IDENTIFIED_SYSTEM:
       return addSystemToOrigins(state, action)
+
+    case HISTORY_INIT:
+      return init(state, action)
   }
 
   return state

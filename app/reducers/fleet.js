@@ -53,7 +53,7 @@ export const assignCommander = (state, id) => {
 
 export const init = (state, action) => {
   const { members } = action
-  return Objet.assign({}, initialState, { members })
+  return Object.assign({}, initialState, { members })
 }
 
 export const fleet = (state=initialState, action) => {

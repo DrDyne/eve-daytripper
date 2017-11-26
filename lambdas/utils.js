@@ -35,13 +35,17 @@ const response = {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-    });
+    })
   }
 }
 
-export const getFleet = username => getJsonFromS3(BUCKETS.FLEETS, username)
-export const getInventory = username => getJsonFromS3(BUCKETS.INVENTORIES, username)
-export const getGps = username => getJsonFromS3(BUCKETS.GPS, username)
+const getFleet = username => getJsonFromS3(BUCKETS.FLEETS, username)
+const getInventory = username => getJsonFromS3(BUCKETS.INVENTORIES, username)
+const getGps = username => getJsonFromS3(BUCKETS.GPS, username)
+
 export {
+  getFleet,
+  getInventory,
+  getGps,
   response,
 }

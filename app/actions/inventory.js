@@ -5,11 +5,14 @@ import {
 } from './index.js'
 
 export const INVENTORY_INIT = 'inventory:init'
+export const INVENTORY_RESET = 'inventory:reset'
 
 const byName = name => i => i.name === name
 
-export const init = ({items, stock}) => ({
+export const init = ({capacity, total, items, stock}) => ({
   type: INVENTORY_INIT,
+  capacity,
+  total,
   items,
   stock
 })
