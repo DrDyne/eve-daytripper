@@ -208,18 +208,6 @@ export class Settings extends React.Component {
 
       <RoutesHistory />
 
-      <Route render={({history}) => (
-        <Collapse in={this.state.confirmClearRoutesHistory}>
-          <ListItem dense button onClick={() => {
-            clearHistory()
-            this.setState({confirmClearRoutesHistory: false})
-            history.push('/home/nav')
-          }}>
-            <ListItemText primary="confirm" style={{textAlign: 'right'}}/>
-          </ListItem>
-        </Collapse>
-      )} />
-
       <Route path="/home" render={() => (
         <ListItem
           button
@@ -237,6 +225,18 @@ export class Settings extends React.Component {
             secondary={<span>{origins.length} origins / {gps.routes.length} routes</span>}
           />
         </ListItem>
+      )} />
+
+      <Route render={({history}) => (
+        <Collapse in={this.state.confirmClearRoutesHistory}>
+          <ListItem dense button onClick={() => {
+            clearHistory()
+            this.setState({confirmClearRoutesHistory: false})
+            history.push('/home/nav')
+          }}>
+            <ListItemText primary="confirm" style={{textAlign: 'right'}}/>
+          </ListItem>
+        </Collapse>
       )} />
 
       <ListItem divider />

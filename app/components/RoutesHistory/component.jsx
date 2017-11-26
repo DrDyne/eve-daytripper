@@ -75,7 +75,7 @@ const KSpaceRoutes = props => {
     { origins.map(origin => {
       const originSystem = routes.find(byOrigin(origin)).origin
       const routesFromOrigin = routes.filter(byOrigin(origin))
-      console.log(routesFromOrigin)
+      //console.log(routesFromOrigin)
       return (<List key={'category-'+origin}>
         <Route render={({history}) => (
           <ListItem button onClick={() => {
@@ -129,8 +129,8 @@ export const RoutesHistoryListItems = props => {
     kSpace,
   } = props
 
-  console.log(props)
-  console.log(kSpace)
+  //console.log(props)
+  //console.log(kSpace)
 
   const categories = kSpace.reduce((memo, {name}) => (
     memo.find(c => c === name.charAt(0).toUpperCase())
@@ -138,7 +138,7 @@ export const RoutesHistoryListItems = props => {
     : memo.concat(name.charAt(0).toUpperCase())
   ), []).sort()
 
-  console.log(categories)
+  //console.log(categories)
 
   const routesByCategory = categories.reduce((memo, category) => {
     memo[category] = routes.filter(({origin}) => {
@@ -146,7 +146,7 @@ export const RoutesHistoryListItems = props => {
     })
     return memo
   }, {})
-  console.log(routesByCategory)
+  //console.log(routesByCategory)
 
   return ( <div>
     { categories.map(category => {
