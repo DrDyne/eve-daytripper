@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Button,
   Card,
   CardContent,
   Checkbox,
@@ -25,7 +26,6 @@ export const LoginForm = props => {
     signup
   } = props
 
-  console.log(loginError)
   return (<Card><CardContent><List
     className={style.loginForm}
   >
@@ -35,6 +35,8 @@ export const LoginForm = props => {
         name="username"
         onChange={onChange}
         fullWidth
+        helperText={loginError && 'Invalid username'}
+        error={!!loginError}
       />
     </ListItem>
 
@@ -45,30 +47,29 @@ export const LoginForm = props => {
         name="password"
         onChange={onChange}
         fullWidth
+        helperText={loginError && 'Invalid password'}
+        error={!!loginError}
       />
     </ListItem>
 
-    <ListItem dense button onClick={toggleRememberMe}>
-      <ListItemText primary="Remember Me" />
-      <Checkbox checked={rememberMe} />
+    <ListItem dense>
+      <ListItemText primary="Remember me" />
+      <Checkbox onClick={toggleRememberMe} checked={rememberMe} />
     </ListItem>
 
-    <ListItem button onClick={login}>
-      Login
-    </ListItem>
-
-    <ListItem style={{
-      display: loginError ? 'inherit' : 'none'
-    }}>
-      <FormLabel error>
-        Invalid credentials
-      </FormLabel>
+    <ListItem onClick={login}>
+      <Button raised color="primary" style={{width: '100%'}}>
+        Login
+      </Button>
     </ListItem>
 
     <Divider />
 
-    <ListItem button onClick={() => console.log('reset password')}>
-      Reset password
+    <ListItem onClick={() => console.log('reset password')}>
+      <Button style={{width: '100%'}}>
+        Reset password
+      </Button>
     </ListItem>
+
   </List></CardContent></Card>)
 }

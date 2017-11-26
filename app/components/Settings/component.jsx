@@ -2,6 +2,7 @@ import React from 'react'
 import Collapse from 'material-ui/transitions/Collapse'
 import { Route, Link, NavLink } from 'react-router-dom'
 import Avatar from 'material-ui/Avatar'
+import blue from 'material-ui/colors/blue'
 import List, {
   ListItem,
   ListItemText,
@@ -59,7 +60,7 @@ export class Settings extends React.Component {
       overflowY: 'auto',
     }} >
       <ListItem button dense onClick={toggleFleetVisibility}>
-        <Avatar> <Group /> </Avatar>
+        <Avatar style={{ backgroundColor: blue[900] }}> <Group /> </Avatar>
         <ListItemText
           primary="FLEET"
           secondary={ !layout.fleetVisibility && (
@@ -77,7 +78,7 @@ export class Settings extends React.Component {
 
       <Route render={({history}) => (
         <ListItem button dense onClick={toggleInventoryVisibility}>
-          <Avatar>
+          <Avatar style={{ backgroundColor: blue[900] }}>
             { 0 === activeTab
             ? <BusinessCenter />
             : 1 === activeTab
@@ -143,7 +144,7 @@ export class Settings extends React.Component {
 
       <Route render={({history}) => (
         <ListItem button dense onClick={toggleNavigationVisibility}>
-          <Avatar> <Navigation /> </Avatar>
+          <Avatar style={{ backgroundColor: blue[900] }}> <Navigation /> </Avatar>
           <ListItemText
             primary="NAVIGATION"
             secondary={
@@ -229,7 +230,7 @@ export class Settings extends React.Component {
             this.setState({confirmClearRoutesHistory})
         }}>
 
-          <Avatar> <DeleteSweep /> </Avatar>
+          <Avatar style={{backgroundColor: blue[900]}}> <DeleteSweep /> </Avatar>
 
           <ListItemText
             primary="Clear routes"
@@ -250,7 +251,7 @@ export class Settings extends React.Component {
             history.push('/login')
           }}
         >
-          <Avatar>
+          <Avatar style={{ backgroundColor: blue[900] }}>
             <ExitToApp />
           </Avatar>
           <ListItemText secondary="SIGN OUT" />

@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Button,
   Card,
   CardContent,
   List,
@@ -10,9 +11,40 @@ import {
 } from 'material-ui'
 import style from './style.css'
 
+const ERROR__USER_ALREADY_EXISTS = "UsernameExistsException"
+
+const validate = props => {
+  const {
+    signupError = {},
+    showErrorPasswordTooWeak,
+    showErrorPasswordsDontMatch
+  } = props
+
+  return {
+    username: ERROR__USER_ALREADY_EXISTS === signupError.code
+    && {
+      helperText: 'Username already taken.',
+      helperTextClassName: style.errorUsernameAlreadyTaken
+    },
+    passwordsDontMatch: showErrorPasswordsDontMatch
+    && {
+      helperText: "Passwords don't match.",
+      helperTextClassName: style.errorPasswordsDontMatch
+    },
+    passwordTooWeak: showErrorPasswordTooWeak
+    && {
+      helperText: "Password too weak.",
+      helperTextClassName: style.errorPasswordTooWeak
+    },
+  }
+}
 
 export const SignupForm = props => {
-  const { onChange, signup } = props
+  const validation = validate(props)
+  const {
+    onChange,
+    signup,
+  } = props
 
   return (<Card><CardContent><List
     className={style.signupForm}
@@ -23,6 +55,8 @@ export const SignupForm = props => {
         name="username"
         onChange={onChange}
         fullWidth
+        error={ !!validation.username }
+        { ...validation.username }
       />
     </ListItem>
 
@@ -33,6 +67,8 @@ export const SignupForm = props => {
         name="password"
         onChange={onChange}
         fullWidth
+        error={ !!validation.passwordTooWeak }
+        { ...validation.passwordTooWeak }
       />
     </ListItem>
 
@@ -43,6 +79,8 @@ export const SignupForm = props => {
         type="password"
         onChange={onChange}
         fullWidth
+        error={ !!validation.passwordsDontMatch }
+        { ...validation.passwordsDontMatch }
       />
     </ListItem>
 
@@ -53,11 +91,15 @@ export const SignupForm = props => {
         name="email"
         onChange={onChange}
         fullWidth
+        error={ !!validation.invalidEmail }
+        { ...validation.invalidEmail }
       />
     </ListItem>
 
-    <ListItem button onClick={signup}>
-      Sign up
+    <ListItem>
+      <Button onClick={signup} raised color="primary" style={{width: '100%'}}>
+        Sign up
+      </Button>
     </ListItem>
   </List></CardContent></Card>)
 }
