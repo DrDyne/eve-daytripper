@@ -15,6 +15,8 @@ import {
   TOGGLE_SIDE_FLEET,
   TOGGLE_SIDE_INVENTORY,
   TOGGLE_SIDE_NAVIGATION,
+  PROFILE_LOAD_START,
+  PROFILE_LOAD_END,
 } from '../actions/layout'
 
 import {
@@ -26,6 +28,7 @@ const STOCK_POS_LEFT = 'left'
 const STOCK_POS_RIGHT = 'right'
 
 export const initialState = {
+  profileLoading: false,
   gpsBusy: false,
   contentLayout: 'side-to-side', // 'side-to-side', 'tabs'
   stockListPosition: STOCK_POS_LEFT,
@@ -109,6 +112,8 @@ export const layout = (state=initialState, action) => {
     case TOGGLE_SIDE_NAVIGATION: return toggleNavigationVisibility(state)
     case GPS_BUSY: return Object.assign({}, state, { gpsBusy: true })
     case GPS_BUSY_DONE: return Object.assign({}, state, { gpsBusy: false })
+    case PROFILE_LOAD_END: return Object.assign({}, state, { profileLoading: false })
+    case PROFILE_LOAD_START: return Object.assign({}, state, { profileLoading: true })
   }
   return state
 }

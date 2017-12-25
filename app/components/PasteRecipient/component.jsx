@@ -38,23 +38,25 @@ export class PasteRecipient extends React.Component {
       },
     }
 
-    return (<Paper className={style.root}
-      style={css.root}
-      onPaste={this.paste}>
-      <div id={style.recipient}
-        onClick={this.focus}
-        onMouseEnter={this.hover}
-        onMouseLeave={this.blur}>
-        <Typography id={style.label} type="headline"> Click and paste </Typography>
-        { parsedItems > 0 && (<div>
-          <Typography id={style['label-caption']} type="caption" align="right">
-            {parsedItems} items parsed
-          </Typography>
-        </div>) }
-      </div>
-      <Collapse in={busy}>
-        <LinearProgress mode="query" />
-      </Collapse>
-    </Paper>)
+    return (
+      <Paper className={style.root}
+        style={css.root}
+        onPaste={this.paste}>
+        <div id={style.recipient}
+          onClick={this.focus}
+          onMouseEnter={this.hover}
+          onMouseLeave={this.blur}>
+          <Typography id={style.label} type="headline"> Click and paste </Typography>
+          { parsedItems > 0 && (<div>
+            <Typography id={style['label-caption']} type="caption" align="right">
+              {parsedItems} items parsed
+            </Typography>
+          </div>) }
+        </div>
+        <Collapse in={busy}>
+          <LinearProgress mode="query" />
+        </Collapse>
+      </Paper>
+    )
   }
 }

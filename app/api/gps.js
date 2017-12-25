@@ -11,7 +11,7 @@ let cache = {
   identified: {},
   mapSolarSystems: [],
   wh: {
-    effectlabels: whEffectLabels,
+    effectLabels: whEffectLabels,
     effects: {},
     signatures: null,
     statics: {},
@@ -31,14 +31,15 @@ const mapSolarSystemsCache = () => {
 }
 
 const whSignaturesCache = () => {
-  return ( cache.wh.signatures )
-  ? Promise.resolve(cache.wh.signatures)
-  : fetch(cache.baseUrl + '/wh/signatures.json')
-  .then(response => response.json())
-  .then(json => {
-    cache.wh.signatures = json
-    return json
-  })
+  return Promise.resolve(whSignatures)
+  //return ( cache.wh.signatures )
+  //? Promise.resolve(cache.wh.signatures)
+  //: fetch(cache.baseUrl + '/wh/signatures.json')
+  //.then(response => response.json())
+  //.then(json => {
+  //  cache.wh.signatures = json
+  //  return json
+  //})
 }
 
 // jClass = C1, C2, C3, C4, C5, C6
@@ -56,9 +57,20 @@ const whEffectLabelsAs = (jClass, effectName) => {
   })
 }
 
+const effectNames = {
+  BlackHole: 'Black Hole',
+  CataclysmicVariable: 'Cataclysmic Variable',
+  Magnetar: 'Magnetar',
+  Pulsar: 'Pulsar',
+  RedGiant: 'Red giant',
+  'Wolf-RayetStar': 'Wolf Rayet',
+}
+
 const whEffectsCache = system => {
-  if ( 'C13' === system.jClass )
-    return Promise.resolve( whEffectLabelsAs('C6', 'Wolf-RayetStar') )
+  if ( 'C13' === system.jClass ) return Promise.resolve({
+    effectName: effectNames['Wolf-RayetStar'],
+    effects: whEffectLabelsAs('C6', 'Wolf-RayetStar')
+  })
 
   const id = wormholeId(system)
 
@@ -82,8 +94,12 @@ const whEffectsCache = system => {
   return whEffect
   .then(effects => {
     const whEffectName = effects[system.name]
-    if ( !whEffectName ) return
-    return whEffectLabelsAs(system.jClass, whEffectName)
+    if ( !whEffectName ) return {}
+
+    return {
+      effectName: effectNames[whEffectName],
+      effects: whEffectLabelsAs(system.jClass, whEffectName)
+    }
   })
 }
 
@@ -155,20 +171,24 @@ export const identifyWormhole = system => {
     .then(statics => statics[system.name] || []),
     whSignaturesCache(),
     whJClassesCache(system)
-    .then(jClasses => jClasses[system.name]),
-    whEffectsCache(system)
+    .then(jClasses => jClasses[system.name])
   ])
-  .then(([statics, signatures, jClass, effect]) => {
-    console.log(system, statics, signatures, jClass, effect)
+  .then(([statics, signatures, jClass]) => Promise.all([
+    statics,
+    signatures,
+    jClass,
+    whEffectsCache(Object.assign({}, system, { jClass }))
+  ]))
+  .then(([statics, signatures, jClass, {effectName, effects}]) => {
+    console.log(system, statics, signatures, jClass, effectName, effects)
 
     return Object.assign(system, {
-      wormhole: true, //TODO: rename this key to "wh"
+      wh: true,
       jClass,
       statics: statics.map(sig => Object.assign({ sig }, signatures[sig] || {})),
     },
-      effect
-      ? { effect }
-      : null
+      effectName ? { effectName } : null,
+      effects ? { effects } : null,
     )
   })
 

@@ -158,28 +158,76 @@ export const RoutesHistoryListItems = props => {
   </div>)
 }
 
+const WormholeAvatar = ({system}) => {
+  const jClass = {
+    'High-Sec': 'HS',
+    'Low-Sec': 'LS',
+    'Null-Sec': 'NS',
+    'Class 1': 'C1',
+    'Class 2': 'C2',
+    'Class 3': 'C3',
+    'Class 4': 'C4',
+    'Class 5': 'C5',
+    'Class 6': 'C6',
+    'Class 13': 'C13',
+    'Thera': 'Thera',
+  }[system.leadsTo]
+
+  return ( <Avatar> {jClass || system.leadsTo} </Avatar> )
+}
+
 export const WormholeHistoryListItems = props => {
   const { jSpace } = props
   const whClasses = '1 2 3 4 5 6 13'.split(' ').map(c => 'C' + c)
 
-  return (<div>
-    { jSpace.map(j => {
-      return (<Link to={`/home/nav/${j.name}`} key={`route-history-wormhole-${j.id}`}>
-        <ListItem
-          button
-          style={{
-            textDecoration: 'none'
-        }}>
+  return (
+    <div>
+      { jSpace.map(j => (
+        <Route key={`route-history-wormhole-${j.id}`} render={({history}) => (
+          <div>
+            <ListItem
+              button
+              style={{
+                textDecoration: 'none'
+              }}
+              onClick={() => history.push(`/home/nav/${j.name}`)}
+            >
 
-          <ListItemText
-            primary={j.name}
-            secondary={ <span> <SystemSecAvatar system={j} /> {j.sec.toFixed(2)} </span> }
-          />
-        </ListItem>
-      </Link>)
-    }) }
+              <ListItemText
+                primary={j.name}
+                secondary={
+                  <span>
+                    <SystemSecAvatar system={j} />
+                    { j.jClass + (j.effectName ? ` / ${j.effectName}` : '') }
+                  </span>
+                }
+              />
+            </ListItem>
 
-  </div>)
+            { j.statics && j.statics.map(wh => (
+              <Route render={({history}) => (
+                <ListItem
+                  button
+                  key={wh.sig}
+                  onClick={() => {
+                    history.push(`/home/nav/${j.name}/${wh.sig}`)
+                  }}
+                >
+                  <WormholeAvatar system={wh} />
+                  <ListItemText
+                    primary={wh.leadsTo}
+                    secondary={wh.sig}
+                  />
+                  {//secondary={ <span> <SystemSecAvatar system={destination} /> {destination.sec.toFixed(2)} </span> }
+                  }
+                </ListItem>
+              )} />
+            )) }
+          </div>
+        )} />
+      ))}
+    </div>
+  )
 }
 
 export const FavoriteHistoryListItems = props => {
