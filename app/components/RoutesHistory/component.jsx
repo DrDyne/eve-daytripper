@@ -9,9 +9,11 @@ import {
 import MoreVert from 'material-ui-icons/MoreVert'
 import ListSubheader from 'material-ui/List/ListSubheader'
 import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
-import { Link } from 'react-router-dom'
 import { SystemSecAvatar, SystemSecAvatarBig } from '../SystemSecAvatar'
 import RouteMenu from './RouteMenu'
+import { FavoriteHistoryListItems } from './Favorites'
+import { identifyConnection, JSpaceSubHeader } from './Jspace'
+import { KSpaceSubHeader } from './Kspace'
 
 export const RoutesHistory = props => {
   return (<div style={{
@@ -42,15 +44,6 @@ export const RoutesHistory = props => {
     </ListSubheader>
     <FavoriteHistoryListItems {...props} />
   </div>)
-}
-
-const KSpaceSubHeader = ({letter}) => {
-  return (<ListSubheader
-    style={{
-      textAlign: 'right'
-    }} >
-    { letter }
-  </ListSubheader>)
 }
 
 const KSpaceRoutes = props => {
@@ -158,97 +151,90 @@ export const RoutesHistoryListItems = props => {
   </div>)
 }
 
-const WormholeAvatar = ({system}) => {
-  const jClass = {
-    'High-Sec': 'HS',
-    'Low-Sec': 'LS',
-    'Null-Sec': 'NS',
-    'Class 1': 'C1',
-    'Class 2': 'C2',
-    'Class 3': 'C3',
-    'Class 4': 'C4',
-    'Class 5': 'C5',
-    'Class 6': 'C6',
-    'Class 13': 'C13',
-    'Thera': 'Thera',
-  }[system.leadsTo]
-
-  return ( <Avatar> {jClass || system.leadsTo} </Avatar> )
-}
-
 export const WormholeHistoryListItems = props => {
   const { jSpace } = props
-  const whClasses = '1 2 3 4 5 6 13'.split(' ').map(c => 'C' + c)
+
+  const categories = jSpace.reduce((memo, {jClass}) => (
+    memo.find(c => c === jClass)
+    ? memo
+    : memo.concat(jClass)
+  ), [])
+
+  const wormholesByClass = categories.reduce((memo, jClass) => {
+    memo[jClass] = jSpace.filter(system => jClass === system.jClass)
+    return memo
+  }, {})
+  //console.log(wormholesByClass)
+
+  const { C1, C2, C3, C4, C5, C6 } = wormholesByClass
+  const { C13, Thera } = wormholesByClass
 
   return (
     <div>
-      { jSpace.map(j => (
-        <Route key={`route-history-wormhole-${j.id}`} render={({history}) => (
-          <div>
-            <ListItem
-              button
-              style={{
-                textDecoration: 'none'
-              }}
-              onClick={() => history.push(`/home/nav/${j.name}`)}
-            >
-
-              <ListItemText
-                primary={j.name}
-                secondary={
-                  <span>
-                    <SystemSecAvatar system={j} />
-                    { j.jClass + (j.effectName ? ` / ${j.effectName}` : '') }
-                  </span>
-                }
-              />
-            </ListItem>
-
-            { j.statics && j.statics.map(wh => (
-              <Route render={({history}) => (
-                <ListItem
-                  button
-                  key={wh.sig}
-                  onClick={() => {
-                    history.push(`/home/nav/${j.name}/${wh.sig}`)
-                  }}
-                >
-                  <WormholeAvatar system={wh} />
-                  <ListItemText
-                    primary={wh.leadsTo}
-                    secondary={wh.sig}
-                  />
-                  {//secondary={ <span> <SystemSecAvatar system={destination} /> {destination.sec.toFixed(2)} </span> }
-                  }
-                </ListItem>
-              )} />
-            )) }
-          </div>
-        )} />
-      ))}
+      { [ C6, C5, C4, C3, C2, C1, C13, Thera ]
+        .filter(systems => !!systems)
+        .map(systems => {
+          const { jClass } = systems[0]
+          return (
+            <div key={'category-group-'+jClass}>
+              <JSpaceSubHeader jClass={jClass} />
+              <JSpaceNavigation {...props} systems={systems} />
+            </div>
+          )
+        })
+      }
     </div>
   )
 }
 
-export const FavoriteHistoryListItems = props => {
-  const { favorites } = props
+const JSpaceNavigation = props => {
+  const { systems } = props
+  return (
+    <div>
+      { systems.map(j => {
+        return (
+          <Route key={`route-history-wormhole-${j.id}`} render={({history}) => (
+            <div>
+              <ListItem
+                button
+                style={{
+                  textDecoration: 'none'
+                }}
+                onClick={() => history.push(`/home/nav/${j.name}`)}
+              >
 
-  return (<div>
-    { favorites.map(system => {
-      return (<ListItem
-        button
-        key={`route-history-favorite-${system.id}`}
-        style={{
-          textDecoration: 'none'
-      }}>
+                <ListItemText
+                  primary={j.name}
+                  secondary={
+                    <span>
+                      <SystemSecAvatar system={j} />
+                      { j.jClass + (j.effectName ? ` / ${j.effectName}` : '') }
+                    </span>
+                  }
+                />
+              </ListItem>
 
-        <SystemSecAvatarBig system={system} />
-
-        <ListItemText
-          primary={system.name}
-          secondary={ system.sec.toFixed(2) }
-        />
-      </ListItem>)
-    })}
-  </div>)
+              { j.statics && j.statics.map(wh => (
+                <Route key={`${j.name}:${wh.sig}`} render={({history}) => (
+                  <ListItem
+                    button
+                    dense
+                    onClick={() => {
+                      history.push(`/home/nav/${j.name}/${wh.sig}`)
+                    }}
+                  >
+                    <Avatar> {wh.leadsTo} </Avatar>
+                    <ListItemText
+                      primary={identifyConnection(j, wh)}
+                      secondary={wh.sig}
+                    />
+                  </ListItem>
+                )} />
+              )) }
+            </div>
+          )} />
+        )
+      }) }
+    </div>
+  )
 }
