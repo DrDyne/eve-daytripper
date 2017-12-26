@@ -25,3 +25,5 @@ export const FavoriteHistoryListItems = props => {
     })}
   </div>)
 }
+
+export default FavoriteHistoryListItems
