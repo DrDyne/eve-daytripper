@@ -8,8 +8,10 @@ import {
   TextField,
   Typography
 } from 'material-ui'
+import { whEffectValues } from 'App/api/utils'
 import { SystemSecAvatar } from '../../SystemSecAvatar'
-import { isWormhole } from '../../../api/utils'
+import { WormholeSystemEffectInfo } from './WormholeSystemEffectInfo'
+
 export const OriginCard = ({system}) => (<Card raised={false} elevation={0}>
   <CardContent style={{
     paddingTop: 0,
@@ -41,12 +43,16 @@ export const OriginCard = ({system}) => (<Card raised={false} elevation={0}>
         </div>
         <Typography type="caption">
           <SystemSecAvatar system={system} />
-          {system.sec.toFixed(2)}
-          { isWormhole(system.name) &&
-            ` / C${system.jClass}`
+          { system.wh
+          ? system.jClass
+          : system.sec.toFixed(2)
           }
         </Typography>
       </div>
     </div>
+
+    { !!system.wh && !!system.effectName &&
+      <WormholeSystemEffectInfo system={system}/>
+    }
   </CardContent>
 </Card>)

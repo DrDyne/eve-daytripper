@@ -1,0 +1,23 @@
+.avatarContainer {
+  position: relative;
+  margin: 0 auto;
+}
+
+.avatarCover {
+  z-index: 1;
+  transition: 0.5s ease-in;
+  margin: 0 auto;
+  width: 256px;
+  height: 256px;
+  background: red;
+}
+
+.avatarLoader {
+  z-index: 2;
+  margin: 0 auto;
+}
+
+.avatar256 {
+  z-index: 0;
+  margin: 0 auto;
+}

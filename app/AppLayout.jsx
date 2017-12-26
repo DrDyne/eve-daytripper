@@ -14,6 +14,7 @@ import PasteRecipient from './components/PasteRecipient'
 import PasteActions from './components/PasteActions'
 import Settings from './components/Settings'
 import CcpAuthenticate from './components/CcpAuthenticate'
+import ProfileLoadingScreen from './components/ProfileLoadingScreen'
 
 export const AppLayout = props => {
   const drawerWidth = 240
@@ -26,6 +27,8 @@ export const AppLayout = props => {
   }
 
   return (<div style={classes.appFrame}>
+    <ProfileLoadingScreen />
+
     <div
       style={{
         position: 'relative',

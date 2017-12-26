@@ -20,6 +20,16 @@ export const OriginsHistory = props => {
         }}>
           <SystemSecAvatar system={origin} />
           {origin.name}
+
+          { !!origin.wh &&
+            <span style={{
+              fontSize: 'x-small',
+              marginLeft: '0.2em',
+              color: '#757575'
+            }}>
+              / {origin.jClass}
+            </span>
+          }
         </Button>
       )} />
     )) }

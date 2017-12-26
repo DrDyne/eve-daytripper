@@ -112,6 +112,7 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
 export const loadProfile = () => (dispatch, getState, {api}) => {
   console.log('load user profile using api to fetch s3')
 
+  dispatch(layout.loadProfile())
   return api.user.loadProfile()
   .then(Profile => {
     console.log(Profile)
@@ -119,5 +120,6 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
     dispatch(gps.init(Profile.gps))
     dispatch(fleet.init(Profile.fleet))
     dispatch(inventory.init(Profile.inventory))
+    dispatch(layout.profileLoaded())
   })
 }

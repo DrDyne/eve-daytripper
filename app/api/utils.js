@@ -10,7 +10,7 @@ const blacklist = [
 export const isWormhole = name => /^J[0-9]{6}$/.test(name.toUpperCase())
 export const wormholeId = system => system.name.toUpperCase().replace(/[J-]/g, '').split('').reduce((sum, i) => sum+parseInt(i), 0)
 
-const whEffectValues = (base, jClass) => {
+export const whEffectValues = (base, jClass) => {
   const values = [
     [15, 22, 29, 36, 43, 50],
 		[-15, -22, -29, -36, -43, -50],
@@ -22,7 +22,9 @@ const whEffectValues = (base, jClass) => {
   if ( !jClass ) return range
 
   const [ jClassIndex ] = jClass.match(/\d+/)
-  return range[jClassIndex-1]
+  return parseInt(jClassIndex) < 13
+  ? range[parseInt(jClassIndex)-1]
+  : range.pop()
 }
 
 export const soundex = (str) => {
