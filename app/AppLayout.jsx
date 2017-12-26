@@ -27,9 +27,7 @@ export const AppLayout = props => {
   }
 
   return (<div style={classes.appFrame}>
-    {// <ProfileLoadingScreen />
-     // wip
-    }
+    <ProfileLoadingScreen />
 
     <div
       style={{
