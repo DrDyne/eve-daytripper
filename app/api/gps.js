@@ -57,19 +57,20 @@ const whEffectLabelsAs = (jClass, effectName) => {
   })
 }
 
+const WOLF_RAYET = 'Wolf-RayetStar'
 const effectNames = {
   BlackHole: 'Black Hole',
   CataclysmicVariable: 'Cataclysmic Variable',
   Magnetar: 'Magnetar',
   Pulsar: 'Pulsar',
   RedGiant: 'Red giant',
-  'Wolf-RayetStar': 'Wolf Rayet',
+  [WOLF_RAYET]: 'Wolf Rayet',
 }
 
 const whEffectsCache = system => {
   if ( 'C13' === system.jClass ) return Promise.resolve({
-    effectName: effectNames['Wolf-RayetStar'],
-    effects: whEffectLabelsAs('C6', 'Wolf-RayetStar')
+    effectName: effectNames[WOLF_RAYET],
+    effects: whEffectLabelsAs('C6', WOLF_RAYET)
   })
 
   const id = wormholeId(system)
