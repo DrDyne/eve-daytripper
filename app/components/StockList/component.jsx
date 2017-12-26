@@ -10,13 +10,16 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   TextField,
+  Typography
 } from 'material-ui'
+import { CircularProgress } from 'material-ui/Progress';
 import Collapse from 'material-ui/transitions/Collapse'
 import { FillGauge } from '../FillGauge'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
 import SetStockDialog from '../SetStockDialog'
 import InfoButton from '../InfoButton'
+
 
 export class StockList extends React.Component {
   state = {
@@ -69,72 +72,24 @@ export class StockList extends React.Component {
 
     return (<div style={{flex: '1 1 auto'}}>
       <List>
-        {/*TODO
-          <AddStockListItem />
-        */}
-        { inventory.stock.filter(i => i.qty > (layout.showEmptyStock ? -1 : 0)).map(item => (<div key={item.name}>
-
-          {/*<ListItem button onClick={this.toggleMenu(item.name)}>*/}
-          <ListItem
-            onMouseEnter={() => {
-              this.setState({showControls: item.id})
-            }}
-            onMouseLeave={() => {
-              this.setState({showControls: null})
-            }}
-          >
-              <Checkbox
-                checked={item.checked}
-                tabIndex={'-1'}
-                onChange={() => item.checked = !item.checked}
-                style={{
-                  display: item.checked
-                  ? 'inherit'
-                  : this.state.showControls === item.id
-                  ? 'inherit'
-                  : 'none'
-                }}
-              />
-            <div
-              onClick={this.setStock(item)}
-              style={{
-                display: 'flex',
-                flex: '1 1 auto',
-                ':hover': { cursor: 'pointer' }
-            }}>
-              <ListItemAvatar>
-                <Avatar>
-                  <GameItemAvatar id={item.id} />
-                </Avatar>
-              </ListItemAvatar>
-
-
-              <ListItemText
-                primary={item.name}
-                secondary={`${getInventoryQty(item.name)} / ${item.qty}`}
-                />
-
-              { layout.showStockPrice && (<Button disabled>
-                <ISK value={getInventoryPrice(item.name)} />
-              </Button> )}
-            </div>
-
-            <ListItemSecondaryAction>
-              <InfoButton id={item.id}/>
-            </ListItemSecondaryAction>
-
-          </ListItem>
-
-          <FillGauge qty={getInventoryQty(item.name)} target={item.qty} />
-
-          <Collapse
-            in={this.state.menuItemKey === item.name}
-            transitionDuration="auto"
-            unmountOnExit
-            >
-            <Button onClick={this.setStock(item)} raised> Set quantity </Button>
-          </Collapse>
-        </div>))}
+        { inventory.stock
+          .filter(i => i.qty > (layout.showEmptyStock ? -1 : 0))
+          .map((item, index) => (
+            <StockListItem
+              key={`stock/${index}:${item.name}`}
+              layout={layout}
+              item={item}
+              index={index}
+              onClick={() => this.setStock(item)}
+              onMouseEnter={() => this.setState({showControls: item.id}) }
+              onMouseLeave={() => this.setState({showControls: null}) }
+              inventoryQty={getInventoryQty(item.name)}
+              inventoryPrice={getInventoryPrice(item.name)}
+              controlsShowing={this.state.showControls === item.id}
+              menuItemKey={this.state.menuItemKey}
+            />
+          ))
+        }
       </List>
 
       <SetStockDialog
@@ -147,3 +102,62 @@ export class StockList extends React.Component {
     </div>)
   }
 }
+
+export const StockListItem = ({
+  layout,
+  item,
+  index,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  inventoryQty,
+  inventoryPrice,
+  controlsShowing,
+  menuItemKey
+}) => (
+  <div>
+    <ListItem onClick={onClick}>
+
+      <div>
+        <div style={{position: 'relative'}}>
+          <ListItemAvatar>
+            <Avatar>
+              <GameItemAvatar id={item.id} />
+            </Avatar>
+          </ListItemAvatar>
+          <CircularProgress size={50} mode="determinate" value={100*(inventoryQty/item.qty)} style={{
+            color: '#E65100',
+
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: -24,
+            marginLeft: -24,
+          }} />
+        </div>
+        <Typography type="caption" style={{
+          textAlign: 'center',
+          marginTop: 2,
+          fontSize: 'x-small',
+        }}>
+          { `${Math.round(100*(inventoryQty/item.qty))}%` }
+        </Typography>
+      </div>
+
+
+      <ListItemText
+        primary={item.name}
+        secondary={`${inventoryQty} / ${item.qty}`}
+      />
+
+      <ListItemSecondaryAction>
+        <InfoButton id={item.id}/>
+      </ListItemSecondaryAction>
+    </ListItem>
+
+    { layout.showStockPrice && (<Button disabled>
+      <ISK value={inventoryPrice} />
+    </Button> )}
+
+  </div>
+)
