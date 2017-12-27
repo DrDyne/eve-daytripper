@@ -15,7 +15,10 @@ export const AddMemberButton = props => {
         <Avatar style={{backgroundColor: color}}>
           <GroupAddIcon />
         </Avatar>
-        <ListItemText primary="Add member" />
+        {/* // re-enable when app handles multiple fleet members
+          <ListItemText primary="Add member" />
+        */}
+        <ListItemText primary="Switch character" />
       </ListItem>
   )} /> )
 }

@@ -5,16 +5,23 @@
 
 .avatarCover {
   z-index: 1;
-  transition: 0.5s ease-in;
+  transition: 0.6s ease-in-out;
   margin: 0 auto;
   width: 256px;
   height: 256px;
   background: red;
 }
 
+.avatarLoaderContainer {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 .avatarLoader {
   z-index: 2;
   margin: 0 auto;
+  color: rgb(245, 0, 87)
 }
 
 .avatar256 {

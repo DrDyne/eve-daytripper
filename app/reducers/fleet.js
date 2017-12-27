@@ -21,6 +21,7 @@ export const createMember = ({id, name}, role) => ({
 export const addMember = (state, action) => {
   const { id, name, role } = action
   const member = createMember({id, name}, role)
+  return Object.assign({}, state, { members: [member]}) // disable when app handles multiple fleet members
   const members = [...state.members, member]
   return Object.assign({}, state, { members })
 }
