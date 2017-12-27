@@ -30,7 +30,7 @@ const STOCK_POS_RIGHT = 'right'
 export const initialState = {
   profileLoading: false,
   gpsBusy: false,
-  contentLayout: 'side-to-side', // 'side-to-side', 'tabs'
+  contentLayout: 'vertical', // 'vertical', 'side-to-side', 'tabs'
   stockListPosition: STOCK_POS_LEFT,
   settingsMenuOpen: false,
   showEmptyStock: false,

@@ -120,6 +120,6 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
     dispatch(gps.init(Profile.gps))
     dispatch(fleet.init(Profile.fleet))
     dispatch(inventory.init(Profile.inventory))
-    dispatch(layout.profileLoaded())
   })
+  .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 850))
 }

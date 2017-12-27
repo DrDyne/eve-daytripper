@@ -8,6 +8,7 @@ import InfoDialog from '../InfoDialog'
 import {
   TabsLayout,
   SideToSideLayout,
+  VerticalLayout,
 } from './layouts'
 import style from './style.scss'
 
@@ -26,6 +27,10 @@ export class AppContent extends React.Component {
 
       { 'side-to-side' === layout.contentLayout &&
         <SideToSideLayout {...this.props} />
+      }
+
+      { 'vertical' === layout.contentLayout &&
+        <VerticalLayout {...this.props} />
       }
 
       <InfoDialog />

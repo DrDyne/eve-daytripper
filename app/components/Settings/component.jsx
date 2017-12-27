@@ -82,8 +82,8 @@ export class Settings extends React.Component {
             { 0 === activeTab
             ? <BusinessCenter />
             : 1 === activeTab
-            ? '$'
-            : <ShoppingCart />
+            ? <ShoppingCart />
+            : '$'
             }
           </Avatar>
           <ListItemText

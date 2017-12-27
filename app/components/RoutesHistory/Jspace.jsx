@@ -84,14 +84,10 @@ export const JSpaceNavigation = props => {
                 onClick={() => history.push(`/home/nav/${j.name}`)}
               >
 
+                <SystemSecAvatarBig system={{sec: -1}} label={j.jClass}/>
                 <ListItemText
                   primary={j.name}
-                  secondary={
-                    <span>
-                      <SystemSecAvatar system={j} />
-                      { j.jClass + (j.effectName ? ` / ${j.effectName}` : '') }
-                    </span>
-                  }
+                  secondary={j.effectName}
                 />
               </ListItem>
 
