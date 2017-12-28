@@ -73,7 +73,7 @@ export class Settings extends React.Component {
 
       <Collapse in={layout.fleetVisibility}>
         <Fleet />
-        <ListItem divider />
+        <ListItem divider style={{marginTop: 1}}/>
       </Collapse>
 
       <Route render={({history}) => (

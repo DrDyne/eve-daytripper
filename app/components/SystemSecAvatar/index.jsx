@@ -1,10 +1,8 @@
 import React from 'react'
-import { Avatar } from 'material-ui'
-import { SystemSecAvatarBig } from './Big'
 import { colors, secToHex } from './utils'
 
-export const SystemSecAvatar = ({system, size}) => {
-  return <span style={{
+export const SystemSecAvatar = ({system, size}) => (
+  <span style={{
     width: size || 10,
     height: size || 10,
     borderRadius: size || 10,
@@ -13,8 +11,15 @@ export const SystemSecAvatar = ({system, size}) => {
     marginRight: 5,
     marginLeft: -10,
   }} />
-}
+)
 
-export {
-  SystemSecAvatarBig
-}
+import { Avatar } from 'material-ui'
+export const SystemSecAvatarBig = ({ system, label, size, style }) => (
+  <Avatar {...{ style }} style={Object.assign({
+    backgroundColor: secToHex(system.sec),
+  },
+    !!size ? { width: size, height: size } : {}
+  )}>
+    {label}
+  </Avatar>
+)

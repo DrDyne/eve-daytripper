@@ -36,14 +36,14 @@ export const Gps = props => {
       <Route path="/home/nav" component={GpsCloseButton} />
     </Toolbar>
 
+    <Route path="/home" component={OriginsHistory} />
+
     <GpsContent />
 
     { !!showFavoriteRoutes &&
     <Route path="/home/nav/:origin" render={({match}) => (
       <RoutesToFavorites origin={match.params.origin} />
     )} /> }
-
-    <Route path="/home" exact component={OriginsHistory} />
 
   </Paper>)
 }

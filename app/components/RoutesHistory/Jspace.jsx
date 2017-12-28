@@ -100,7 +100,9 @@ export const JSpaceNavigation = props => {
                       history.push(`/home/nav/${j.name}/${wh.sig}`)
                     }}
                   >
-                    <Avatar> {wh.leadsTo} </Avatar>
+                    <Avatar style={{width:30, height: 30, marginLeft: 10, fontSize: '80%'}}>
+                      {wh.leadsTo}
+                    </Avatar>
                     <ListItemText
                       primary={identifyConnection(j, wh)}
                       secondary={wh.sig}

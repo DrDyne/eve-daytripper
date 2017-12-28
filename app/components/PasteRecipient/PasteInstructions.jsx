@@ -6,7 +6,9 @@ import style from './style.scss'
 
 export const PasteInstructions = ({step}) => {
   return (
-    <div id={style.label}>
+    <div id={style.label} style={{
+      background: step > 0 ? 'rgba(0,0,0,0.05)' : 'none'
+    }}>
       <Stepper activeStep={step-1} style={{
         width: '66%',
         maxWidth: 320,

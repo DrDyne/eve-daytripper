@@ -10,9 +10,9 @@ import { RoutePath } from '../RoutePath'
 import RouteMenu from '../RouteMenu'
 import * as utils from '../utils'
 
-export const RouteCard = ({showShortestRoutes, route, favorites}) => {
+export const RouteCard = ({showShortestRoutes, route, favorites, previewSize}) => {
   const { systems, jumps } = route[showShortestRoutes ? 'shortest' : 'safest']
-  return (<Card elevation={0}>
+  return (<Card elevation={0} style={{border: '1px solid #eee'}}>
   <CardContent style={{
     paddingBottom: 0,
     paddingTop: 8
@@ -40,12 +40,10 @@ export const RouteCard = ({showShortestRoutes, route, favorites}) => {
 
     <div style={{display: 'flex', flexDirection: 'column'}}>
       <Typography type="caption" style={{marginBottom: 6}}> { route.origin.name} </Typography>
-      <RoutePath systems={systems} />
-      { /*
-      <Typography type="caption" style={{textAlign: 'right'}}> { route.destination.name} </Typography>
-      */ }
+      <RoutePath systems={systems} previewSize={previewSize}/>
     </div>
   </CardContent>
+  {/*
   <CardActions>
     <div style={{
         display: 'flex',
@@ -60,4 +58,5 @@ export const RouteCard = ({showShortestRoutes, route, favorites}) => {
       <RouteMenu route={route} />
     </div>
   </CardActions>
+  */}
 </Card>) }

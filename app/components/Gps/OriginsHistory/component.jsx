@@ -7,18 +7,19 @@ import {
   Typography
 } from 'material-ui'
 import Tabs, { Tab } from 'material-ui/Tabs'
+import DeleteSweepIcon from 'material-ui-icons/DeleteSweep'
 import {
   SystemSecAvatar,
   SystemSecAvatarBig
 } from '../../SystemSecAvatar'
 
 export const OriginsHistory = props => {
-  const { origins } = props
-  return (
+  const { origins, skipOrigins } = props
+
+  return !origins.length ? null : (
     <Route render={({history}) => (
       <Tabs
         value={false}
-        centered={true}
         indicatorColor="primary"
         textColor="primary"
         scrollable
@@ -46,6 +47,12 @@ export const OriginsHistory = props => {
           ))
           .reverse()
         }
+        <Tab
+          onClick={() => skipOrigins()}
+          disabled={!origins.length}
+          icon={<DeleteSweepIcon />}
+          label="Clear origins"
+        />
       </Tabs>
     )} />
   )

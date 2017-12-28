@@ -17,7 +17,7 @@ export const RoutesToFavorites = props => {
           item
           key={`${route.origin.id}-${route.destination.id}`}
         >
-          <RouteCard route={route} />
+          <RouteCard route={route} previewSize={'small'}/>
         </Grid>
       ))
     }
