@@ -8,9 +8,7 @@ import {
 import { PasteRecipient } from './component'
 
 export const mapStateToProps = state => ({
-  busy: state.layout.gpsBusy,
-  parsedItems: null,
-  parsedSystem: null,
+  busy: state.layout.gpsBusy || state.layout.inventoryBusy,
 })
 
 export const mapDispatchToProps = dispatch => ({

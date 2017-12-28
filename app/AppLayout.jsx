@@ -35,6 +35,7 @@ export const AppLayout = props => {
         width: drawerWidth,
         background: 'white',
         height: '100vh',
+        borderRight: '1px solid #eee',
       }}
     >
       <div style={{
@@ -59,7 +60,7 @@ export const AppLayout = props => {
           flexDirection: 'column',
           flexGrow: 1,
           height: '100vh',
-          overflowY: 'auto'
+          overflowY: 'auto',
         }}>
 
           <section>

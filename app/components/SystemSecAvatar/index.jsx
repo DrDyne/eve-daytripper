@@ -10,7 +10,8 @@ export const SystemSecAvatar = ({system, size}) => {
     borderRadius: size || 10,
     backgroundColor: secToHex(system.sec),
     display: 'inline-block',
-    marginRight: 5
+    marginRight: 5,
+    marginLeft: -10,
   }} />
 }
 

@@ -20,7 +20,7 @@ export const Gps = props => {
   } = props
 
   return (<Paper style={{
-    marginBottom: 2,
+    marginBottom: 4,
     width: '100%',
   }}>
     <Toolbar style={{

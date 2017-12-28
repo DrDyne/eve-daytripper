@@ -7,6 +7,9 @@ import {
   LinearProgress,
   Typography
 } from 'material-ui'
+import { PasteInstructions } from './PasteInstructions'
+import PasteResults from './PasteResults'
+import { PasteStatusBar } from './PasteStatusBar'
 
 export class PasteRecipient extends React.Component {
   state = {
@@ -26,36 +29,45 @@ export class PasteRecipient extends React.Component {
   render () {
     const { hovered, focused, pasted } = this.state
     const { parsedItems, parsedSystem, busy } = this.props
-    const css = {
+    const cssOverride = {
       root: {
-        background: !hovered
-        ? 'red'
-        : ( !focused )
-        ? 'yellow'
-        : ( !pasted )
-        ? 'green'
-        : 'orange'
+        background: 'white',
+        marginBottom: 4,
+        //background: !hovered
+        //? 'red'
+        //: ( !focused )
+        //? 'yellow'
+        //: ( !pasted )
+        //? 'green'
+        //: 'orange'
       },
     }
 
+    const pasteStep = !hovered
+    ? 0
+    : !focused
+    ? 1
+    : !pasted
+    ? 2
+    : 3
+
     return (
       <Paper className={style.root}
-        style={css.root}
+        style={cssOverride.root}
+        elevation={2}
         onPaste={this.paste}>
+
         <div id={style.recipient}
           onClick={this.focus}
           onMouseEnter={this.hover}
           onMouseLeave={this.blur}>
-          <Typography id={style.label} type="headline"> Click and paste </Typography>
-          { parsedItems > 0 && (<div>
-            <Typography id={style['label-caption']} type="caption" align="right">
-              {parsedItems} items parsed
-            </Typography>
-          </div>) }
+          <PasteInstructions step={pasteStep} />
         </div>
-        <Collapse in={busy}>
-          <LinearProgress mode="query" />
-        </Collapse>
+
+        <PasteStatusBar step={pasteStep} busy={busy} />
+
+        <PasteResults items={parsedItems} system={parsedSystem} />
+
       </Paper>
     )
   }

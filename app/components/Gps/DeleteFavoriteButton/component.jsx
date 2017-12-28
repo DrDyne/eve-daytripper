@@ -20,7 +20,7 @@ export const DeleteFavoriteButton = props => {
       <StarBorder />
     </IconButton>
     { system.id === layout.showConfirmDeleteFavoriteDialog && (
-      <Menu open={layout.showConfirmDeleteFavoriteDialog} onRequestClose={cancelDeleteFavorite}>
+      <Menu open={layout.showConfirmDeleteFavoriteDialog} onClose={cancelDeleteFavorite}>
         <MenuItem>
           <Button onClick={cancelDeleteFavorite}> cancel </Button>
         </MenuItem>

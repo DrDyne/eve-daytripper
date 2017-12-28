@@ -2,6 +2,8 @@ import {
   addOrUpdateItem,
   setStock,
   deleteItem,
+  inventoryBusy,
+  inventoryBusyDone,
 } from './index.js'
 
 export const INVENTORY_INIT = 'inventory:init'
@@ -50,5 +52,11 @@ export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
     })
   })
 
+  dispatch(inventoryBusy())
   return Promise.all(identifications)
+  .then(() => dispatch(inventoryBusyDone()))
+  .catch(err => {
+    dispatch(inventoryBusyDone())
+    throw err
+  })
 }
