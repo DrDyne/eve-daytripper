@@ -50,8 +50,8 @@ export const OriginsHistory = props => {
         <Tab
           onClick={() => skipOrigins()}
           disabled={!origins.length}
-          icon={<DeleteSweepIcon />}
-          label="Clear origins"
+          icon={<Avatar style={{background: 'white', color: 'rgb(185,185,185)'}}><DeleteSweepIcon /></Avatar>}
+          label="Clear"
         />
       </Tabs>
     )} />

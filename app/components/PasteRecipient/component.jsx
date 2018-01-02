@@ -66,10 +66,6 @@ export class PasteRecipient extends React.Component {
 
         <PasteStatusBar step={step} busy={busy} />
 
-        {/*
-          <PasteResults items={parsedItems} system={parsedSystem} />
-        */ }
-
         <PasteFeedback items={items} system={system} />
 
       </Paper>
@@ -95,7 +91,7 @@ export class PasteFeedback extends React.Component {
   }
 
   handleClose = (event, reason) => {
-    if ( 'timeout' === reason ) return;
+    //if ( 'timeout' === reason ) return;
 
     this.setState({open: false})
   }
@@ -148,7 +144,7 @@ export class PasteFeedback extends React.Component {
           horizontal: 'right',
         }}
         open={this.state.open}
-        autoHideDuration={6000*1000000}
+        autoHideDuration={4200}
         onClose={this.handleClose}
         SnackbarContentProps={{
           'aria-describedby': 'message-id',
