@@ -25,7 +25,9 @@ module.exports = {
       joi: 'joi-browser',
       moment: 'moment/moment.js',
       App: path.resolve(__dirname, './app'),
-      Images: path.resolve(__dirname, './images')
+      Images: path.resolve(__dirname, './images'),
+      mui: 'material-ui',
+      muii: 'material-ui-icons'
     },
     extensions: ['.js', '.jsx']
   },
