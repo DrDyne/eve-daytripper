@@ -9,6 +9,8 @@ import { PasteRecipient } from './component'
 
 export const mapStateToProps = state => ({
   busy: state.layout.gpsBusy || state.layout.inventoryBusy,
+  items: state.history.lastPasted.items,
+  system: state.history.origins.find(o => o.name.toUpperCase() === state.history.lastPasted.raw.toUpperCase()),
 })
 
 export const mapDispatchToProps = dispatch => ({
