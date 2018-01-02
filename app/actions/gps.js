@@ -126,3 +126,7 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
   })
   .then(() => dispatch(gpsBusyDone()))
 }
+
+export const lookupActivity = system => (dispatch, getState, {api}) => {
+  console.log('lookup', system)
+}

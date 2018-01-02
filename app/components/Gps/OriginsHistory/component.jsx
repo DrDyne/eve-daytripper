@@ -17,7 +17,7 @@ export const OriginsHistory = props => {
   const { origins, skipOrigins } = props
 
   return !origins.length ? null : (
-    <Route render={({history}) => (
+    <Route children={({history}) => (
       <Tabs
         value={false}
         indicatorColor="primary"

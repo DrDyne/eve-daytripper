@@ -5,9 +5,9 @@ import ListSubheader from 'material-ui/List/ListSubheader'
 import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List'
 import { SystemSecAvatar, SystemSecAvatarBig } from '../SystemSecAvatar'
 
-export const identifyConnection = (jSystem, whStatic) => {
+export const identifyConnection = (jSystem, { sig, leadsTo }) => {
   // use jSystem's jumped connections to return identified system name instead, if found
-  return leadsToFulltext(whStatic)
+  return leadsToFulltext({ sig, leadsTo })
 }
 
 export const leadsToFulltext = ({leadsTo}) => {
@@ -93,21 +93,14 @@ export const JSpaceNavigation = props => {
 
               { j.statics && j.statics.map(wh => (
                 <Route key={`${j.name}:${wh.sig}`} render={({history}) => (
-                  <ListItem
-                    button
-                    dense
+                  <WormholeStaticListItem
+                    system={j}
+                    sig={wh.sig}
+                    leadsTo={wh.leadsTo}
                     onClick={() => {
                       history.push(`/home/nav/${j.name}/${wh.sig}`)
                     }}
-                  >
-                    <Avatar style={{width:30, height: 30, marginLeft: 10, fontSize: '80%'}}>
-                      {wh.leadsTo}
-                    </Avatar>
-                    <ListItemText
-                      primary={identifyConnection(j, wh)}
-                      secondary={wh.sig}
-                    />
-                  </ListItem>
+                  />
                 )} />
               )) }
             </div>
@@ -119,3 +112,24 @@ export const JSpaceNavigation = props => {
 }
 
 export default WormholeHistoryListItems
+
+export const WormholeStaticListItem = ({ system, sig, leadsTo, onClick }) => (
+  <ListItem
+    button
+    dense
+    onClick={onClick}
+  >
+    <Avatar style={{
+      width:30,
+      height: 30,
+      marginLeft: 10,
+      fontSize: '80%'
+    }}>
+      {leadsTo}
+    </Avatar>
+    <ListItemText
+      primary={identifyConnection(system, { sig, leadsTo })}
+      secondary={sig}
+    />
+  </ListItem>
+)

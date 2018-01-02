@@ -14,7 +14,7 @@ export {
 }
 
 const PREVIEW_SMALL = 'small'
-export const RoutePath = ({systems, previewSize}) => {
+export const RoutePath = ({systems, previewSize, routeButton=true}) => {
   const condensedRoute = utils.shortRoute(systems)
   const [ routeOrigin, routeDestination ] = [ systems.slice()[0], systems.slice().pop() ]
 
@@ -67,17 +67,23 @@ export const RoutePath = ({systems, previewSize}) => {
           }) }
         </div>
       </ListItem>
-      <ListItem
-        button
-        component={Link}
-        to={`http://evemaps.dotlan.net/route/${routeOrigin.name}:${routeDestination.name}`}
-        target="_blank"
-        style={{justifyContent: 'center', minWidth: 62}}
-      >
-        <Typography type="body1">
-          route ({systems.length})
-        </Typography>
-      </ListItem>
+
+      { //https://github.com/mui-org/material-ui/blob/92bd073015b9cc0dff3a26195fcb49153ddaab78/docs/src/modules/components/AppDrawerNavItem.js#L71-L83
+        //https://github.com/mui-org/material-ui/blob/92bd073015b9cc0dff3a26195fcb49153ddaab78/docs/src/pages/demos/buttons/FlatButtons.js#L40-L42
+      }
+      { routeButton &&
+        <ListItem
+          button
+          component={Link}
+          to={`http://evemaps.dotlan.net/route/${routeOrigin.name}:${routeDestination.name}`}
+          target="_blank"
+          style={{justifyContent: 'center', minWidth: 62}}
+        >
+          <Typography type="body1">
+            route ({systems.length})
+          </Typography>
+        </ListItem>
+      }
     </List>
   )
 }
