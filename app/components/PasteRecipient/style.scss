@@ -4,7 +4,6 @@
 }
 
 #recipient {
-  height: 80px;
   width: 100%;
 }
 
@@ -14,8 +13,8 @@
 
 #label {
   margin: 0 auto;
-  line-height: 80px;
   text-align: center;
+  transition: .2s ease-out;
 }
 
 #label:hover {

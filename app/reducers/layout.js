@@ -6,6 +6,8 @@ import {
   CONFIRM_DELETE_FAVORITE,
   CANCEL_DELETE_FAVORITE,
   DELETE_FAVORITE,
+  INVENTORY_BUSY,
+  INVENTORY_BUSY_DONE,
 } from '../actions'
 
 import {
@@ -17,6 +19,7 @@ import {
   TOGGLE_SIDE_NAVIGATION,
   PROFILE_LOAD_START,
   PROFILE_LOAD_END,
+  SKIP_ORIGINS_HISTORY,
 } from '../actions/layout'
 
 import {
@@ -41,6 +44,7 @@ export const initialState = {
   fleetVisibility: true,
   inventoryVisibility: false,
   navigationVisibility: false,
+  skipOriginsHistory: 0,
 
   primaryColor: 'rgb(245, 0, 87)',
 }
@@ -112,8 +116,11 @@ export const layout = (state=initialState, action) => {
     case TOGGLE_SIDE_NAVIGATION: return toggleNavigationVisibility(state)
     case GPS_BUSY: return Object.assign({}, state, { gpsBusy: true })
     case GPS_BUSY_DONE: return Object.assign({}, state, { gpsBusy: false })
+    case INVENTORY_BUSY: return Object.assign({}, state, { inventoryBusy: true })
+    case INVENTORY_BUSY_DONE: return Object.assign({}, state, { inventoryBusy: false })
     case PROFILE_LOAD_END: return Object.assign({}, state, { profileLoading: false })
     case PROFILE_LOAD_START: return Object.assign({}, state, { profileLoading: true })
+    case SKIP_ORIGINS_HISTORY: return Object.assign({}, state, { skipOriginsHistory: action.nbOrigins })
   }
   return state
 }

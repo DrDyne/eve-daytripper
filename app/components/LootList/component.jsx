@@ -10,10 +10,6 @@ import {
   ListItemSecondaryAction,
   Typography,
 } from 'material-ui'
-import {
-  Folder as FolderIcon,
-  Delete as DeleteIcon
-} from 'material-ui-icons'
 import { ISK } from '../ISK'
 import { M3 } from '../M3'
 import { GameItemAvatar } from '../GameItemAvatar'
@@ -23,7 +19,7 @@ import style from './style.scss'
 
 export const LootListItem = ({index, item, onClick}) => (
   <div>
-    <ListItem button onClick={onClick} >
+    <ListItem button dense onClick={onClick} >
       <ListItemAvatar>
         <Avatar>
           <GameItemAvatar id={item.id} />
@@ -60,12 +56,20 @@ export class LootList extends React.Component {
   }
 
   render () {
-    const { layout, inventory, history } = this.props
+    const { layout, inventory, history, collapsed } = this.props
     const total = {
       isk: inventory.total.isk,
       m3: inventory.total.m3,
       prev: history.lastInventory.total
     }
+
+    if ( collapsed ) return (
+      <List>
+        <ListItem>
+          <ListItemText secondary={`${inventory.items.length} items`} />
+        </ListItem>
+      </List>
+    )
 
     return (<div style={style.root}>
       <List>
@@ -90,7 +94,7 @@ export class LootList extends React.Component {
       <SetStockDialog
         items={this.state.selectedItems}
         open={this.state.showStockDialog}
-        onRequestClose={() => {
+        onClose={() => {
           this.setState({
             showStockDialog: false,
             selectedItems: [],

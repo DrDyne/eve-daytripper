@@ -59,7 +59,7 @@ export class StockList extends React.Component {
   }
 
   render () {
-    const {layout, inventory} = this.props
+    const { layout, inventory, collapsed } = this.props
     const getInventoryQty = name => {
       const item = inventory.items.find(i => i.name === name)
       return !item ? 0 : item.qty
@@ -69,6 +69,14 @@ export class StockList extends React.Component {
       const item = inventory.items.find(i => i.name === name)
       return !item ? 0 : item.isk
     }
+
+    if ( collapsed ) return (
+      <List>
+        <ListItem>
+          <ListItemText secondary={'so much isk'} />
+        </ListItem>
+      </List>
+    )
 
     return (<div style={{flex: '1 1 auto'}}>
       <List>
@@ -95,7 +103,7 @@ export class StockList extends React.Component {
       <SetStockDialog
         items={this.state.selectedItems}
         open={this.state.showStockDialog}
-        onRequestClose={() => {
+        onClose={() => {
           this.hideMenu()
           this.hideDialogs()
         }} />

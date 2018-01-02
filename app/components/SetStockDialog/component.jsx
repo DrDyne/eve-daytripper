@@ -11,7 +11,7 @@ import {
 
 
 export const SetStockDialog = (props) => {
-  const { items, open, onRequestClose, setStock } = props
+  const { items, open, onClose, setStock } = props
 
   if ( items.length === 1 ) {
     const item = items[0] || {}
@@ -19,7 +19,7 @@ export const SetStockDialog = (props) => {
 
     return (<Dialog
       open={open}
-      onRequestClose={onRequestClose}
+      onClose={onClose}
     >
       <DialogTitle>
         Target stock quantity
@@ -35,17 +35,17 @@ export const SetStockDialog = (props) => {
           onKeyPress={() => {
             if ( 'Enter' !== event.key ) return
             setStock({ items, qty: quantity })
-            onRequestClose()
+            onClose()
           }}
           autoFocus
           />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onRequestClose}> cancel </Button>
+        <Button onClick={onClose}> cancel </Button>
         <Button
           onClick={event => {
             setStock({ qty: quantity, items })
-            onRequestClose()
+            onClose()
           }}
           color="primary"
         >

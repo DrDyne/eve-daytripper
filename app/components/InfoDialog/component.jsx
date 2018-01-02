@@ -15,7 +15,7 @@ export const InfoDialog = props => {
 
   return (<Dialog
     open={show}
-    onRequestClose={hideDialog}
+    onClose={hideDialog}
   >
     <div style={{
         padding: 25,
@@ -31,5 +31,7 @@ export const InfoDialog = props => {
 export const Description = props => {
   const { text } = props
   const textWithoutTags = text.replace(/=showinfo:[0-9]+/g, '')
-  return <Typography type="body1" dangerouslySetInnerHTML={{__html: textWithoutTags}} />
+  return (<Typography type="body1">
+    <span dangerouslySetInnerHTML={{__html: textWithoutTags}} />
+  </Typography>)
 }

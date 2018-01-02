@@ -31,6 +31,8 @@ export const INPUT_PASTE = 'input:paste'
 export const INPUT_PASTE_DONE = 'input:paste:done'
 export const UNDO_PASTE = 'paste:undo'
 export const UPDATE_INVENTORY_FROM_PASTE = 'inventory:update'
+export const INVENTORY_BUSY = 'inventory:busy'
+export const INVENTORY_BUSY_DONE = 'inventory:busy:done'
 
 export const SET_CHAR_INFO = 'char:set'
 export const JUMP_TO = 'system:set'
@@ -47,6 +49,8 @@ export const toggleSettingsMenu = () => ({ type: SETTINGS_MENU_TOGGLE })
 export const swapListLayout = () => ({ type: SWAP_STOCK_AND_LOOT_LISTS })
 export const inputPaste = clipboard => ({ type: INPUT_PASTE, clipboard, raw: clipboard.getData('Text') })
 export const inputPasteDone = () => ({ type: INPUT_PASTE_DONE, })
+export const inventoryBusy = () => ({ type: INVENTORY_BUSY })
+export const inventoryBusyDone = () => ({ type: INVENTORY_BUSY_DONE })
 export const setStock = ({id, name, qty}) => ({ type: SET_STOCK, id, name, qty })
 export const setItemQty = ({id, name, qty}) => ({ type: SET_ITEM_QTY, id, name, qty })
 export const addOrUpdateItem = ({id, name, qty, m3, isk}) => ({ type: ADD_ITEM, id, name, qty, m3, isk })

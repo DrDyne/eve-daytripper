@@ -75,9 +75,7 @@ export const KSpaceRoutes = props => {
       //console.log(routesFromOrigin)
       return (<List key={'category-'+origin}>
         <Route render={({history}) => (
-          <ListItem button onClick={() => {
-            history.push(`/home/nav/${originSystem.name}`)
-          }} >
+          <ListItem button onClick={() => history.push(`/home/nav/${originSystem.name}`)}>
             <SystemSecAvatarBig system={originSystem}/>
             <ListItemText
               primary={originSystem.name}
@@ -104,7 +102,7 @@ export const KSpaceRoutes = props => {
                   history.push(`/home/nav/${origin.name}/${destination.name}`)
                 }}
               >
-                <Avatar>
+                <Avatar style={{width: 30, height: 30, marginLeft: 10, fontSize: '80%'}}>
                   {jumps}
                 </Avatar>
                 <ListItemText

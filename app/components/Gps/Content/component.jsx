@@ -1,116 +1,74 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import {
   Button,
   Divider,
-  Paper,
+  List,
   Toolbar,
-} from 'material-ui'
-import { RoutePath } from '../RoutePath'
+} from 'mui'
+import { ListSubheader } from 'mui/List'
 import OriginCard from '../OriginCard'
-import { DestinationCard } from '../DestinationCard'
+import RoutePathAndDestination from './RoutePathAndDestination'
+import { KSpaceActivity, KSpaceRoutes, KSpaceFavorites } from './KSpace'
+import { WormholeEffect, WormholeStatics } from './JSpace'
+
 import * as utils from '../utils'
 
-export const Content = props => {
-  const {
-    origins,
-    routes,
-    showShortestRoutes,
-  } = props
 
-  return (<div>
-    <div style={{
-      display: 'flex',
-      justifyContent: 'flex-start'
+export const Content = ({origins, routes, showShortestRoutes, showFavoriteRoutes}) => (
+  <Route path="/home/nav" render={() => (
+    <Toolbar style={{
+      borderTop: '1px solid #eee',
+      alignItems: 'start'
     }}>
       <Route path="/home/nav/:origin" render={({match}) => {
         const origin = origins.find(({name}) => name === match.params.origin)
         return origin ? <OriginCard system={origin} /> : null
       }} />
 
-      <Route exact path="/home/nav/:origin" render={({match}) => {
-        const origin = origins.find(({name}) => name === match.params.origin)
-        return origin ? (<div style={{
-          display: 'flex',
-          alignSelf: 'flex-end',
-        }}>
-          <Button href={`http://evemaps.dotlan.net/system/${origin.name}`} target="_blank">
-            dotlan
-          </Button>
+      <Switch>
 
-          <Button href={`https://zkillboard.com/system/${origin.id}/`} target="_blank">
-            zkill
-          </Button>
-        </div>) : null
-      }} />
+        <Route path="/home/nav/:origin/:destination" render={({match}) => {
+          const route = routes.find(utils.byName(match.params.origin, match.params.destination))
+          if ( !route ) return null
 
-      <Route exact path="/home/nav/:origin/:destination" render={({match}) => {
-        const route = routes.find(utils.byName(match.params.origin, match.params.destination))
-        if ( !route ) return null
+          const { systems } = route[showShortestRoutes ? 'shortest' : 'safest']
 
-        const { systems } = route[showShortestRoutes ? 'shortest' : 'safest']
+          return (<RoutePathAndDestination route={route} systems={systems} />)
+        }} />
 
-        return (<div style={{flex: '1 1 auto'}}>
-          <div style={{
-            display: 'flex',
-            flexGrow: 1,
-            flexDirection: 'row',
-          }}>
-            <Paper
-              elevation={0}
-              style={{
-                display: 'flex',
-                flexGrow: 1,
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
+        <Route path="/home/nav/:origin" render={({match}) => {
+          const origin = origins.find(({name}) => name === match.params.origin)
+          if ( !origin ) return null
+          if ( !origin.wh ) return ( // return jumps/kills/etc
+            <List style={{flex: '2 1 auto'}}>
+              <KSpaceActivity system={origin} />
+
+              <KSpaceRoutes origin={origin.name} />
+
+              { showFavoriteRoutes && (
+                <KSpaceFavorites origin={origin.name} />
+              )}
+
+            </List>
+          )
+
+          return (
+            <div style={{
+              flex: '2 1 auto',
             }}>
-              <Divider style={{display: 'flex', flexGrow: 1}} />
-              <RoutePath systems={systems} />
-              <Divider style={{display: 'flex', flexGrow: 1}} />
-            </Paper>
-            <DestinationCard system={route.destination} route={route} />
-          </div>
 
-        </div>)
-      }} />
-    </div>
+              { origin.effectName &&
+                <WormholeEffect system={origin} />
+              }
 
-    <Route exact path="/home/nav/:origin/:destination" render={({match}) => {
-      const route = routes.find(utils.byName(match.params.origin, match.params.destination))
-      if ( !route ) return null
-      const { jumps } = route[showShortestRoutes ? 'shortest' : 'safest']
-      const { origin, destination } = route
+              <WormholeStatics system={origin} />
 
-      return (<Toolbar
-        disableGutters
-        style={{
-          flex: '1 1 auto',
-          justifyContent: 'space-between'
-        }}>
-        <div>
-          <Button href={`http://evemaps.dotlan.net/system/${origin.name}`} target="_blank">
-            dotlan
-          </Button>
+            </div>
+          )
+        }} />
 
-          <Button href={`https://zkillboard.com/system/${origin.id}/`} target="_blank">
-            zkill
-          </Button>
-        </div>
-
-        <Button raised color="primary" href={`http://evemaps.dotlan.net/route/${origin.name}:${destination.name}`} target="_blank">
-          route ({jumps})
-        </Button>
-
-        <div>
-          <Button href={`http://evemaps.dotlan.net/system/${destination.name}`} target="_blank">
-            dotlan
-          </Button>
-
-          <Button href={`https://zkillboard.com/system/${destination.id}/`} target="_blank">
-            zkill
-          </Button>
-        </div>
-      </Toolbar>) }} />
-  </div>)
-}
+      </Switch>
+    </Toolbar>
+  )} />
+)
