@@ -4,52 +4,71 @@ import List, { ListSubheader, ListItem } from 'mui/List'
 import { GridList, GridListTile } from 'mui/GridList'
 import { Typography } from 'mui'
 
-import { lookupActivity } from 'App/actions/gps'
-
-export const mapStateToProps = state => ({
-  activity: [{
-    id: 'jumps',
-    label: 'Jumps',
-    value: 0,
-  }, {
-    id: 'kills-npc',
-    label: 'NPC',
-    value: 0,
-  }, {
-    id: 'kills-ship',
-    label: 'Ships',
-    value: 0,
-  }, {
-    id: 'kills-pod',
-    label: 'Pods',
-    value: 0,
-  }]
-})
-
-export const mapDispatchToProps = dispatch => ({
-  lookupActivity: system => dispatch(lookupActivity(system))
-})
-
 export class Activity extends React.Component {
-
-  componentWillMount () {
-    const { system, lookupActivity } = this.props
-    lookupActivity(system)
+  state = {
+    activity: [0, 0, 0, 0],
+    grid: [{
+      id: 'jumps', label: 'Jumps',
+    }, {
+      id: 'kills-npc', label: 'NPC',
+    }, {
+      id: 'kills-ship', label: 'Ships',
+    }, {
+      id: 'kills-pod', label: 'Pods',
+    }]
   }
 
+  urls = {
+    jumps: 'https://esi.tech.ccp.is/latest/universe/system_jumps/?datasource=tranquility',
+    kills: 'https://esi.tech.ccp.is/latest/universe/system_kills/?datasource=tranquility'
+  }
+
+  componentWillMount () {
+    const { system } = this.props
+    this.lookupActivity(system)
+  }
+
+  lookupActivity = system => (
+    Promise.all([
+      this.fetchJumps(system),
+      this.fetchKills(system)
+    ])
+    .then(([jumps, [npc, ship, pod]]) => (
+      this.setState({ activity: [jumps, npc, ship, pod] })
+    ))
+  )
+
+  fetchJumps = system => (
+    fetch(this.urls.jumps)
+    .then(res => res.json())
+    .then(universe => universe.find(({system_id}) => system.id === system_id))
+    .then(system => !!system ? system.ship_jumps : 0)
+  )
+
+  fetchKills = system => (
+    fetch(this.urls.kills)
+    .then(res => res.json())
+    .then(universe => universe.find(({system_id}) => system.id === system_id))
+    .then(system => {
+      if ( !system ) return [0, 0, 0]
+      const { ship_kills, npc_kills, pod_kills } = system
+      return [ npc_kills, ship_kills, pod_kills ]
+    })
+  )
+
   render () {
-    const { system, activity } = this.props
+    const { system } = this.props
     return (
       <div>
         <ListSubheader style={{ background: 'white', zIndex: 5 }}>
-          Activity
+          Activity - last hour
         </ListSubheader>
 
         <ListItem>
           <GridList cellHeight={'auto'} cols={4} style={{width: '100%', textAlign: 'center'}}>
-            { activity.map(({label, value}) => (
+            { this.state.grid.map(({id, label}, index) => (
               <GridListTile key={label}>
-                <Typography type="headline"> { value } </Typography>
+                <Typography type="headline"> { this.state.activity[index] } </Typography>
                 <Typography type="caption"> { label } </Typography>
               </GridListTile>
             )) }
@@ -60,4 +79,4 @@ export class Activity extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Activity)
+export default Activity
