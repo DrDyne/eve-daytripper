@@ -10,7 +10,7 @@ import { ListSubheader } from 'mui/List'
 import OriginCard from '../OriginCard'
 import RoutePathAndDestination from './RoutePathAndDestination'
 import { KSpaceActivity, KSpaceRoutes, KSpaceFavorites } from './KSpace'
-import { WormholeEffect, WormholeStatics } from './JSpace'
+import { WormholeEffect, WormholeStatics, WormholeActivity } from './JSpace'
 
 import * as utils from '../utils'
 
@@ -19,7 +19,7 @@ export const Content = ({origins, routes, showShortestRoutes, showFavoriteRoutes
   <Route path="/home/nav" render={() => (
     <Toolbar style={{
       borderTop: '1px solid #eee',
-      alignItems: 'start'
+      alignItems: 'stretch'
     }}>
       <Route path="/home/nav/:origin" render={({match}) => {
         const origin = origins.find(({name}) => name === match.params.origin)
@@ -63,6 +63,8 @@ export const Content = ({origins, routes, showShortestRoutes, showFavoriteRoutes
               }
 
               <WormholeStatics system={origin} />
+
+              <WormholeActivity system={origin} />
 
             </div>
           )
