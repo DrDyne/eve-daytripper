@@ -1,4 +1,9 @@
 import { connect } from 'react-redux'
 import { OriginCard } from './component'
+import { deleteHistory } from 'App/actions/gps'
 
-export default connect()(OriginCard)
+const mapDispatchToProps = dispatch => ({
+  deleteFromHistory: system => event => dispatch(deleteHistory(system))
+})
+
+export default connect(null, mapDispatchToProps)(OriginCard)

@@ -53,8 +53,8 @@ export const addToStock = (state, item) => {
 }
 
 export const updateStock = (state, {id, name, qty}) => {
-  const stockIndex = state.stock.findIndex(byName(name))
-  const stock = state.stock.slice()
+  const stock = [...state.stock]
+  const stockIndex = stock.findIndex(byName(name))
   if ( id ) stock[stockIndex].id = id
   if ( qty ) stock[stockIndex].qty = qty
 

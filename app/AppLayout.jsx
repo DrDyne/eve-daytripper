@@ -29,15 +29,14 @@ export const AppLayout = props => {
   return (<div style={classes.appFrame}>
     <ProfileLoadingScreen />
 
-    <div
-      style={{
-        position: 'relative',
-        width: drawerWidth,
-        background: 'white',
-        height: '100vh',
-        borderRight: '1px solid #eee',
-      }}
-    >
+    <div style={{
+      position: 'relative',
+      width: drawerWidth,
+      background: 'white',
+      height: '100vh',
+      borderRight: '1px solid #eee',
+    }} >
+
       <div style={{
         width: '100%',
       }}>
