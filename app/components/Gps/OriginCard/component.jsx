@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import {
   Badge,
   Button,
@@ -14,7 +15,8 @@ import { SystemSecAvatar } from '../../SystemSecAvatar'
 
 import List, { ListItem, ListItemText } from 'mui/List'
 import { ListSubheader } from 'mui/List'
-export const OriginCard = ({system}) => (
+
+export const OriginCard = ({system, deleteFromHistory}) => (
   <List style={{ flexShrink: 1 }}>
     <ListSubheader style={{background: 'white', padding: 0}} component="div">
       <ListItem style={{
@@ -59,6 +61,49 @@ export const OriginCard = ({system}) => (
       <Typography type="caption"> ZKILL </Typography>
     </ListItem>
 
+    <Route exact path="/home/nav/:origin" render={() => (
+      <DeleteFromHistoryListItem system={system} onClick={deleteFromHistory(system)}/>
+    ) } />
+
     <ListItem style={{display: 'flex'}} />
   </List>
 )
+
+import { Collapse } from 'mui/transitions'
+class DeleteFromHistoryListItem extends React.Component {
+  state = { showConfirm: false }
+
+  render () {
+    const { system, onClick } = this.props
+
+    return (
+      <div>
+        <ListItem
+          button
+          onClick={() => {
+            const showConfirm = !this.state.showConfirm
+            this.setState({ showConfirm })
+          }}
+          style={{justifyContent: 'center'}}
+        >
+          <Typography type="caption">
+            Delete
+          </Typography>
+        </ListItem>
+
+        <Collapse in={this.state.showConfirm}>
+          <ListItem
+            button
+            onClick={() => {
+              onClick()
+              this.setState({ showConfirm: false })
+            }}
+            style={{justifyContent: 'flex-end'}}
+          >
+            <Typography type="caption"> Confirm <u>Delete</u>? </Typography>
+          </ListItem>
+        </Collapse>
+      </div>
+    )
+  }
+}

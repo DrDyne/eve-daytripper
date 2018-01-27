@@ -8,6 +8,7 @@ import ExpandMore from 'material-ui-icons/ExpandMore'
 import ExpandLess from 'material-ui-icons/ExpandLess'
 
 import { WormholeStaticListItem } from 'App/components/RoutesHistory/Jspace'
+import ISK from 'App/components/ISK'
 
 
 const EFFECT_COLOR_BAD = 'rgb(240, 0,0)'
@@ -267,7 +268,11 @@ const TopKiller = ({corp, corpId, totalDestroyed}) => (
     <CorpAvatar corpId={corpId} />
     <ListItemText
       primary={ `[${corp.ticker}] ${corp.name}` }
-      secondary={`top killer: ${totalDestroyed} ISK destroyed`}
+      secondary={(
+        <span>
+          top killer: <ISK short value={totalDestroyed} /> destroyed
+        </span>
+      )}
     />
   </ListItem>
 )
@@ -288,7 +293,11 @@ const Victim = ({corp, corpId, lostIsk, lostAssets}) => (
     <CorpAvatar corpId={corpId} />
     <ListItemText
       primary={ `[${corp.ticker}] ${corp.name}` }
-      secondary={`victim: ${lostAssets} lost assets (${lostIsk} ISK)`}
+      secondary={(
+        <span>
+          victim: {lostAssets} lost assets (<ISK short value={lostIsk} />)
+        </span>
+      )}
     />
   </ListItem>
 )

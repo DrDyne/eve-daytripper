@@ -10,10 +10,13 @@ import {
 
 import {
   CREATE_ROUTE,
+  DELETE_SYSTEM,
   GPS_IDENTIFIED_SYSTEM,
 } from '../actions/gps'
 
-import { parseClipboardFromGameClientToJson } from './utils'
+import {
+  parseClipboardFromGameClientToJson,
+} from './utils'
 
 export const initialState = {
   lastPasted: {
@@ -37,6 +40,13 @@ export const initialState = {
 const byId = (origin, destination) => route => {
   return route.origin.id === origin.id
   && route.destination.id === destination.id
+}
+
+export const deleteSystem = (state, {system}) => {
+  const origins = state.origins
+  .filter(({id}) => id !== system.id)
+
+  return Object.assign({}, state, { origins })
 }
 
 export const createRoute = (state, action) => {
@@ -126,6 +136,9 @@ export const history = (state=initialState, action) => {
 
     case HISTORY_INIT:
       return init(state, action)
+
+    case DELETE_SYSTEM:
+      return deleteSystem(state, action)
   }
 
   return state

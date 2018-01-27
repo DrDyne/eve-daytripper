@@ -14,11 +14,13 @@ export const shorten = value => {
 }
 
 export const ISK = (props) => {
-  const { value,  short } = props
-  if ( !value ) return <span {...props}> 0 ISK </span>
-  if ( !short ) return <span {...props}> { value.toLocaleString('en-US') } ISK </span>
-  return <span {...props}> { shorten(value) } ISK </span>
+  const { value,  short, style } = props
+  if ( !value ) return <span style={style}> 0 ISK </span>
+  if ( !short ) return <span style={style}> { value.toLocaleString('en-US') } ISK </span>
+  return <span style={style}> { shorten(value) } ISK </span>
 }
+
+export default ISK
 
 // 90,352,223,123.99 ISK // !short
 // => 90b ISK // short

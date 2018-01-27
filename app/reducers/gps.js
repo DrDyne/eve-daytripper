@@ -91,10 +91,9 @@ export const deleteRoute = (state, {origin, destination}) => {
 }
 
 export const deleteSystem = (state, {system}) => {
-  const routes = state.routes.filter(r => {
-    return (r.origin.id !== system.id)
-    || (r.destination.id !== system.id)
-  })
+  const routes = state.routes
+  .filter(({origin}) => system.id !== origin.id)
+  .filter(({destination}) => system.id !== destination.id)
 
   return Object.assign({}, state, { routes })
 }
