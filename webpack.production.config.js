@@ -17,12 +17,20 @@ module.exports = {
     './styles/index.scss'
   ],
   output: {
-    publicPath: './',		
+    publicPath: './',
     path: path.join(__dirname, 'public'),
-    filename: '[chunkhash].js'
+    filename: 'eve-daytripper.[chunkhash].js'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      joi: 'joi-browser',
+      moment: 'moment/moment.js',
+      App: path.resolve(__dirname, './app'),
+      Images: path.resolve(__dirname, './images'),
+      mui: 'material-ui',
+      muii: 'material-ui-icons'
+    },
   },
   module: {
     loaders
