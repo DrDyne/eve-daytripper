@@ -122,3 +122,9 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
   })
   .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 840))
 }
+
+export const saveProfile = () => (dispatch, getState, {api}) => {
+  // wip
+  const { fleet } = getState()
+  console.info('wip')
+}

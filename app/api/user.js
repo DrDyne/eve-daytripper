@@ -1,7 +1,6 @@
 import AWS from 'aws-sdk'
 import { aws } from './config.js'
 import ApiClient from './apiClient'
-import { load, save } from './db'
 import {
   CognitoUser,
   CognitoUserPool,
@@ -109,11 +108,16 @@ export const login = (method, username, password) => {
 export const resetPassword = email => { }
 
 export const loadProfile = () => {
-  return Promise.all([
-    apiClient.getFleet(),
-    apiClient.getInventory(),
-    apiClient.getGps(),
-  ])
+
+
+  return apiClient.getFleet() // get fleet, then get 1st member's inventory and gps // I'm confused...
+  .then(fleet => {
+    const { id } = fleet.members[0]
+    return Promise.all([
+      apiClient.getInventory(id),
+      apiClient.getGps(id),
+    ])
+  })
   .then(([fleet, inventory, {routes, favorites, avoidance, origins}]) => {
     return {
       routes,
