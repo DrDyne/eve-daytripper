@@ -6,6 +6,9 @@ module.exports = {
     getFleet: './get-fleet.js',
     getInventory: './get-inventory.js',
     getGps: './get-gps.js',
+    postFleet: './post-fleet.js',
+    postInventory: './post-inventory.js',
+    postGps: './post-gps.js',
   },
   loader: {
     test: /\.js$/,
