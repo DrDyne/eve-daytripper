@@ -13,6 +13,7 @@ loaders.push({
 
 module.exports = {
   entry: [
+    './app/sw-install.js',
     './app/index.jsx',
     './styles/index.scss'
   ],
@@ -22,7 +23,6 @@ module.exports = {
     filename: 'eve-daytripper.[chunkhash].js'
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
     alias: {
       joi: 'joi-browser',
       moment: 'moment/moment.js',
@@ -31,10 +31,9 @@ module.exports = {
       mui: 'material-ui',
       muii: 'material-ui-icons'
     },
+    extensions: ['.js', '.jsx'],
   },
-  module: {
-    loaders
-  },
+  module: { loaders },
   plugins: [
     new WebpackCleanupPlugin(),
     new webpack.DefinePlugin({

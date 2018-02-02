@@ -90,21 +90,6 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
     dispatch(setCharacterInfo(character))
     dispatch(fleet.add(character))
 
-    // save new characterId to cognito profile instead
-    //api.user.cognitoIdentify(character)
-    //.then(cognitoCreds => {
-    //  console.log(cognitoCreds,
-    //    cognitoCreds.getAccessToken(),
-    //    cognitoCreds.getAccessToken().getJwtToken()
-    //  )
-    //})
-    //// .then( load app state from /inventory
-    //.catch(err => {
-    //  console.error(err)
-    //  throw err
-    //})
-
-
     return character
   })
   .catch(err => {
@@ -117,13 +102,23 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
   console.log('load user profile using api to fetch s3')
 
   dispatch(layout.loadProfile())
+
   return api.user.loadProfile()
+  .catch(err => {
+    console.warn('failed to load profile')
+    console.error(err)
+    throw err
+  })
   .then(Profile => {
     console.log(Profile)
-    dispatch(initHistory(Profile.origins, Profile.gps.routes))
-    dispatch(gps.init(Profile.gps))
-    dispatch(fleet.init(Profile.fleet))
-    dispatch(inventory.init(Profile.inventory))
+    const { routes, favorites, avoidance, origins } = Profile
+
+    return Promise.all([
+      dispatch(initHistory(origins, routes)),
+      dispatch(gps.init({routes, favorites, avoidance})),
+      dispatch(fleet.init(Profile.fleet)),
+      dispatch(inventory.init(Profile.inventory)),
+    ])
   })
-  .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 850))
+  .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 840))
 }

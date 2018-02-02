@@ -18,70 +18,69 @@ import ProfileLoadingScreen from './components/ProfileLoadingScreen'
 
 export const AppLayout = props => {
   const drawerWidth = 240
-  const classes = {
-    appFrame: {
+
+  return (
+    <div style={{
       position: 'relative',
       display: 'flex',
       width: '100%',
-    }
-  }
-
-  return (<div style={classes.appFrame}>
-    <ProfileLoadingScreen />
-
-    <div style={{
-      position: 'relative',
-      width: drawerWidth,
-      background: 'white',
-      height: '100vh',
-      borderRight: '1px solid #eee',
-    }} >
+    }}>
+      <ProfileLoadingScreen />
 
       <div style={{
-        width: '100%',
-      }}>
+        position: 'relative',
+        width: drawerWidth,
+        background: 'white',
+        height: '100vh',
+        borderRight: '1px solid #eee',
+      }} >
 
         <div style={{
-          height: '100vh',
-          width: drawerWidth
+          width: '100%',
         }}>
-          <Settings />
+
+          <div style={{
+            height: '100vh',
+            width: drawerWidth
+          }}>
+            <Settings />
+          </div>
         </div>
       </div>
-    </div>
 
-    <Switch>
-      <Route path="/home/fleet-add" render={CcpAuthenticate} />
+      <Switch>
+        <Route path="/home/fleet-add" render={CcpAuthenticate} />
 
-      <Route path="/home" render={() => (
-        <main style={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: 1,
-          height: '100vh',
-          overflowY: 'auto',
-        }}>
+        <Route path="/home" render={() => (
+          <main style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            height: '100vh',
+            overflowY: 'auto',
+          }}>
 
-          <section>
-            <Toolbar disableGutters>
-              <PasteRecipient />
-            </Toolbar>
-
-            <Route path="/home" component={() => (
-              <Toolbar disableGutters>
-                <Gps />
+            <section>
+              <Toolbar disableGutters style={{display: 'initial'}}>
+                <PasteRecipient />
               </Toolbar>
-            )} />
-          </section>
 
-          <section>
-            <AppContent style={{width: '100%'}} />
-          </section>
+              <Route path="/home" component={() => (
+                <Toolbar disableGutters>
+                  <Gps />
+                </Toolbar>
+              )} />
+            </section>
 
-        </main>
-      )} />
-    </Switch>
-  </div>)
+            <section>
+              <AppContent style={{width: '100%'}} />
+            </section>
+
+          </main>
+        )} />
+      </Switch>
+    </div>
+  )
 }
 
 export default AppLayout
