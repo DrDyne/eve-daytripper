@@ -1,3 +1,4 @@
+import { createMember } from '../reducers/fleet'
 import * as layout from './layout'
 import * as inventory from './inventory'
 import * as gps from './gps'
@@ -104,11 +105,6 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
   dispatch(layout.loadProfile())
 
   return api.user.loadProfile()
-  .catch(err => {
-    console.warn('failed to load profile')
-    console.error(err)
-    throw err
-  })
   .then(Profile => {
     console.log(Profile)
     const { routes, favorites, avoidance, origins } = Profile
@@ -119,6 +115,17 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
       dispatch(fleet.init(Profile.fleet)),
       dispatch(inventory.init(Profile.inventory)),
     ])
+  })
+  .catch(err => {
+    console.group('failed to load profile')
+    console.error(err)
+    console.groupEnd()
+
+    const character = getState().char
+    dispatch(fleet.init({
+      commander: character.id,
+      members: [ createMember(character) ]
+    }))
   })
   .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 840))
 }

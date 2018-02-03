@@ -6,26 +6,24 @@ const BUCKETS = {
   GPS: 'eve-daytripper-gps',
 }
 
-const getJsonFromS3 = (bucket, ...key) => (
+const getJsonFromS3 = (Bucket, ...key) => (
   new Promise((resolve, reject) => {
-    s3.getObject({
-      Bucket: bucket,
-      Key: key.join('/') + '.json'
-    }, (err, data) => {
+    const Key = key.filter(i => !!i).join('/') + '.json'
+    console.log({ Bucket, Key })
+    s3.getObject({ Bucket, Key }, (err, data) => {
       if ( err ) reject(err)
       resolve(data)
     })
   })
   .then(data => data.Body.toString())
+  .catch(err => console.error(err))
 )
 
 const postJsonToS3 = (body=null, Bucket, ...key) => (
   new Promise((resolve, reject) => {
-    s3.putObject({
-      Bucket,
-      Key: key.join('/'),
-      Body: JSON.stringify(body)
-    }, (err, data) => {
+    const Key = key.filter(i => !!i).join('/') + '.json'
+    console.log({ Bucket, Key })
+    s3.putObject({ Bucket, Key, Body: JSON.stringify(body) }, (err, data) => {
       if ( err ) reject(err)
       resolve(data)
     })

@@ -8,22 +8,28 @@ export class ApiClient {
 
   credentials = token => token ? this.token = token : this.token
 
-  url = (path, charId) => this.baseUrl + path + '?charId=' + charId
+  url = (path, charId) => ( this.baseUrl + path
+    + ( !!charId ? `?charId=${ charId }` : '' )
+  )
 
   apiGetJson = (path, charId) => {
     const url = this.url(path, charId)
     const headers = { Authorization: this.token }
 
     return fetch(url, {headers})
-    .then(res => res.json())
+    .then(res => {
+      try { return res.json() }
+      catch (err) { throw 'received empty json' }
+    })
     .then(body => JSON.parse(body))
   }
 
   apiPostJson = (json, path, charId) => {
     const url = this.url(path, charId)
     const headers = { Authorization: this.token }
+    const body = JSON.stringify(json)
 
-    return fetch(url, {headers, method: 'post'})
+    return fetch(url, {headers, body, method: 'post'})
     .then(res => res.json())
     .then(body => JSON.parse(body))
   }

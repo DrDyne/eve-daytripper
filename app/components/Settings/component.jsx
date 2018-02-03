@@ -65,7 +65,7 @@ export class Settings extends React.Component {
           primary="FLEET"
           secondary={ !layout.fleetVisibility && (
             1 === fleet.members.length
-            ? fleet.members[0].name
+            ? fleet.members.find(m => m.id === fleet.commander).name
             : `${fleet.members.length} members`
           ) }
         />

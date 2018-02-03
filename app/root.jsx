@@ -23,7 +23,7 @@ const Root = props => (<div className="app">
         width: '100%',
         overflowY: 'hidden',
       }}>
-        <AppLayout open={true} />
+        <AppLayout />
 
       </div>
     )} />

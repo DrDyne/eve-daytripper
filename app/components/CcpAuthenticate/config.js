@@ -1,5 +1,6 @@
 export const eveClientId = '4e133e6029104dd9a39722b9be82bc2b'
-//export const redirectUri = 'http://localhost:8880/oauth'
+//export const redirectUri = 'http://localhost:8880/#/oauth'
+console.log(process.env)
 export const redirectUri = 'http://eve-daytripper.s3-website-us-east-1.amazonaws.com/latest/#/oauth'
 export const oauthResponseType = 'token'
 export default {

@@ -107,12 +107,11 @@ export const login = (method, username, password) => {
 
 export const resetPassword = email => { }
 
-export const loadProfile = () => {
-
-
-  return apiClient.getFleet() // get fleet, then get 1st member's inventory and gps // I'm confused...
+export const loadProfile = () => (
+  apiClient.getFleet()
   .then(fleet => {
-    const { id } = fleet.members[0]
+    console.log(fleet)
+    const { id } = fleet.members.find(m => m.id === fleet.commander) // it's not what you think.
     return Promise.all([
       apiClient.getInventory(id),
       apiClient.getGps(id),
@@ -128,7 +127,7 @@ export const loadProfile = () => {
       fleet,
     }
   })
-}
+)
 
 export const saveProfile = state => {
   console.log('TODO')

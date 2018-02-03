@@ -8,4 +8,4 @@ export const FLEET_INIT = 'fleet:init'
 export const add = ({id, name, role}) => ({ type: FLEET_ADD_MEMBER, id, name, role })
 export const kick = id => ({ type: FLEET_KICK, id })
 export const assign = (id, role) => ({ type: FLEET_ASSIGN, id, role })
-export const init = ({members}) => ({ type: FLEET_INIT, members })
+export const init = ({commander, members}) => ({ type: FLEET_INIT, commander, members })
