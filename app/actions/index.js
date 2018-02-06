@@ -4,12 +4,14 @@ import * as inventory from './inventory'
 import * as gps from './gps'
 import * as user from './user'
 import * as fleet from './fleet'
+import * as history from './history'
 
 export {
-  inventory,
   fleet,
-  layout,
   gps,
+  history,
+  inventory,
+  layout,
   user,
 }
 
@@ -63,7 +65,6 @@ export const setCharacterInfo = ({id, name}) => ({ type: SET_CHAR_INFO, id, name
 export const setCapacity = m3 => ({ type: SET_CAPACITY, m3, })
 export const deleteRouteByOrigin = origin => ({ type: GPS_DELETE_ROUTE, origin })
 export const clearRouteHistory = () => ({ type: CLEAR_ROUTE_HISTORY })
-export const initHistory = (origins, routes) => ({ type: HISTORY_INIT, origins, routes })
 
 export const showInfoDialog = id => (dispatch, getState, {api}) => {
   const { inventory } = getState()
@@ -110,7 +111,7 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
     const { routes, favorites, avoidance, origins } = Profile
 
     return Promise.all([
-      dispatch(initHistory(origins, routes)),
+      dispatch(history.init(origins)),
       dispatch(gps.init({routes, favorites, avoidance})),
       dispatch(fleet.init(Profile.fleet)),
       dispatch(inventory.init(Profile.inventory)),
@@ -132,6 +133,15 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
 
 export const saveProfile = () => (dispatch, getState, {api}) => {
   // wip
-  const { fleet } = getState()
   console.info('wip')
+
+  const state = getState()
+  dispatch(layout.saveProfile())
+  return Promise.all([
+    dispatch(fleet.save(state.fleet)),
+    dispatch(gps.save(state.gps)),
+    dispatch(history.save(state.history)),
+    dispatch(inventory.save(state.inventory)),
+  ])
+  .then(() => dispatch(layout.profileSaved()))
 }

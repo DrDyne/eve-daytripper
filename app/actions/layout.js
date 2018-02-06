@@ -6,6 +6,8 @@ export const TOGGLE_SIDE_INVENTORY = 'layout:toggle:side:inventory'
 export const TOGGLE_SIDE_NAVIGATION = 'layout:toggle:side:navigation'
 export const PROFILE_LOAD_START = 'layout:profile:load:start'
 export const PROFILE_LOAD_END = 'layout:profile:load:end'
+export const PROFILE_SAVE_START = 'layout:profile:save:start'
+export const PROFILE_SAVE_END = 'layout:profile:save:end'
 export const SKIP_ORIGINS_HISTORY = 'layout:origins:skip'
 
 export const toggleShowEmptyStock = () => ({ type: TOGGLE_SHOW_EMPTY_STOCK })
@@ -16,6 +18,8 @@ export const toggleInventoryVisibility = () => ({ type: TOGGLE_SIDE_INVENTORY })
 export const toggleNavigationVisibility = () => ({ type: TOGGLE_SIDE_NAVIGATION })
 export const loadProfile = () => ({ type: PROFILE_LOAD_START })
 export const profileLoaded = () => ({ type: PROFILE_LOAD_END })
+export const saveProfile = () => ({ type: PROFILE_SAVE_START })
+export const profileSaved = () => ({ type: PROFILE_SAVE_END })
 export const skipOriginsHistory = () => (dispatch, getState) => {
   const { history } = getState()
   dispatch({

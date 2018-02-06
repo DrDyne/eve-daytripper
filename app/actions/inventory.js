@@ -8,6 +8,7 @@ import {
 
 export const INVENTORY_INIT = 'inventory:init'
 export const INVENTORY_RESET = 'inventory:reset'
+export const INVENTORY_SAVED = 'inventory:saved'
 
 const byName = name => i => i.name === name
 
@@ -18,6 +19,11 @@ export const init = ({capacity, total, items, stock}) => ({
   items,
   stock
 })
+
+export const save = ({capacity, total, items, stock}) => (dispatch, getState, {api}) => {
+  console.log('saving inventory...', {capacity, total, items, stock})
+  dispatch({type: INVENTORY_SAVED})
+}
 
 export const clearMissingItemsAfterPaste = () => (dispatch, getState) => {
   const { inventory, history } = getState()

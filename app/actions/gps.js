@@ -8,6 +8,7 @@ export const CREATE_ROUTE = 'gps:route:create'
 export const DELETE_ROUTE = 'gps:route:delete'
 export const DELETE_SYSTEM = 'gps:system:delete'
 export const GPS_INIT = 'gps:init'
+export const GPS_SAVED = 'gps:saved'
 
 const matchRoute = (origin, system) => route => ((route.origin.id === origin.id) && (route.destination.id === system.id))
 
@@ -19,6 +20,11 @@ export const init = ({routes, favorites, avoidance}) => ({
   favorites,
   avoidance,
 })
+
+export const save = ({routes, favorites, avoidance}) => (dispatch, getState, {api}) => {
+  console.log('saving gps...', {routes, favorites, avoidance})
+  dispatch({type: GPS_SAVED})
+}
 
 export const deleteFavorite = system => ({ type: GPS_FAVORITE_REMOVE, system })
 export const deleteRoute = (origin, destination) => ({ type: DELETE_ROUTE, origin, destination })
