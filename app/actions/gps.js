@@ -21,11 +21,6 @@ export const init = ({routes, favorites, avoidance}) => ({
   avoidance,
 })
 
-export const save = ({routes, favorites, avoidance}) => (dispatch, getState, {api}) => {
-  console.log('saving gps...', {routes, favorites, avoidance})
-  dispatch({type: GPS_SAVED})
-}
-
 export const deleteFavorite = system => ({ type: GPS_FAVORITE_REMOVE, system })
 export const deleteRoute = (origin, destination) => ({ type: DELETE_ROUTE, origin, destination })
 export const deleteHistory = system => ({ type: DELETE_SYSTEM, system })

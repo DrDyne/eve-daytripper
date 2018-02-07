@@ -10,7 +10,3 @@ export const add = ({id, name, role}) => ({ type: FLEET_ADD_MEMBER, id, name, ro
 export const kick = id => ({ type: FLEET_KICK, id })
 export const assign = (id, role) => ({ type: FLEET_ASSIGN, id, role })
 export const init = ({commander, members}) => ({ type: FLEET_INIT, commander, members })
-export const save = ({commander, members}) => (dispatch, getState, {api}) => {
-  console.log('saving fleet...', {commander, members})
-  dispatch({type: FLEET_SAVED})
-}

@@ -113,24 +113,26 @@ export const loadProfile = () => (
     console.log(fleet)
     const { id } = fleet.members.find(m => m.id === fleet.commander) // it's not what you think.
     return Promise.all([
+      fleet,
       apiClient.getInventory(id),
       apiClient.getGps(id),
     ])
   })
-  .then(([fleet, inventory, {routes, favorites, avoidance, origins}]) => {
+  .then(([Fleet, Inventory, {routes, favorites, avoidance, origins}]) => {
     return {
-      routes,
-      favorites,
-      avoidance,
-      origins,
-      inventory,
-      fleet,
+      Fleet,
+      Inventory,
+      Routes: routes,
+      Favorites: favorites,
+      Avoidance: avoidance,
+      Origins: origins,
     }
   })
 )
 
-export const saveProfile = state => {
-  console.log('TODO')
+export const saveProfile = ({Fleet, Inventory, Routes, Favorites, Avoidance, Origins}) => {
+  console.log('TODO', 'save profile...')
+  return Promise.resolve()
 }
 
 export default {

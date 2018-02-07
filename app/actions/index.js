@@ -106,15 +106,14 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
   dispatch(layout.loadProfile())
 
   return api.user.loadProfile()
-  .then(Profile => {
-    console.log(Profile)
-    const { routes, favorites, avoidance, origins } = Profile
+  .then(({Fleet, Inventory, Origins, Routes, Favorites, Avoidance}) => {
+    console.log('loaded profile:', Fleet, Inventory, Origins, Routes, Favorites, Avoidance)
 
     return Promise.all([
-      dispatch(history.init(origins)),
-      dispatch(gps.init({routes, favorites, avoidance})),
-      dispatch(fleet.init(Profile.fleet)),
-      dispatch(inventory.init(Profile.inventory)),
+      dispatch(history.init(Origins)),
+      dispatch(gps.init({Routes, Favorites, Avoidance})),
+      dispatch(fleet.init(Fleet)),
+      dispatch(inventory.init(Inventory)),
     ])
   })
   .catch(err => {
@@ -135,13 +134,16 @@ export const saveProfile = () => (dispatch, getState, {api}) => {
   // wip
   console.info('wip')
 
-  const state = getState()
   dispatch(layout.saveProfile())
-  return Promise.all([
-    dispatch(fleet.save(state.fleet)),
-    dispatch(gps.save(state.gps)),
-    dispatch(history.save(state.history)),
-    dispatch(inventory.save(state.inventory)),
-  ])
+
+  const { fleet, inventory, history, gps } = getState()
+  return api.user.saveProfile({
+    Fleet: fleet,
+    Inventory: inventory,
+    Origins: history.origins,
+    Routes: gps.routes,
+    Favorites: gps.favorites,
+    Avoidance: gps.avoidance,
+  })
   .then(() => dispatch(layout.profileSaved()))
 }

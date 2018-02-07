@@ -20,11 +20,6 @@ export const init = ({capacity, total, items, stock}) => ({
   stock
 })
 
-export const save = ({capacity, total, items, stock}) => (dispatch, getState, {api}) => {
-  console.log('saving inventory...', {capacity, total, items, stock})
-  dispatch({type: INVENTORY_SAVED})
-}
-
 export const clearMissingItemsAfterPaste = () => (dispatch, getState) => {
   const { inventory, history } = getState()
   //if ( !history.lastPasted.items.length ) return // prevents reseting inventory at page load, but button should be hidden until paste event... so no need for double security
