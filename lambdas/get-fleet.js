@@ -5,6 +5,7 @@ exports.handler = (event, context, done) => {
 
   getFleet(username)
   .then(fleet => {
+    if ( !fleet ) done('fleet does not exist')
     done(null, response.json(fleet))
   })
 }

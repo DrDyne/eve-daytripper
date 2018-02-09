@@ -23,7 +23,14 @@ const postJsonToS3 = (body=null, Bucket, ...key) => (
   new Promise((resolve, reject) => {
     const Key = key.filter(i => !!i).join('/') + '.json'
     console.log({ Bucket, Key })
-    s3.putObject({ Bucket, Key, Body: JSON.stringify(body) }, (err, data) => {
+    const params = {
+      Bucket,
+      Key,
+      Body: JSON.stringify(body),
+      ContentType: 'application/json',
+    }
+
+    s3.putObject(params, (err, data) => {
       if ( err ) reject(err)
       resolve(data)
     })
@@ -55,6 +62,6 @@ export const getFleet = (username, charId) => getJsonFromS3(BUCKETS.FLEETS, user
 export const getInventory = (username, charId) => getJsonFromS3(BUCKETS.INVENTORIES, username, charId)
 export const getGps = (username, charId) => getJsonFromS3(BUCKETS.GPS, username, charId)
 
-export const postFleet = (username, charId, ...fleet) => postJsonToS3(fleet, BUCKETS.FLEETS, username, charId)
-export const postInventory = (username, charId, ...inventory) => postJsonToS3(inventory, BUCKETS.INVENTORIES, username, charId)
-export const postGps = (username, charId, ...gps) => postJsonToS3(gps, BUCKETS.GPS, username, charId)
+export const postFleet = (username, charId, fleet) => postJsonToS3(fleet, BUCKETS.FLEETS, username, charId)
+export const postInventory = (username, charId, inventory) => postJsonToS3(inventory, BUCKETS.INVENTORIES, username, charId)
+export const postGps = (username, charId, gps) => postJsonToS3(gps, BUCKETS.GPS, username, charId)
