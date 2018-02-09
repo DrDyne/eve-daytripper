@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import List, { ListSubheader, ListItem } from 'mui/List'
-import { GridList, GridListTile } from 'mui/GridList'
+import GridList, { GridListTile } from 'mui/GridList'
 import { Typography } from 'mui'
 
 export class Activity extends React.Component {

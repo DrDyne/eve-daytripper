@@ -58,7 +58,7 @@ export const LoginForm = props => {
     </ListItem>
 
     <ListItem onClick={login}>
-      <Button raised color="primary" style={{width: '100%'}}>
+      <Button variant="raised" color="primary" style={{width: '100%'}}>
         Login
       </Button>
     </ListItem>

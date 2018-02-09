@@ -7,8 +7,8 @@ import {
   CardContent,
   Typography
 } from 'material-ui'
-import { Link } from 'react-router-dom'
-import { SystemSecAvatar } from '../../SystemSecAvatar'
+import { SystemSecAvatar } from 'App/components/SystemSecAvatar'
+import ListItemButtonLink from 'App/components/ListItemButtonLink'
 
 import List, { ListItem, ListItemText } from 'material-ui/List'
 export const DestinationCard = ({system}) => (
@@ -32,25 +32,17 @@ export const DestinationCard = ({system}) => (
       />
     </ListItem>
 
-    <ListItem
-      button
-      component={Link}
-      to={`http://evemaps.dotlan.net/system/${system.name}`}
+    <ListItemButtonLink
+      href={`http://evemaps.dotlan.net/system/${system.name}`}
       target="_blank"
-      style={{justifyContent: 'center'}}
-    >
-      <Typography type="caption"> DOTLAN </Typography>
-    </ListItem>
+      content={ <Typography type="caption"> DOTLAN </Typography> }
+    />
 
-    <ListItem
-      button
-      component={Link}
-      to={`https://zkillboard.com/system/${system.id}/`} target="_blank"
+    <ListItemButtonLink
+      href={`https://zkillboard.com/system/${system.id}/`}
       target="_blank"
-      style={{justifyContent: 'center'}}
-    >
-      <Typography type="caption"> ZKILL </Typography>
-    </ListItem>
+      content={ <Typography type="caption"> ZKILL </Typography> }
+    />
   </List>
 )
 

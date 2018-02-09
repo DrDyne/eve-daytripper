@@ -83,7 +83,7 @@ export class Header extends React.Component {
         />
 
         <LinearProgress
-          mode="determinate"
+          variant="determinate"
           value={inventoryCapacity}
           style={{
             width: '100%',

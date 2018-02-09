@@ -97,7 +97,7 @@ export const SignupForm = props => {
     </ListItem>
 
     <ListItem>
-      <Button onClick={signup} raised color="primary" style={{width: '100%'}}>
+      <Button onClick={signup} variant="raised" color="primary" style={{width: '100%'}}>
         Sign up
       </Button>
     </ListItem>

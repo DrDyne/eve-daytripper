@@ -15,7 +15,7 @@ export const PasteStatusBar = ({step, busy}) => {
     },
   }
 
-  if ( !!busy ) return (<LinearProgress style={cssOverride.statusBar} mode="query" />)
-  if ( 2 === step ) return (<LinearProgress style={cssOverride.statusBar} mode="indeterminate" />)
-  return (<LinearProgress style={cssOverride.statusBar} value={0} mode="determinate" />)
+  if ( !!busy ) return (<LinearProgress style={cssOverride.statusBar} variant="query" />)
+  if ( 2 === step ) return (<LinearProgress style={cssOverride.statusBar} variant="indeterminate" />)
+  return (<LinearProgress style={cssOverride.statusBar} value={0} variant="determinate" />)
 }
