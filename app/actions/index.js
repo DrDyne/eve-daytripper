@@ -136,14 +136,17 @@ export const saveProfile = () => (dispatch, getState, {api}) => {
 
   dispatch(layout.saveProfile())
 
-  const { fleet, inventory, history, gps } = getState()
+  const { fleet, inventory } = getState()
+  const { origins } = getState().history
+  const { routes, favorites, avoidance } = getState().gps
+
   return api.user.saveProfile({
-    Fleet: fleet,
-    Inventory: inventory,
-    Origins: history.origins,
-    Routes: gps.routes,
-    Favorites: gps.favorites,
-    Avoidance: gps.avoidance,
+    fleet,
+    inventory,
+    origins,
+    routes,
+    favorites,
+    avoidance,
   })
   .then(() => dispatch(layout.profileSaved()))
 }

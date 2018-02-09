@@ -125,7 +125,6 @@ const ShowSystemButton = ({system, onClick}) => (
   <Route render={({history}) => (
     <Button
       color="accent"
-      dense
       onClick={() => {
         history.push(`/home/nav/${system.name}`)
         onClick()

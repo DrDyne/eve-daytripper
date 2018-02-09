@@ -15,6 +15,7 @@ import PasteActions from './components/PasteActions'
 import Settings from './components/Settings'
 import CcpAuthenticate from './components/CcpAuthenticate'
 import ProfileLoadingScreen from './components/ProfileLoadingScreen'
+import { Notification as AutoSaveNotification } from './components/AutoSave'
 
 export const AppLayout = props => {
   const drawerWidth = 240
@@ -25,6 +26,7 @@ export const AppLayout = props => {
       display: 'flex',
       width: '100%',
     }}>
+      <AutoSaveNotification />
       <ProfileLoadingScreen />
 
       <div style={{

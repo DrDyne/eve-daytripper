@@ -14,7 +14,6 @@ import {
 } from 'material-ui'
 import { CircularProgress } from 'material-ui/Progress';
 import Collapse from 'material-ui/transitions/Collapse'
-import { FillGauge } from '../FillGauge'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
 import SetStockDialog from '../SetStockDialog'

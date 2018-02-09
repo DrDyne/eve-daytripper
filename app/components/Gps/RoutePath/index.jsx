@@ -5,7 +5,7 @@ import {
   Typography
 } from 'material-ui'
 import List, { ListItem, ListItemText } from 'material-ui/List'
-import { Link } from 'react-router-dom'
+import ListItemButtonLink from 'App/components/ListItemButtonLink'
 import * as utils from '../utils'
 
 import RoutePathDivider from './Divider'
@@ -72,17 +72,11 @@ export const RoutePath = ({systems, previewSize, routeButton=true}) => {
         //https://github.com/mui-org/material-ui/blob/92bd073015b9cc0dff3a26195fcb49153ddaab78/docs/src/pages/demos/buttons/FlatButtons.js#L40-L42
       }
       { routeButton &&
-        <ListItem
-          button
-          component={Link}
-          to={`http://evemaps.dotlan.net/route/${routeOrigin.name}:${routeDestination.name}`}
+        <ListItemButtonLink
+          href={`http://evemaps.dotlan.net/route/${routeOrigin.name}:${routeDestination.name}`}
           target="_blank"
-          style={{justifyContent: 'center', minWidth: 62}}
-        >
-          <Typography type="body1">
-            route ({systems.length})
-          </Typography>
-        </ListItem>
+          content={ <Typography type="body1"> route ({systems.length}) </Typography> }
+        />
       }
     </List>
   )

@@ -130,9 +130,14 @@ export const loadProfile = () => (
   })
 )
 
-export const saveProfile = ({Fleet, Inventory, Routes, Favorites, Avoidance, Origins}) => {
-  console.log('TODO', 'save profile...')
-  return Promise.resolve()
+export const saveProfile = ({fleet, inventory, routes, favorites, avoidance, origins}) => {
+  const charId = fleet.commander
+  console.log(fleet, inventory, routes, favorites, avoidance, origins)
+  return Promise.all([
+    apiClient.postFleet(fleet),
+    apiClient.postInventory(inventory, charId),
+    apiClient.postGps({routes, favorites, avoidance, origins}),
+  ])
 }
 
 export default {
@@ -142,4 +147,5 @@ export default {
   logout,
   resetPassword,
   loadProfile,
+  saveProfile,
 }

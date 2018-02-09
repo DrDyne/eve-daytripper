@@ -1,0 +1,11 @@
+.snackbarContent {
+  width: 100%;
+}
+
+.snackContainer {
+  width: 240px;
+}
+
+.snackContainer span {
+  width: 100%;
+}

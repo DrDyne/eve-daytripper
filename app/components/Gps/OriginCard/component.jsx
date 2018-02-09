@@ -11,7 +11,8 @@ import {
 } from 'material-ui'
 import { Link } from 'react-router-dom'
 import { whEffectValues } from 'App/api/utils'
-import { SystemSecAvatar } from '../../SystemSecAvatar'
+import { SystemSecAvatar } from 'App/components/SystemSecAvatar'
+import ListItemButtonLink from 'App/components/ListItemButtonLink'
 
 import List, { ListItem, ListItemText } from 'mui/List'
 import { ListSubheader } from 'mui/List'
@@ -41,25 +42,17 @@ export const OriginCard = ({system, deleteFromHistory}) => (
       </ListItem>
     </ListSubheader>
 
-    <ListItem
-      button
-      component={Link}
-      to={`http://evemaps.dotlan.net/system/${system.name}`}
+    <ListItemButtonLink
+      href={`http://evemaps.dotlan.net/system/${system.name}`}
       target="_blank"
-      style={{justifyContent: 'center'}}
-    >
-      <Typography type="caption"> DOTLAN </Typography>
-    </ListItem>
+      content={ <Typography type="caption"> DOTLAN </Typography> }
+    />
 
-    <ListItem
-      button
-      component={Link}
-      to={`https://zkillboard.com/system/${system.id}/`} target="_blank"
+    <ListItemButtonLink
+      href={`https://zkillboard.com/system/${system.id}/`}
       target="_blank"
-      style={{justifyContent: 'center'}}
-    >
-      <Typography type="caption"> ZKILL </Typography>
-    </ListItem>
+      content={ <Typography type="caption"> ZKILL </Typography> }
+    />
 
     <Route exact path="/home/nav/:origin" render={() => (
       <DeleteFromHistoryListItem system={system} onClick={deleteFromHistory(system)}/>

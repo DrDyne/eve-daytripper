@@ -17,10 +17,11 @@ export class ApiClient {
     const headers = { Authorization: this.token }
 
     return fetch(url, {headers})
-    .then(res => {
-      try { return res.json() }
-      catch (err) { throw 'received empty json' }
+    .catch(err => {
+      console.warn('oops', err)
+      throw err
     })
+    .then(res => res.json())
     .then(body => JSON.parse(body))
   }
 
