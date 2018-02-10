@@ -12,7 +12,7 @@ export const mapDispatchToProps = dispatch => ({
 })
 
 export const Spinner = connect(mapStateToProps, mapDispatchToProps)(withTicker(AutoSaveSpinner))
-export const Notification = connect(mapStateToProps)(withTicker(AutoSavedNotification))
+export const Notification = connect(mapStateToProps, mapDispatchToProps)(withTicker(AutoSavedNotification))
 
 export default {
   Spinner,

@@ -46,9 +46,7 @@ export const RoutePath = ({systems, previewSize, routeButton=true}) => {
                   zIndex: 3
                 }}
               >
-                <Typography type="caption">
-                  {s.class}
-                </Typography>
+                <Typography variant="caption"> {s.class} </Typography>
 
                 <Avatar
                   className={utils.secCssId(s.worstSec)}

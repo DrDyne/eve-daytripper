@@ -14,7 +14,6 @@ import PasteRecipient from './components/PasteRecipient'
 import PasteActions from './components/PasteActions'
 import Settings from './components/Settings'
 import CcpAuthenticate from './components/CcpAuthenticate'
-import ProfileLoadingScreen from './components/ProfileLoadingScreen'
 import { Notification as AutoSaveNotification } from './components/AutoSave'
 
 export const AppLayout = props => {
@@ -27,7 +26,6 @@ export const AppLayout = props => {
       width: '100%',
     }}>
       <AutoSaveNotification />
-      <ProfileLoadingScreen />
 
       <div style={{
         position: 'relative',

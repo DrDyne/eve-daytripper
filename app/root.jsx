@@ -4,31 +4,36 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from './components/Login'
 import Oauth from './components/CcpAuthenticate/OAuth'
 import AppLayout from './AppLayout'
+import ProfileLoadingSplashScreen from './components/ProfileLoadingSplashScreen'
 
-const Root = props => (<div className="app">
-  <Switch>
-    <Route exact path="/" component={() => (
-      <Redirect to="/login" />
-    )} />
+const Root = props => (
+  <div className="app">
+    <ProfileLoadingSplashScreen />
 
-    <Route path="/login" component={Login} />
+    <Switch>
+      <Route exact path="/" component={() => (
+        <Redirect to="/login" />
+      )} />
 
-    <Route path="/oauth" component={Oauth} />
+      <Route path="/login" component={Login} />
 
-    <Route path="/home" render={() => (
-      <div style={{
-        display: 'flex',
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        overflowY: 'hidden',
-      }}>
-        <AppLayout />
+      <Route path="/oauth" component={Oauth} />
 
-      </div>
-    )} />
+      <Route path="/home" render={() => (
+        <div style={{
+          display: 'flex',
+          position: 'relative',
+          height: '100%',
+          width: '100%',
+          overflowY: 'hidden',
+        }}>
+          <AppLayout />
 
-  </Switch>
-</div>)
+        </div>
+      )} />
+
+    </Switch>
+  </div>
+)
 
 export default Root

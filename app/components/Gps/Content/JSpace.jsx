@@ -256,7 +256,7 @@ export class WormholeActivity extends React.Component {
         }) }
 
         <ListItem>
-          <ListItemText type="caption" secondary="* based on last 200 killmails" />
+          <ListItemText variant="caption" secondary="* based on last 200 killmails" />
         </ListItem>
       </List>
     )

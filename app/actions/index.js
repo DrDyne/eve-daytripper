@@ -101,8 +101,6 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
 }
 
 export const loadProfile = () => (dispatch, getState, {api}) => {
-  console.log('load user profile using api to fetch s3')
-
   dispatch(layout.loadProfile())
 
   return api.user.loadProfile()

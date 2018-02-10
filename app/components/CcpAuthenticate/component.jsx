@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import List, { ListItem, ListItemText } from 'mui/List'
 import EveLoginButton from './EveLoginButton'
 import Button from 'material-ui/Button'
 import ButtonBase from 'material-ui/ButtonBase'
@@ -30,11 +30,10 @@ export const CcpAuthenticate = props => {
 
         <div>
           <Button
-              color="contrast"
-              style={{width: 270}}
+              style={{width: 270, color: '#f8f8f8'}}
               onClick={() => history.push('/home')}
             >
-              cancel
+              CANCEL
             </Button>
         </div>
 

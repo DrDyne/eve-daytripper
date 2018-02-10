@@ -22,7 +22,7 @@ export const InfoDialog = props => {
         maxWidth: 360
     }}>
       <GameItemAvatar id={item.id} size={64} style={{float: 'right'}}/>
-      <Typography type="headline">{item.name}</Typography>
+      <Typography variant="headline">{item.name}</Typography>
       <Description text={item.info.description} />
     </div>
   </Dialog>)
@@ -31,7 +31,7 @@ export const InfoDialog = props => {
 export const Description = props => {
   const { text } = props
   const textWithoutTags = text.replace(/=showinfo:[0-9]+/g, '')
-  return (<Typography type="body1">
+  return (<Typography variant="body1">
     <span dangerouslySetInnerHTML={{__html: textWithoutTags}} />
   </Typography>)
 }

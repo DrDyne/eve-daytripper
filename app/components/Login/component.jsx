@@ -8,6 +8,8 @@ import {
 import Grid from 'material-ui/Grid'
 import List, { ListItem } from 'material-ui/List'
 
+import ProfileLoadingSplashScreen from 'App/components/ProfileLoadingSplashScreen/component'
+
 export class Login extends React.Component {
   state = {
     username: '',
@@ -46,6 +48,7 @@ export class Login extends React.Component {
 
   render () {
     const { username, password } = this.state
+    const { login, signup } = this.props
 
     return (<div className={style.root}>
 
@@ -58,7 +61,7 @@ export class Login extends React.Component {
         <Grid item
           onMouseEnter={this.focus('login')}
           style={{
-            flexGrow: 'signup' === this.state.$focused ? 0 : 1,
+            flexGrow: 1, //'signup' === this.state.$focused ? 0 : 1,
             transition: '0.2s ease-in'
           }}
         >
@@ -71,9 +74,11 @@ export class Login extends React.Component {
                 if ( !username ) return this.setState({ errorMissingUsername: true })
                 if ( !password ) return this.setState({ errorMissingPassword: true })
 
-                this.props.login(username, password)
+                login(username, password)
                 .then(() => history.push('/home'))
-                .catch(console.warn)
+                .catch(err => {
+                  console.warn(err)
+                })
               }}
             />
           )} />
@@ -82,7 +87,7 @@ export class Login extends React.Component {
         <Grid item
           onMouseEnter={this.focus('signup')}
           style={{
-            flexGrow: 'login' === this.state.$focused ? 0 : 1,
+            flexGrow: 1, //'login' === this.state.$focused ? 0 : 1,
             transition: '0.2s ease-in'
           }}
         >
@@ -100,7 +105,7 @@ export class Login extends React.Component {
                 if ( !email ) return
 
                 this.resetValidation()
-                this.props.signup(username, password, email)
+                signup(username, password, email)
               }}
             />
           )} />
@@ -118,7 +123,7 @@ import {
   Typography
 } from 'material-ui'
 const LoginBranding = props => {
-  return (<Typography type="display4" style={{
+  return (<Typography variant="display4" style={{
     textAlign: 'center',
     marginBottom: '0.5em',
   }}>
