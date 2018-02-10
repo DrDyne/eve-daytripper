@@ -19,7 +19,7 @@ module.exports = {
     'aws-sdk': 'commonjs aws-sdk'
   },
   plugins: [
-    new UglifyJSPlugin()
+    new UglifyJSPlugin(),
   ],
   output: {
     filename: '[name].lambda.js',
