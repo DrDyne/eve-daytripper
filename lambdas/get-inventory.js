@@ -5,6 +5,7 @@ exports.handler = (event, context, done) => {
   const charId = event.queryStringParameters.charId
 
   getInventory(username, charId)
+  .catch(done)
   .then(inventory => {
     done(null, response.json(inventory))
   })

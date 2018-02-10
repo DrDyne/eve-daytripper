@@ -58,10 +58,26 @@ export const response = {
   }
 }
 
-export const getFleet = (username, charId) => getJsonFromS3(BUCKETS.FLEETS, username, charId)
-export const getInventory = (username, charId) => getJsonFromS3(BUCKETS.INVENTORIES, username, charId)
-export const getGps = (username, charId) => getJsonFromS3(BUCKETS.GPS, username, charId)
 
-export const postFleet = (username, charId, fleet) => postJsonToS3(fleet, BUCKETS.FLEETS, username, charId)
-export const postInventory = (username, charId, inventory) => postJsonToS3(inventory, BUCKETS.INVENTORIES, username, charId)
-export const postGps = (username, charId, gps) => postJsonToS3(gps, BUCKETS.GPS, username, charId)
+export const validateCharId = charId => /^(\d){7,7}$/.test(charId)
+
+export const getFleet = (username) => getJsonFromS3(BUCKETS.FLEETS, username)
+export const postFleet = (username, fleet) => postJsonToS3(fleet, BUCKETS.FLEETS, username)
+
+export const getInventory = (username, charId) => {
+  if ( !validateCharId(charId) ) throw 'invalid charId'
+  return getJsonFromS3(BUCKETS.INVENTORIES, username, charId)
+}
+export const postInventory = (username, charId, inventory) => {
+  if ( !validateCharId(charId) ) throw 'invalid charId'
+  return postJsonToS3(inventory, BUCKETS.INVENTORIES, username, charId)
+}
+
+export const getGps = (username, charId) => {
+  if ( !validateCharId(charId) ) throw 'invalid charId'
+  return getJsonFromS3(BUCKETS.GPS, username, charId)
+}
+export const postGps = (username, charId, gps) => {
+  if ( !validateCharId(charId) ) throw 'invalid charId'
+  return postJsonToS3(gps, BUCKETS.GPS, username, charId)
+}

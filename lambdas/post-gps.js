@@ -5,6 +5,7 @@ exports.handler = (event, context, done) => {
   const charId = event.queryStringParameters.charId
 
   postGps(username, charId, event.body)
+  .catch(done)
   .then(version => {
     done(null, response.json({version}))
   })

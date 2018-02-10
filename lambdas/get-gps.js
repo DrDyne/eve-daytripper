@@ -5,6 +5,7 @@ exports.handler = (event, context, done) => {
   const charId = event.queryStringParameters.charId
 
   getGps(username, charId)
+  .catch(done)
   .then(gps => {
     done(null, response.json(gps))
   })
