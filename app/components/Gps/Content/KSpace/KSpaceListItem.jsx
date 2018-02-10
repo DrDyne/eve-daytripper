@@ -7,7 +7,7 @@ import { RoutePath } from '../../RoutePath'
 export const KSpaceListItem = ({route, systems, jumps, onClick}) => (
   <ListItem button onClick={onClick}>
     <div style={{display: 'flex', flexDirection: 'column' }}>
-      <Typography type="caption" style={{marginBottom: 6}}> { route.origin.name} </Typography>
+      <Typography variant="caption" style={{marginBottom: 6}}> { route.origin.name} </Typography>
       <RoutePath systems={systems} previewSize={'small'} routeButton={false} />
     </div>
 
@@ -21,11 +21,11 @@ export const KSpaceListItem = ({route, systems, jumps, onClick}) => (
         paddingLeft: 12
       }}>
 
-        <Typography type="subheading">
+        <Typography variant="subheading">
           {jumps}
         </Typography>
 
-        <Typography type="subheading">
+        <Typography variant="subheading">
           {route.destination.name}
         </Typography>
       </div>

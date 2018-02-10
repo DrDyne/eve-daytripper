@@ -103,3 +103,5 @@ export const SignupForm = props => {
     </ListItem>
   </List></CardContent></Card>)
 }
+
+export default SignupForm

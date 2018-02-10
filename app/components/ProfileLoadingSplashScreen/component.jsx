@@ -12,7 +12,7 @@ import style from './style.css'
 
 export const portrait256 = portrait64 => portrait64.replace(/64.jpg$/, '256.jpg')
 
-export const ProfileLoadingScreen = ({show, profile}) => {
+export const ProfileLoadingSplashScreen = ({show, profile}) => {
   if ( !show ) return null
 
   return (
@@ -82,3 +82,5 @@ export const ProfileLoadingScreen = ({show, profile}) => {
     </Dialog>
   )
 }
+
+export default ProfileLoadingSplashScreen

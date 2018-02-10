@@ -79,7 +79,7 @@ class DeleteFromHistoryListItem extends React.Component {
           }}
           style={{justifyContent: 'center'}}
         >
-          <Typography type="caption">
+          <Typography variant="caption">
             Delete
           </Typography>
         </ListItem>
@@ -93,7 +93,7 @@ class DeleteFromHistoryListItem extends React.Component {
             }}
             style={{justifyContent: 'flex-end'}}
           >
-            <Typography type="caption"> Confirm <u>Delete</u>? </Typography>
+            <Typography variant="caption"> Confirm <u>Delete</u>? </Typography>
           </ListItem>
         </Collapse>
       </div>

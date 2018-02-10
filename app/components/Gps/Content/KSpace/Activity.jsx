@@ -69,7 +69,7 @@ export class Activity extends React.Component {
             { this.state.grid.map(({id, label}, index) => (
               <GridListTile key={label}>
                 <Typography type="headline"> { this.state.activity[index] } </Typography>
-                <Typography type="caption"> { label } </Typography>
+                <Typography variant="caption"> { label } </Typography>
               </GridListTile>
             )) }
           </GridList>

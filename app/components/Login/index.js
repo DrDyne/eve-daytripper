@@ -10,7 +10,7 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   login: (username, password) => dispatch(user.loginCognito(username, password)),
   signup: (username, password, optional) => dispatch(user.signupCognito(username, password, optional)),
-  toggleRememberMe: () => dispatch(user.toggleRememberMe()),
+  authenticationProgress: () => dispatch(user.authenticationProgress(true))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
