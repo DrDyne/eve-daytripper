@@ -1,7 +1,6 @@
 import React from 'react'
-// 300 ticks = 5 min
-// 15 * 1000 delay before ticking
-const Ticker = (Component, tickReset=20, delay=15 * 1000) => (
+// 300 sec = 5 min
+const Ticker = (Component, tickReset=30, delay=10 * 1000) => (
   class TickerHOC extends React.Component {
     state = {
       ticker: null,

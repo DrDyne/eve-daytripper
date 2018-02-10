@@ -33,6 +33,7 @@ export const OriginsHistory = props => {
               icon={(
                 <SystemSecAvatarBig
                   system={origin}
+                  thin
                   label={origin.wh ? origin.jClass : (
                     origin.sec > 0.4
                     ? 'HS'

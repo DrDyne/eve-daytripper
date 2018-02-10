@@ -14,11 +14,12 @@ export const SystemSecAvatar = ({system, size}) => (
 )
 
 import { Avatar } from 'material-ui'
-export const SystemSecAvatarBig = ({ system, label, size, style }) => (
+export const SystemSecAvatarBig = ({ system, label, size, thin, style }) => (
   <Avatar {...{ style }} style={Object.assign({
     backgroundColor: secToHex(system.sec),
   },
-    !!size ? { width: size, height: size } : {}
+    !!size ? { width: size, height: size } : {},
+    !!thin ? { fontWeight: 100 } : {},
   )}>
     {label}
   </Avatar>

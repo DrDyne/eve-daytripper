@@ -19,7 +19,6 @@ import { ISK } from '../ISK'
 import SetStockDialog from '../SetStockDialog'
 import InfoButton from '../InfoButton'
 
-
 export class StockList extends React.Component {
   state = {
     menuAnchor: null,
@@ -132,15 +131,22 @@ export const StockListItem = ({
               <GameItemAvatar id={item.id} />
             </Avatar>
           </ListItemAvatar>
-          <CircularProgress size={50} mode="determinate" value={100*(inventoryQty/item.qty)} style={{
-            color: '#E65100',
+            { console.log(Math.round(100*(inventoryQty/item.qty))) }
+          <CircularProgress
+            size={50}
+            thickness={2}
+            variant="determinate"
+            value={Math.round(100*(inventoryQty/item.qty))}
+            style={{
+              color: '#E65100',
 
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginTop: -24,
-            marginLeft: -24,
-          }} />
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: -25,
+              marginLeft: -25,
+            }}
+          />
         </div>
         <Typography type="caption" style={{
           textAlign: 'center',
