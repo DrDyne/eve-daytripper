@@ -4,6 +4,7 @@ import {
   deleteItem,
   inventoryBusy,
   inventoryBusyDone,
+  saveProfile,
 } from './index.js'
 
 export const INVENTORY_INIT = 'inventory:init'
@@ -56,6 +57,7 @@ export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
   dispatch(inventoryBusy())
   return Promise.all(identifications)
   .then(() => dispatch(inventoryBusyDone()))
+  .then(() => dispatch(saveProfile('inventory')))
   .catch(err => {
     dispatch(inventoryBusyDone())
     throw err

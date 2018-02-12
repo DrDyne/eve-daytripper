@@ -109,7 +109,7 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
 
     return Promise.all([
       dispatch(history.init(Origins)),
-      dispatch(gps.init({Routes, Favorites, Avoidance})),
+      dispatch(gps.init(Routes, Favorites, Avoidance)),
       dispatch(fleet.init(Fleet)),
       dispatch(inventory.init(Inventory)),
     ])
@@ -129,9 +129,6 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
 }
 
 export const saveProfile = () => (dispatch, getState, {api}) => {
-  // wip
-  console.info('wip')
-
   dispatch(layout.saveProfile())
 
   const { fleet, inventory } = getState()

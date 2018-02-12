@@ -8,13 +8,11 @@ export class ApiClient {
 
   credentials = token => token ? this.token = token : this.token
 
-  url = (path, charId) => ( this.baseUrl + path
-    + ( !!charId ? `?charId=${ charId }` : '' )
-  )
+  url = path => this.baseUrl + path
 
-  apiGetJson = (path, charId) => {
-    const url = this.url(path, charId)
-    const headers = { Authorization: this.token }
+  apiGetJson = path => {
+    const url = this.url(path)
+    const headers = { Authorization: this.token, 'Content-Type': 'application/json' }
 
     return fetch(url, {headers})
     .catch(err => {
@@ -27,21 +25,20 @@ export class ApiClient {
 
   apiPostJson = (json, path, charId) => {
     const url = this.url(path, charId)
-    const headers = { Authorization: this.token }
-    const body = JSON.stringify(json)
+    const headers = { Authorization: this.token, 'Content-Type': 'application/json' }
 
-    return fetch(url, {headers, body, method: 'post'})
+    return fetch(url, {headers, body: JSON.stringify(json), method: 'post'})
     .then(res => res.json())
-    .then(body => JSON.parse(body))
   }
 
   getFleet = () => this.apiGetJson('/fleet')
-  getGps = charId => this.apiGetJson('/gps', charId)
-  getInventory = charId => this.apiGetJson('/inventory', charId)
+  postFleet = json => this.apiPostJson(json, `/fleet`)
 
-  postFleet = (json) => this.apiPostJson(json, '/fleet')
-  postGps = (json, charId) => this.apiPostJson(json, '/gps', charId)
-  postInventory = (json, charId) => this.apiPostJson(json, '/inventory', charId)
+  getInventory = charId => this.apiGetJson(`/${charId}/inventory`)
+  postInventory = (json, charId) => this.apiPostJson(json, `/${charId}/inventory`)
+
+  getGps = charId => this.apiGetJson(`/${charId}/gps`)
+  postGps = (json, charId) => this.apiPostJson(json, `/${charId}/gps`)
 }
 
 export default ApiClient

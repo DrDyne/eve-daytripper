@@ -1,3 +1,5 @@
+import { saveProfile } from './index.js'
+
 export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
 export const GPS_FAVORITE = 'gps:favorites:add'
 export const GPS_BUSY = 'gps:busy'
@@ -14,7 +16,7 @@ const matchRoute = (origin, system) => route => ((route.origin.id === origin.id)
 
 const byOriginId = id => route => route.origin.id === id
 
-export const init = ({routes, favorites, avoidance}) => ({
+export const init = (routes, favorites, avoidance) => ({
   type: GPS_INIT,
   routes,
   favorites,
@@ -117,9 +119,10 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
 
     return dispatch(createFavoriteRoutes(route.shortest[0]))
     .then(fav => [route, ...fav])
-    .then(routes => {
-      return routes.map(r => dispatch(saveRoute(r)))
-    })
+    .then(routes => routes.map(r => dispatch(saveRoute(r))))
+  })
+  .then(routesCreated => {
+    routesCreated.length && dispatch(saveProfile())
   })
   .catch(err => {
     console.warn(err)

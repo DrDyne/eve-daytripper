@@ -134,9 +134,9 @@ export const saveProfile = ({fleet, inventory, routes, favorites, avoidance, ori
   const charId = fleet.commander
   console.log(fleet, inventory, routes, favorites, avoidance, origins)
   return Promise.all([
-    apiClient.postFleet(fleet),
-    apiClient.postInventory(inventory, charId),
-    apiClient.postGps({routes, favorites, avoidance, origins}),
+    !!fleet && apiClient.postFleet(fleet),
+    !!inventory && apiClient.postInventory(inventory, charId),
+    !!routes && apiClient.postGps({routes, favorites, avoidance, origins}, charId),
   ])
 }
 
