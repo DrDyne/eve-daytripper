@@ -12,7 +12,7 @@ import {
   TextField,
   Typography
 } from 'material-ui'
-import { CircularProgress } from 'material-ui/Progress';
+import { LinearProgress } from 'mui/Progress'
 import Collapse from 'material-ui/transitions/Collapse'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
@@ -109,6 +109,14 @@ export class StockList extends React.Component {
   }
 }
 
+const styles = {
+  MuiLinearProgress: {
+    root: {
+      color: '#e65100'
+    }
+  }
+}
+
 export const StockListItem = ({
   layout,
   item,
@@ -123,31 +131,12 @@ export const StockListItem = ({
 }) => (
   <div>
     <ListItem onClick={onClick}>
-
       <div>
-        <div style={{position: 'relative'}}>
-          <ListItemAvatar>
-            <Avatar>
-              <GameItemAvatar id={item.id} />
-            </Avatar>
-          </ListItemAvatar>
-            { console.log(Math.round(100*(inventoryQty/item.qty))) }
-          <CircularProgress
-            size={50}
-            thickness={2}
-            variant="determinate"
-            value={Math.round(100*(inventoryQty/item.qty))}
-            style={{
-              color: '#E65100',
-
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              marginTop: -25,
-              marginLeft: -25,
-            }}
-          />
-        </div>
+        <ListItemAvatar>
+          <Avatar>
+            <GameItemAvatar id={item.id} />
+          </Avatar>
+        </ListItemAvatar>
         <Typography type="caption" style={{
           textAlign: 'center',
           marginTop: 2,
@@ -160,7 +149,16 @@ export const StockListItem = ({
 
       <ListItemText
         primary={item.name}
-        secondary={`${inventoryQty} / ${item.qty}`}
+        secondary={
+          <span>
+            <LinearProgress
+              variant="determinate"
+              value={ Math.round(100*(inventoryQty/item.qty)) }
+              style={{ height: 1 }}
+            />
+            { `${inventoryQty} / ${item.qty}` }
+          </span>
+        }
       />
 
       <ListItemSecondaryAction>
