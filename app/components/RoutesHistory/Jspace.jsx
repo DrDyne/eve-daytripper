@@ -69,9 +69,9 @@ export const JSpaceSubHeader = ({jClass}) => {
 }
 
 export const JSpaceNavigation = props => {
-  const { systems } = props
+  const { systems, background } = props
   return (
-    <div>
+    <div style={{background}}>
       { systems.map(j => {
         return (
           <Route key={`route-history-wormhole-${j.id}`} render={({history}) => (

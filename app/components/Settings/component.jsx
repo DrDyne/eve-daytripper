@@ -60,12 +60,12 @@ export class Settings extends React.Component {
       overflowY: 'auto',
     }} >
       <ListItem button dense onClick={toggleFleetVisibility}>
-        <Avatar style={{ backgroundColor: blue[900] }}> <Group /> </Avatar>
+        <Avatar style={{ backgroundColor: blue[900], }}> <Group /> </Avatar>
         <ListItemText
           primary="FLEET"
           secondary={ !layout.fleetVisibility && (
             1 === fleet.members.length
-            ? fleet.members[0].name
+            ? fleet.members.find(m => m.id === fleet.commander).name
             : `${fleet.members.length} members`
           ) }
         />

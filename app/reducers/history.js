@@ -9,7 +9,6 @@ import {
 } from '../actions'
 
 import {
-  CREATE_ROUTE,
   DELETE_SYSTEM,
   GPS_IDENTIFIED_SYSTEM,
 } from '../actions/gps'
@@ -32,14 +31,8 @@ export const initialState = {
   },
   paste: [],
   inventory: [],
-  routes: [],
   origins: [],
   inspect: null,
-}
-
-const byId = (origin, destination) => route => {
-  return route.origin.id === origin.id
-  && route.destination.id === destination.id
 }
 
 export const deleteSystem = (state, {system}) => {
@@ -47,30 +40,6 @@ export const deleteSystem = (state, {system}) => {
   .filter(({id}) => id !== system.id)
 
   return Object.assign({}, state, { origins })
-}
-
-export const createRoute = (state, action) => {
-  const { systems } = action
-  const [ origin, destination ] = [
-    systems.shortest[0],
-    systems.shortest.slice().pop()
-  ]
-
-  const origins = state.origins.find(o => o.name === origin.name)
-  ? state.origins
-  : [...state.origins, origin]
-
-  console.log('push route to history:', origin, destination)
-
-  const savedRoute = state.routes.find(byId(origin, destination))
-
-  return savedRoute
-  ? state
-  : Object.assign({}, state, {
-    lastOrigin: origin,
-    origins,
-    routes: [{origin, destination}, ...state.routes]
-  })
 }
 
 export const addSystemToOrigins = (state, action) => {
@@ -84,8 +53,8 @@ export const addSystemToOrigins = (state, action) => {
 }
 
 export const init = (state, action) => {
-  const { routes, origins } = action
-  return Object.assign({}, state, { origins, routes })
+  const { origins } = action
+  return Object.assign({}, state, { origins })
 }
 
 export const history = (state=initialState, action) => {
@@ -125,11 +94,8 @@ export const history = (state=initialState, action) => {
         paste: state.paste.slice(0,-1),
       }
 
-    case CREATE_ROUTE:
-      return createRoute(state, action)
-
     case CLEAR_ROUTE_HISTORY:
-      return Object.assign({}, state, { routes: [], origins: [] })
+      return Object.assign({}, state, { origins: [] })
 
     case GPS_IDENTIFIED_SYSTEM:
       return addSystemToOrigins(state, action)

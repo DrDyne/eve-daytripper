@@ -1,14 +1,17 @@
+import { createMember } from '../reducers/fleet'
 import * as layout from './layout'
 import * as inventory from './inventory'
 import * as gps from './gps'
 import * as user from './user'
 import * as fleet from './fleet'
+import * as history from './history'
 
 export {
-  inventory,
   fleet,
-  layout,
   gps,
+  history,
+  inventory,
+  layout,
   user,
 }
 
@@ -62,7 +65,6 @@ export const setCharacterInfo = ({id, name}) => ({ type: SET_CHAR_INFO, id, name
 export const setCapacity = m3 => ({ type: SET_CAPACITY, m3, })
 export const deleteRouteByOrigin = origin => ({ type: GPS_DELETE_ROUTE, origin })
 export const clearRouteHistory = () => ({ type: CLEAR_ROUTE_HISTORY })
-export const initHistory = (origins, routes) => ({ type: HISTORY_INIT, origins, routes })
 
 export const showInfoDialog = id => (dispatch, getState, {api}) => {
   const { inventory } = getState()
@@ -89,23 +91,10 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
   .then(character => {
     dispatch(setCharacterInfo(character))
     dispatch(fleet.add(character))
+    dispatch(fleet.setCommander(character.id))
 
-    // save new characterId to cognito profile instead
-    //api.user.cognitoIdentify(character)
-    //.then(cognitoCreds => {
-    //  console.log(cognitoCreds,
-    //    cognitoCreds.getAccessToken(),
-    //    cognitoCreds.getAccessToken().getJwtToken()
-    //  )
-    //})
-    //// .then( load app state from /inventory
-    //.catch(err => {
-    //  console.error(err)
-    //  throw err
-    //})
-
-
-    return character
+    return dispatch(saveProfile('fleet'))
+    .then(() => character)
   })
   .catch(err => {
     console.error('oauth err', err)
@@ -114,16 +103,59 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
 }
 
 export const loadProfile = () => (dispatch, getState, {api}) => {
-  console.log('load user profile using api to fetch s3')
-
   dispatch(layout.loadProfile())
+
   return api.user.loadProfile()
-  .then(Profile => {
-    console.log(Profile)
-    dispatch(initHistory(Profile.origins, Profile.gps.routes))
-    dispatch(gps.init(Profile.gps))
-    dispatch(fleet.init(Profile.fleet))
-    dispatch(inventory.init(Profile.inventory))
+  .then(({Fleet, Inventory, Origins, Routes, Favorites, Avoidance}) => {
+    console.log('loaded profile:', Fleet, Inventory, Origins, Routes, Favorites, Avoidance)
+
+    return Promise.all([
+      dispatch(history.init(Origins)),
+      dispatch(gps.init(Routes, Favorites, Avoidance)),
+      dispatch(fleet.init(Fleet)),
+      dispatch(inventory.init(Inventory)),
+    ])
   })
-  .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 850))
+  .catch(err => {
+    console.group('failed to load profile')
+    console.error(err)
+    console.groupEnd()
+
+    const character = getState().char
+    dispatch(fleet.init({
+      commander: character.id,
+      members: [ createMember(character) ]
+    }))
+  })
+  .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 840))
+}
+
+export const saveProfile = type => (dispatch, getState, {api}) => {
+  dispatch(layout.saveProfile())
+
+  const { fleet, inventory } = getState()
+  const { origins } = getState().history
+  const { routes, favorites, avoidance } = getState().gps
+
+  const options = {
+    all: { fleet, inventory, origins, routes, favorites, avoidance },
+    fleet: { fleet },
+    inventory: { inventory },
+    gps: { origins, routes, favorites, avoidance }
+  }
+
+  const saveMyProfile = chunk => api.user.saveProfile(fleet.commander, chunk)
+
+  console.log({type:'profile:chunk', chunkType:type, chunk:options[type]})
+
+  if ( 'all' === type )
+    return saveMyProfile(options.all)
+    .then(() => dispatch(layout.profileSaved()))
+
+  return Promise.all([
+    'fleet' === type && saveMyProfile(options.fleet),
+    'inventory' === type && saveMyProfile(options.inventory),
+    'gps' === type && saveMyProfile(options.gps)
+  ])
+  .then(() => dispatch(layout.profileSaved()))
 }

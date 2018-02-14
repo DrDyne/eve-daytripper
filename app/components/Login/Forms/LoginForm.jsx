@@ -18,58 +18,66 @@ import style from './style.css'
 
 export const LoginForm = props => {
   const {
-    rememberMe,
     onChange,
-    toggleRememberMe,
     login,
     loginError,
-    signup
+    signup,
+    busy,
   } = props
 
-  return (<Card><CardContent><List
-    className={style.loginForm}
-  >
-    <ListItem>
-      <TextField
-        label="Username"
-        name="username"
-        onChange={onChange}
-        fullWidth
-        helperText={loginError && 'Invalid username'}
-        error={!!loginError}
-      />
-    </ListItem>
+  return (
+    <form onKeyDown={event => {
+      if ( 'Enter' !== event.key ) return;
+      event.preventDefault();
+      login()
+    }}>
+      <Card>
+        <CardContent>
+          <List
+            className={style.loginForm}
+          >
+            <ListItem>
+              <TextField
+                label="Username"
+                name="username"
+                onChange={onChange}
+                fullWidth
+                helperText={loginError && 'Invalid username'}
+                error={!!loginError}
+              />
+            </ListItem>
 
-    <ListItem>
-      <TextField
-        label="Password"
-        type="password"
-        name="password"
-        onChange={onChange}
-        fullWidth
-        helperText={loginError && 'Invalid password'}
-        error={!!loginError}
-      />
-    </ListItem>
+            <ListItem>
+              <TextField
+                label="Password"
+                type="password"
+                name="password"
+                onChange={onChange}
+                fullWidth
+                helperText={loginError && 'Invalid password'}
+                error={!!loginError}
+              />
+            </ListItem>
 
-    <ListItem dense>
-      <ListItemText primary="Remember me" />
-      <Checkbox onClick={toggleRememberMe} checked={rememberMe} />
-    </ListItem>
+            <ListItem onClick={login}>
+              <Button variant="raised" color="primary" style={{width: '100%'}}>
+                Login
+              </Button>
+            </ListItem>
 
-    <ListItem onClick={login}>
-      <Button raised color="primary" style={{width: '100%'}}>
-        Login
-      </Button>
-    </ListItem>
+            <Divider />
 
-    <Divider />
+            <ListItem onClick={() => console.log('reset password')}>
+              <Button style={{width: '100%'}}>
+                Reset password
+              </Button>
+            </ListItem>
 
-    <ListItem onClick={() => console.log('reset password')}>
-      <Button style={{width: '100%'}}>
-        Reset password
-      </Button>
-    </ListItem>
-
-  </List></CardContent></Card>)
+          </List>
+        </CardContent>
+      </Card>
+    </form>
+  )
 }
+
+export default LoginForm

@@ -27,17 +27,16 @@ module.exports = {
       App: path.resolve(__dirname, './app'),
       Images: path.resolve(__dirname, './images'),
       mui: 'material-ui',
-      muii: 'material-ui-icons'
+      muii: 'material-ui-icons',
+      'app-locales': './locales'
     },
     extensions: ['.js', '.jsx']
   },
-  module: {
-    loaders
-  },
+  module: { loaders },
   devServer: {
     contentBase: "./public",
     // do not print bundle build stats
-    //noInfo: true,
+    noInfo: true,
     // enable HMR
     hot: true,
     // embed the webpack-dev-server runtime into the bundle

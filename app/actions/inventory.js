@@ -4,10 +4,12 @@ import {
   deleteItem,
   inventoryBusy,
   inventoryBusyDone,
+  saveProfile,
 } from './index.js'
 
 export const INVENTORY_INIT = 'inventory:init'
 export const INVENTORY_RESET = 'inventory:reset'
+export const INVENTORY_SAVED = 'inventory:saved'
 
 const byName = name => i => i.name === name
 
@@ -36,10 +38,12 @@ export const sellMissingItemsAfterPaste = () => (dispatch, getState) => {
 
 export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
   const { history, inventory } = getState()
-  const identifications = history.lastPasted.items.map(item => {
+  let dirty = false
 
-    return api.inventory.identify(item.name)
+  const identifications = history.lastPasted.items.map(item => (
+    api.inventory.identify(item.name)
     .then(id => {
+      dirty = true
       const itemWithId = Object.assign({}, item, {id})
       dispatch(addOrUpdateItem(itemWithId))
 
@@ -50,11 +54,12 @@ export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
           name: item.name,
         }))
     })
-  })
+  ))
 
   dispatch(inventoryBusy())
   return Promise.all(identifications)
   .then(() => dispatch(inventoryBusyDone()))
+  .then(() => !!dirty && dispatch(saveProfile('inventory')))
   .catch(err => {
     dispatch(inventoryBusyDone())
     throw err
