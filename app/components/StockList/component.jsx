@@ -71,7 +71,15 @@ export class StockList extends React.Component {
     if ( collapsed ) return (
       <List>
         <ListItem>
-          <ListItemText secondary={'so much isk'} />
+          <ListItemText secondary={
+            inventory.stock
+            .filter(i => i.qty > 0)
+            .map(i => {
+              const { id, qty } = i
+              const item = inventory.items.find(i => id === i.id)
+              return item ? item.m3 : 0
+            }).reduce((memo, i) => memo + i, 0) + ' m3'
+          } />
         </ListItem>
       </List>
     )
@@ -137,6 +145,13 @@ export const StockListItem = ({
             <GameItemAvatar id={item.id} />
           </Avatar>
         </ListItemAvatar>
+
+        <LinearProgress
+          variant="determinate"
+          value={ Math.round(100*(inventoryQty/item.qty)) }
+          style={{ height: 5, marginTop: 5 }}
+        />
+
         <Typography type="caption" style={{
           textAlign: 'center',
           marginTop: 2,
@@ -149,16 +164,7 @@ export const StockListItem = ({
 
       <ListItemText
         primary={item.name}
-        secondary={
-          <span>
-            <LinearProgress
-              variant="determinate"
-              value={ Math.round(100*(inventoryQty/item.qty)) }
-              style={{ height: 1 }}
-            />
-            { `${inventoryQty} / ${item.qty}` }
-          </span>
-        }
+        secondary={ `${inventoryQty} / ${item.qty}` }
       />
 
       <ListItemSecondaryAction>

@@ -130,9 +130,8 @@ export const loadProfile = () => (
   })
 )
 
-export const saveProfile = ({fleet, inventory, routes, favorites, avoidance, origins}) => {
-  const charId = fleet.commander
-  console.log(fleet, inventory, routes, favorites, avoidance, origins)
+export const saveProfile = (charId, {fleet, inventory, routes, favorites, avoidance, origins}) => {
+  console.log(charId, fleet, inventory, routes, favorites, avoidance, origins)
   return Promise.all([
     !!fleet && apiClient.postFleet(fleet),
     !!inventory && apiClient.postInventory(inventory, charId),

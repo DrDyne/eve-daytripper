@@ -8,7 +8,7 @@ export const mapStateToProps = state => ({
   loading: true//state.layout.loadingProfile
 })
 export const mapDispatchToProps = dispatch => ({
-  saveProfile: () => dispatch(saveProfile())
+  saveProfile: () => dispatch(saveProfile('all'))
 })
 
 export const Spinner = connect(mapStateToProps, mapDispatchToProps)(withTicker(AutoSaveSpinner))

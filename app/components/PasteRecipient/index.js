@@ -18,7 +18,7 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(inputPaste(event.clipboardData))
 
     return dispatch(inventory.updateInventoryFromPaste())
-    .then(() => dispatch(gps.createRouteFromPaste()))
+    .then(() => dispatch(gps.identifySystemFromPaste()))
     .catch(err => Promise.resolve( console.warn(err) ))
     .then(() => dispatch(inputPasteDone()))
   },

@@ -72,7 +72,7 @@ const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
   .then(routes => routes.filter(route => !!route))
 }
 
-export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
+export const identifySystemFromPaste = () => (dispatch, getState, {api}) => {
   const { raw } = getState().history.lastPasted
   const { routes } = getState().gps
 
@@ -89,12 +89,11 @@ export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
     : origin
   })
   .then(origin => dispatch(createFavoriteRoutes(origin)))
-  .then(routes => {
-    return routes.map(route => dispatch(saveRoute(route)))
-  })
+  .then(routes => routes.map(route => dispatch(saveRoute(route))))
+  .then(() => dispatch(saveProfile('gps')))
   .catch(err => {
+    if ( err.isWormhole ) dispatch(saveProfile('gps'))
     if ( 'route already exists' !== err ) throw err
-    console.warn(err)
     return Promise.resolve()
   })
 }
@@ -121,12 +120,12 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
     .then(fav => [route, ...fav])
     .then(routes => routes.map(r => dispatch(saveRoute(r))))
   })
-  .then(routesCreated => {
-    routesCreated.length && dispatch(saveProfile())
-  })
   .catch(err => {
     console.warn(err)
     return Promise.resolve()
   })
-  .then(() => dispatch(gpsBusyDone()))
+  .then(() => {
+    dispatch(saveProfile('gps'))
+    dispatch(gpsBusyDone())
+  })
 }

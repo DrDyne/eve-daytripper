@@ -91,8 +91,10 @@ export const oauthCallback = creds => (dispatch, getState, {api}) => {
   .then(character => {
     dispatch(setCharacterInfo(character))
     dispatch(fleet.add(character))
+    dispatch(fleet.setCommander(charater.id))
 
-    return character
+    return dispatch(saveProfile('fleet'))
+    .then(() => character)
   })
   .catch(err => {
     console.error('oauth err', err)
@@ -128,20 +130,32 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
   .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 840))
 }
 
-export const saveProfile = () => (dispatch, getState, {api}) => {
+export const saveProfile = type => (dispatch, getState, {api}) => {
   dispatch(layout.saveProfile())
 
   const { fleet, inventory } = getState()
   const { origins } = getState().history
   const { routes, favorites, avoidance } = getState().gps
 
-  return api.user.saveProfile({
-    fleet,
-    inventory,
-    origins,
-    routes,
-    favorites,
-    avoidance,
-  })
+  const options = {
+    all: { fleet, inventory, origins, routes, favorites, avoidance },
+    fleet: { fleet },
+    inventory: { inventory },
+    gps: { origins, routes, favorites, avoidance }
+  }
+
+  const saveMyProfile = chunk => api.user.saveProfile(fleet.commander, chunk)
+
+  console.log({type:'profile:chunk', chunkType:type, chunk:options[type]})
+
+  if ( 'all' === type )
+    return saveMyProfile(options.all)
+    .then(() => dispatch(layout.profileSaved()))
+
+  return Promise.all([
+    'fleet' === type && saveMyProfile(options.fleet),
+    'inventory' === type && saveMyProfile(options.inventory),
+    'gps' === type && saveMyProfile(options.gps)
+  ])
   .then(() => dispatch(layout.profileSaved()))
 }
