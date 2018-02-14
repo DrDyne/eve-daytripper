@@ -56,6 +56,7 @@ export const KSpaceRoutes = props => {
     routes,
     showShortestRoutes,
     showFavoriteRoutes,
+    background,
   } = props
 
   const origins = routes.reduce((memo, {origin}) => {
@@ -68,7 +69,7 @@ export const KSpaceRoutes = props => {
   const leadsToFavorite = route => favorites.find(f => f.id === route.destination.id)
   const sortRoutesByDestination = (a, b) => a.destination.name.charAt(0) < b.destination.name.charAt(0)
 
-  return (<div>
+  return (<div style={{background}}>
     { origins.map(origin => {
       const originSystem = routes.find(byOrigin(origin)).origin
       const routesFromOrigin = routes.filter(byOrigin(origin))

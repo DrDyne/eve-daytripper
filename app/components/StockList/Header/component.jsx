@@ -12,6 +12,7 @@ import {
 } from 'material-ui-icons'
 
 export const Header = props => {
+  return null
   const { inventory, importStockSetup, exportStockSetup } = props
 
   return (<div>

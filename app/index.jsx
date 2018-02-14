@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import { MuiThemeProvider } from 'material-ui'
 import { createMuiTheme } from 'material-ui/styles'
 import { I18nextProvider } from 'react-i18next'

@@ -12,14 +12,12 @@ import {
   TextField,
   Typography
 } from 'material-ui'
-import { CircularProgress } from 'material-ui/Progress';
+import { LinearProgress } from 'mui/Progress'
 import Collapse from 'material-ui/transitions/Collapse'
-import { FillGauge } from '../FillGauge'
 import { GameItemAvatar } from '../GameItemAvatar'
 import { ISK } from '../ISK'
 import SetStockDialog from '../SetStockDialog'
 import InfoButton from '../InfoButton'
-
 
 export class StockList extends React.Component {
   state = {
@@ -73,7 +71,15 @@ export class StockList extends React.Component {
     if ( collapsed ) return (
       <List>
         <ListItem>
-          <ListItemText secondary={'so much isk'} />
+          <ListItemText secondary={
+            inventory.stock
+            .filter(i => i.qty > 0)
+            .map(i => {
+              const { id, qty } = i
+              const item = inventory.items.find(i => id === i.id)
+              return item ? item.m3 : 0
+            }).reduce((memo, i) => memo + i, 0) + ' m3'
+          } />
         </ListItem>
       </List>
     )
@@ -111,6 +117,14 @@ export class StockList extends React.Component {
   }
 }
 
+const styles = {
+  MuiLinearProgress: {
+    root: {
+      color: '#e65100'
+    }
+  }
+}
+
 export const StockListItem = ({
   layout,
   item,
@@ -125,24 +139,19 @@ export const StockListItem = ({
 }) => (
   <div>
     <ListItem onClick={onClick}>
-
       <div>
-        <div style={{position: 'relative'}}>
-          <ListItemAvatar>
-            <Avatar>
-              <GameItemAvatar id={item.id} />
-            </Avatar>
-          </ListItemAvatar>
-          <CircularProgress size={50} mode="determinate" value={100*(inventoryQty/item.qty)} style={{
-            color: '#E65100',
+        <ListItemAvatar>
+          <Avatar>
+            <GameItemAvatar id={item.id} />
+          </Avatar>
+        </ListItemAvatar>
 
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginTop: -24,
-            marginLeft: -24,
-          }} />
-        </div>
+        <LinearProgress
+          variant="determinate"
+          value={ Math.round(100*(inventoryQty/item.qty)) }
+          style={{ height: 5, marginTop: 5 }}
+        />
+
         <Typography type="caption" style={{
           textAlign: 'center',
           marginTop: 2,
@@ -155,7 +164,7 @@ export const StockListItem = ({
 
       <ListItemText
         primary={item.name}
-        secondary={`${inventoryQty} / ${item.qty}`}
+        secondary={ `${inventoryQty} / ${item.qty}` }
       />
 
       <ListItemSecondaryAction>

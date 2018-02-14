@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk'
 import { aws } from './config.js'
-import { load, save } from './db'
+import ApiClient from './apiClient'
 import {
   CognitoUser,
   CognitoUserPool,
@@ -9,39 +9,6 @@ import {
 } from 'amazon-cognito-identity-js'
 
 const BASE_URL = 'https://fpfnkzp3zd.execute-api.us-east-1.amazonaws.com/dev'
-
-//WIP
-//const WIP_TOKEN = "eyJraWQiOiJjckF5OXhVbFE4TElabDdVNkxcL3p3WVR2bTdJcnNLWGlKQm9iaWI5VkxxQT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJkM2Q2NzhhMC00NDhmLTQyMjctOGZkZi0wNWRlNjU2OGFhOWIiLCJhdWQiOiIxb2gwNDE1N281djJ1aTNkc3FiMW42NTMwbyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTEwMTg4NTgzLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV90U0RsVDVleGUiLCJjb2duaXRvOnVzZXJuYW1lIjoiYm9iYnkxIiwiZXhwIjoxNTEwMTkyMTgzLCJpYXQiOjE1MTAxODg1ODN9.Tna6ht4EJifOw2WOvpwp42BB-ZMfVDSChIFioFfdk8Z85BoPLbGJNvG9I_x9PIyTcd1PEx_USWs74tZmVKacyOhexg4ESGkXL-sYS3ipoY7aJBEOK2Lri9sbApFwKoBW1e31i1VSZI1QYDH3FJGWcUHkEbytTdkCsGVLV8gvEBjBMQ7cpsib42AmUm7w_G4NJSa5mqxfhmG_yHuOxb7JnP6LgtTFZ2OpWxk0FVaayjHUcR_nqOGYQe8nTgxbQGujVQndGAww_By934wC9s7cwZ-Umu1LO1YK46ZGgYEsIYbwu8YnyYUezQzvphIlj5scTWm0EIq99v0eZ8dxJM2xLg"
-
-const WIP_TOKEN = "eyJraWQiOiJjckF5OXhVbFE4TElabDdVNkxcL3p3WVR2bTdJcnNLWGlKQm9iaWI5VkxxQT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJkM2Q2NzhhMC00NDhmLTQyMjctOGZkZi0wNWRlNjU2OGFhOWIiLCJhdWQiOiIxb2gwNDE1N281djJ1aTNkc3FiMW42NTMwbyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTEwMjQ5OTg1LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV90U0RsVDVleGUiLCJjb2duaXRvOnVzZXJuYW1lIjoiYm9iYnkxIiwiZXhwIjoxNTEwMjUzNTg1LCJpYXQiOjE1MTAyNDk5ODV9.X7k8D-Qxr9gp4GYmImNduMTU5yX4HL1k2XY5A4a1I7ObULotxqN3s-lh8gOYq_aGKGVaIw5x5KWhfKPf-Mx31g3pgy1KWOezanCmJ5OsFn-vD60GOWjSTHl0de249TdnYWKw9j-aifbL-F88FBB5KRT1tPt64WYDCDjQRumllLPyRaSjv1fKcQJq0agxg6C0B0RDpylpMPYlBnn4klYPfY266TmQOyCYt_dxFKZInegRuhsi1O0sug3hfeBG51zel9wL5M2qBTH-Zfbpz89_oR7H52lWhRB40URp90tO7eQJEeAeK6UxaqFtWPC2Ef1vtsEWyg4ccmNwtEH3iL0EFg"
-
-
-export class ApiClient {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl
-    this.token = WIP_TOKEN
-  }
-
-  credentials = ({token}) => {
-    this.token = token
-  }
-
-  url = path => this.baseUrl + path
-
-  apiGetJson = path => {
-    const url = this.url(path)
-    const headers = { Authorization: this.token }
-
-    return fetch(url, {headers})
-    .then(res => res.json())
-    .then(body => JSON.parse(body))
-  }
-
-  getFleet = () => this.apiGetJson('/fleet')
-  getGps = () => this.apiGetJson('/gps')
-  getInventory = () => this.apiGetJson('/inventory')
-}
-
 const apiClient = new ApiClient(BASE_URL)
 const userPool = new CognitoUserPool({
   UserPoolId : aws.userPoolId,
@@ -57,7 +24,7 @@ const getSession = cognitoUser => {
     }
     //console.log('got session', session)
     const token = session.getIdToken().getJwtToken()
-    apiClient.credentials({token})
+    apiClient.credentials(token)
   })
 }
 
@@ -133,49 +100,43 @@ export const login = (method, username, password) => {
       }
     })
 
-    apiClient.credentials({token})
-    //getSession(userPool.getCurrentUser())
-
+    apiClient.credentials(token)
     return token
-    //const url = 'https://fpfnkzp3zd.execute-api.us-east-1.amazonaws.com/dev/character'
-    //const options = {
-    //  headers: {
-    //    Authorization: result.getIdToken().getJwtToken()
-    //  },
-    //}
-    //return fetch(url, options, res => {
-    //  console.log(res)
-    //})
-    //.then(() => fetch('https://fpfnkzp3zd.execute-api.us-east-1.amazonaws.com/dev/inventory', options, res => {
-    //  console.log(res)
-    //}))
   })
 }
 
 export const resetPassword = email => { }
 
-export const loadProfile = () => {
-  return Promise.all([
-    apiClient.getFleet(),
-    apiClient.getInventory(),
-    apiClient.getGps(),
-  ])
-  .then(([fleet, inventory, Gps]) => {
-    return {
-      gps: {
-        routes: Gps.routes,
-        favorites: Gps.favorites,
-        avoidance: Gps.avoidance,
-      },
-      origins: Gps.origins,
-      inventory,
+export const loadProfile = () => (
+  apiClient.getFleet()
+  .then(fleet => {
+    console.log(fleet)
+    const { id } = fleet.members.find(m => m.id === fleet.commander) // it's not what you think.
+    return Promise.all([
       fleet,
+      apiClient.getInventory(id),
+      apiClient.getGps(id),
+    ])
+  })
+  .then(([Fleet, Inventory, {routes, favorites, avoidance, origins}]) => {
+    return {
+      Fleet,
+      Inventory,
+      Routes: routes,
+      Favorites: favorites,
+      Avoidance: avoidance,
+      Origins: origins,
     }
   })
-}
+)
 
-export const saveProfile = state => {
-  console.log('TODO')
+export const saveProfile = (charId, {fleet, inventory, routes, favorites, avoidance, origins}) => {
+  console.log(charId, fleet, inventory, routes, favorites, avoidance, origins)
+  return Promise.all([
+    !!fleet && apiClient.postFleet(fleet),
+    !!inventory && apiClient.postInventory(inventory, charId),
+    !!routes && apiClient.postGps({routes, favorites, avoidance, origins}, charId),
+  ])
 }
 
 export default {
@@ -185,4 +146,5 @@ export default {
   logout,
   resetPassword,
   loadProfile,
+  saveProfile,
 }

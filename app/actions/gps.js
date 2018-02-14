@@ -1,3 +1,5 @@
+import { saveProfile } from './index.js'
+
 export const GPS_FAVORITE_REMOVE = 'gps:favorites:delete'
 export const GPS_FAVORITE = 'gps:favorites:add'
 export const GPS_BUSY = 'gps:busy'
@@ -8,12 +10,13 @@ export const CREATE_ROUTE = 'gps:route:create'
 export const DELETE_ROUTE = 'gps:route:delete'
 export const DELETE_SYSTEM = 'gps:system:delete'
 export const GPS_INIT = 'gps:init'
+export const GPS_SAVED = 'gps:saved'
 
 const matchRoute = (origin, system) => route => ((route.origin.id === origin.id) && (route.destination.id === system.id))
 
 const byOriginId = id => route => route.origin.id === id
 
-export const init = ({routes, favorites, avoidance}) => ({
+export const init = (routes, favorites, avoidance) => ({
   type: GPS_INIT,
   routes,
   favorites,
@@ -69,7 +72,7 @@ const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
   .then(routes => routes.filter(route => !!route))
 }
 
-export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
+export const identifySystemFromPaste = () => (dispatch, getState, {api}) => {
   const { raw } = getState().history.lastPasted
   const { routes } = getState().gps
 
@@ -86,12 +89,11 @@ export const createRouteFromPaste = () => (dispatch, getState, {api}) => {
     : origin
   })
   .then(origin => dispatch(createFavoriteRoutes(origin)))
-  .then(routes => {
-    return routes.map(route => dispatch(saveRoute(route)))
-  })
+  .then(routes => routes.map(route => dispatch(saveRoute(route))))
+  .then(() => dispatch(saveProfile('gps')))
   .catch(err => {
+    if ( err.isWormhole ) dispatch(saveProfile('gps'))
     if ( 'route already exists' !== err ) throw err
-    console.warn(err)
     return Promise.resolve()
   })
 }
@@ -116,13 +118,14 @@ export const search = (origin, destination) => (dispatch, getState, {api}) => {
 
     return dispatch(createFavoriteRoutes(route.shortest[0]))
     .then(fav => [route, ...fav])
-    .then(routes => {
-      return routes.map(r => dispatch(saveRoute(r)))
-    })
+    .then(routes => routes.map(r => dispatch(saveRoute(r))))
   })
   .catch(err => {
     console.warn(err)
     return Promise.resolve()
   })
-  .then(() => dispatch(gpsBusyDone()))
+  .then(() => {
+    dispatch(saveProfile('gps'))
+    dispatch(gpsBusyDone())
+  })
 }

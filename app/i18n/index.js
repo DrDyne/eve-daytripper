@@ -4,10 +4,11 @@ import XHR from 'i18next-xhr-backend'
 // import Cache from 'i18next-localstorage-cache';
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import locales from '../../locales'
+//TODO add locales
+//import locales from 'app-locales'
 
 i18n
-.use(XHR)
+//.use(XHR)
 // .use(Cache)
 .use(LanguageDetector)
 .init({
@@ -41,7 +42,8 @@ i18n
   //parseMissingKeyHandler: key => `<bold>T:</bold>${key.toUpperCase()}`,
 })
 
-i18n.addResourceBundle('en-US', 'common', locales.en)
-i18n.addResourceBundle('fr-FR', 'common', locales.fr)
+//TODO add locales
+//i18n.addResourceBundle('en-US', 'common', locales.en)
+//i18n.addResourceBundle('fr-FR', 'common', locales.fr)
 
 export default i18n;

@@ -11,7 +11,7 @@ export const PasteInstructions = ({step}) => {
     }}>
       <Stepper activeStep={step-1} style={{
         width: '66%',
-        maxWidth: 320,
+        maxWidth: 440,
         margin: '0 auto',
         background: 'none',
         padding: 28,//3 === step ? 12 : 28,

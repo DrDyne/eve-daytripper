@@ -3,6 +3,7 @@ import List, { ListItem, ListSubheader, ListItemText } from 'material-ui/List'
 import { Avatar, Button } from 'material-ui'
 import { ListItemIcon } from 'material-ui/List'
 import { Collapse } from 'material-ui/transitions'
+import { LinearProgress } from 'mui/Progress'
 
 import ExpandMore from 'material-ui-icons/ExpandMore'
 import ExpandLess from 'material-ui-icons/ExpandLess'
@@ -82,11 +83,16 @@ export class WormholeActivity extends React.Component {
     topKillerCorp: null,
     mostKillsCorp: null,
     victimCorp: null,
+
+    busy: true,
   }
 
   componentWillMount () {
     const { system } = this.props
     this.fetchWormholeActivity(system.id)
+    .then(() => {
+      this.setState({busy: false})
+    })
   }
 
   fetchWormholeActivity = id => {
@@ -223,11 +229,13 @@ export class WormholeActivity extends React.Component {
       recentKills,
       topKillerCorp,
       mostKillsCorp,
-      victimCorp
+      victimCorp,
+      busy
     } = this.state
 
     return (
       <List>
+        { busy && <LinearProgress /> }
         <ListSubheader style={{background: 'white'}}>
           Activity
         </ListSubheader>
@@ -256,7 +264,7 @@ export class WormholeActivity extends React.Component {
         }) }
 
         <ListItem>
-          <ListItemText type="caption" secondary="* based on last 200 killmails" />
+          <ListItemText secondary="* based on last 200 killmails" />
         </ListItem>
       </List>
     )

@@ -7,9 +7,7 @@ export const mapStateToProps = ({layout, inventory}) => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
-  showMenu: item => () => {
-    console.log('showMenu', item)
-  },
+  showMenu: item => () => console.log('showMenu', item)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockList)

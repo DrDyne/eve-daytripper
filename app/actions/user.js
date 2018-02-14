@@ -4,12 +4,18 @@ export const LOGIN_FAILURE = 'user:login:failure'
 export const LOGIN_SUCCESS = 'user:login:success'
 export const SIGNUP_FAILURE = 'user:signup:failure'
 export const SIGNUP_SUCCESS = 'user:signup:success'
+export const AUTH_START = 'user:auth:start'
+export const AUTH_END = 'user:auth:end'
+
+import * as layout from './layout'
 
 export const loginCognito = (username, password) => (dispatch, getState, {api}) => {
   return api.user.login('cognito', username, password)
   .then(token => {
     dispatch(loginSuccess())
     dispatch(saveCredentials(token))
+    dispatch(layout.loadProfile())
+    dispatch(authenticationProgress())
   })
   .catch(err => {
     dispatch(loginFailure(err))
@@ -35,12 +41,10 @@ export const resetPassword = email => {
   return api.user.resetPassword(email)
 }
 
-export const toggleRememberMe = () => (dispatch, getState) => {
-}
-
 export const saveCredentials = token => ({ type: SAVE_CREDENTIALS, token })
 export const clearCredentials = () => ({ type: CLEAR_CREDENTIALS })
 export const loginFailure = error => ({ type: LOGIN_FAILURE, error })
 export const loginSuccess = () => ({ type: LOGIN_SUCCESS })
 export const signupSuccess = () => ({ type: SIGNUP_SUCCESS })
 export const signupFailure = error => ({ type: SIGNUP_FAILURE, error })
+export const authenticationProgress = value => ({type: !value ? AUTH_END : AUTH_START})
