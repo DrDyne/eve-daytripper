@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadProfile: () => dispatch(loadProfile())
+  loadProfile: charId => dispatch(loadProfile(charId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContent)

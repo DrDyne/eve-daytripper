@@ -78,34 +78,11 @@ export const showInfoDialog = id => (dispatch, getState, {api}) => {
   })
 }
 
-export const oauthCallback = creds => (dispatch, getState, {api}) => {
-
-  return api.user.ccpIdentify(creds.access_token)
-  .then(json => {
-    console.log('auth success', json)
-    return {
-      id: json.CharacterID,
-      name: json.CharacterName,
-    }
-  })
-  .then(character => {
-    dispatch(setCharacterInfo(character))
-    dispatch(fleet.add(character))
-    dispatch(fleet.setCommander(character.id))
-
-    return dispatch(saveProfile('fleet'))
-    .then(() => character)
-  })
-  .catch(err => {
-    console.error('oauth err', err)
-    throw err
-  })
-}
-
-export const loadProfile = () => (dispatch, getState, {api}) => {
+//charId is not provided at 1st login, it comes from localStorage after ccp oauth
+export const loadProfile = charId => (dispatch, getState, {api}) => {
   dispatch(layout.loadProfile())
 
-  return api.user.loadProfile()
+  return api.user.loadProfile(charId) // charId is discarded for now
   .then(({Fleet, Inventory, Origins, Routes, Favorites, Avoidance}) => {
     console.log('loaded profile:', Fleet, Inventory, Origins, Routes, Favorites, Avoidance)
 
@@ -127,7 +104,8 @@ export const loadProfile = () => (dispatch, getState, {api}) => {
       members: [ createMember(character) ]
     }))
   })
-  .then(() => setTimeout(() => dispatch(layout.profileLoaded()), 840))
+  //.then(() => setTimeout(() => dispatch(layout.profileLoaded()), 840))
+  .then(() => dispatch(layout.profileLoaded()))
 }
 
 export const saveProfile = type => (dispatch, getState, {api}) => {

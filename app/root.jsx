@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from './components/Login'
-import Oauth from './components/CcpAuthenticate/OAuth'
 import AppLayout from './AppLayout'
 import ProfileLoadingSplashScreen from './components/ProfileLoadingSplashScreen'
 
@@ -16,8 +15,6 @@ const Root = props => (
       )} />
 
       <Route path="/login" component={Login} />
-
-      <Route path="/oauth" component={Oauth} />
 
       <Route path="/home" render={() => (
         <div style={{

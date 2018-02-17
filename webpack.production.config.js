@@ -20,7 +20,7 @@ module.exports = {
   output: {
     publicPath: './',
     path: path.join(__dirname, 'public'),
-    filename: 'eve-daytripper.[chunkhash].js'
+    filename: 'eve-daytripper.[hash:5].js'
   },
   resolve: {
     alias: {
@@ -60,7 +60,8 @@ module.exports = {
       files: {
         css: ['style.css'],
         js: ['bundle.js'],
-      }
+      },
+      favicon: './images/favicon-black.png'
     })
   ]
-};
+}

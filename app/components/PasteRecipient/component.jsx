@@ -1,6 +1,5 @@
 import React from 'react'
 import style from './style.scss'
-import { Redirect } from 'react-router-dom'
 import Collapse from 'mui/transitions/Collapse'
 import {
   Paper,
