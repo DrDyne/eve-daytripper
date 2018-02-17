@@ -17,6 +17,8 @@ import {
   TOGGLE_SIDE_FLEET,
   TOGGLE_SIDE_INVENTORY,
   TOGGLE_SIDE_NAVIGATION,
+  PROFILE_SAVE_START,
+  PROFILE_SAVE_END,
   PROFILE_LOAD_START,
   PROFILE_LOAD_END,
   SKIP_ORIGINS_HISTORY,
@@ -31,6 +33,7 @@ const STOCK_POS_LEFT = 'left'
 const STOCK_POS_RIGHT = 'right'
 
 export const initialState = {
+  profileSaving: false,
   profileLoading: false,
   gpsBusy: false,
   contentLayout: 'vertical', // 'vertical', 'side-to-side', 'tabs'
@@ -118,8 +121,10 @@ export const layout = (state=initialState, action) => {
     case GPS_BUSY_DONE: return Object.assign({}, state, { gpsBusy: false })
     case INVENTORY_BUSY: return Object.assign({}, state, { inventoryBusy: true })
     case INVENTORY_BUSY_DONE: return Object.assign({}, state, { inventoryBusy: false })
-    case PROFILE_LOAD_END: return Object.assign({}, state, { profileLoading: false })
+    case PROFILE_SAVE_START: return Object.assign({}, state, { profileSaving: true })
+    case PROFILE_SAVE_END: return Object.assign({}, state, { profileSaving: false })
     case PROFILE_LOAD_START: return Object.assign({}, state, { profileLoading: true })
+    case PROFILE_LOAD_END: return Object.assign({}, state, { profileLoading: false })
     case SKIP_ORIGINS_HISTORY: return Object.assign({}, state, { skipOriginsHistory: action.nbOrigins })
   }
   return state
