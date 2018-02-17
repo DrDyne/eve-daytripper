@@ -40,7 +40,7 @@ $ webpack
 
 > oauth/
 
-oauth page is a stand-alone micro app, check `oauth/'. Users need to be signed-in to Cognito before reaching `oauth/`.
+oauth page is a stand-alone micro app, check `oauth/`. Users need to be signed-in to Cognito before reaching `oauth/`.
 
 > *Build:*
 ```sh
