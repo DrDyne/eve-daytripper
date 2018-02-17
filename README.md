@@ -44,6 +44,6 @@ oauth page is a stand-alone micro app, check `oauth/`. Users need to be signed-i
 
 > *Build:*
 ```sh
-cd oauth/
+$ cd oauth/
 $ webpack
 ```
