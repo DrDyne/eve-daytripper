@@ -12,7 +12,7 @@ import style from './style.css'
 
 export const portrait256 = portrait64 => portrait64.replace(/64.jpg$/, '256.jpg')
 
-export const ProfileLoadingSplashScreen = ({show, profile, fullWidth=false}) => {
+export const ProfileLoadingSplashScreen = ({show, profile, fullWidth=false, showProgress=true, message=null}) => {
   if ( !show ) return null
 
   return (
@@ -21,7 +21,7 @@ export const ProfileLoadingSplashScreen = ({show, profile, fullWidth=false}) => 
       fullWidth={fullWidth}
     >
       <DialogTitle style={{textAlign: 'center'}}>Loading profile</DialogTitle>
-      <LinearProgress mode="query" />
+      { showProgress && <LinearProgress mode="query" /> }
 
     <DialogContent>
       <div>
@@ -66,6 +66,8 @@ export const ProfileLoadingSplashScreen = ({show, profile, fullWidth=false}) => 
             />)
           : <Avatar style={{width: 256, height: 256}} />
           }
+
+          { message }
 
           <div style={{
             flexGrow: 1,

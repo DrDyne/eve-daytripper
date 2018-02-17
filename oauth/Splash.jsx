@@ -2,8 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-import api from 'App/api'
-import ProfileLoadingSplashScreen from 'App/components/ProfileLoadingSplashScreen/component.jsx'
+import Button from 'mui/Button'
+
+import { ccpIdentify, saveProfile } from 'App/api/user'
+import ProfileLoadingSplashScreen from 'App/components/ProfileLoadingSplashScreen/component'
+
+const REDIRECT_URI = '/latest/#/home'
 
 export class Splash extends React.Component {
   state = {
@@ -18,13 +22,12 @@ export class Splash extends React.Component {
     this.oauthCallback(creds)
   }
 
-  oauthCallback = ({access_token}, delay=6000) => {
+  oauthCallback = ({access_token}, delay=2000) => {
     console.log('authenticating')
 
-    return api.user.ccpIdentify(access_token)
+    return ccpIdentify(access_token)
     .then(({CharacterID, CharacterName}) => {
       console.log('auth success', CharacterID, CharacterName)
-      localStorage.setItem('charId', CharacterID)
       return { id: CharacterID, name: CharacterName }
     })
     .then(({id, name}) => {
@@ -33,7 +36,9 @@ export class Splash extends React.Component {
         members: [{ id, name }]
       }
       this.setState({ id, name })
-      return api.user.saveProfile(id, { fleet })
+      //localStorage.setItem('id', CharacterID)
+      //localStorage.setItem('name', CharacterName)
+      return saveProfile(id, { fleet })
     })
     .then(() => {
       console.log('saved')
@@ -56,7 +61,26 @@ export class Splash extends React.Component {
     const { done, profileSaved, id, name } = this.state
 
     if ( done && profileSaved ) return (
-      <a href="/home">Click here to access your profile</a>
+      <ProfileLoadingSplashScreen
+        show={ true }
+        showProgress={ false }
+        fullWidth={ true }
+        profile={{ id, name }}
+        message={
+          <div style={{padding: 14}}>
+            <Button
+              href={REDIRECT_URI}
+              fullWidth
+              variant="raised"
+              size="large"
+              variant="raised"
+              color="primary"
+            >
+              HOME
+            </Button>
+          </div>
+        }
+      />
     )
 
     return (
