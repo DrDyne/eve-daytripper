@@ -7,8 +7,35 @@ Stock and loot management for small-scale daytripping expeditions for Eve online
 https://trello.com/b/lMme4zsH/eve-daytripper
 
 ---
+# App
 
-# react-webpack-babel
-Simple React Webpack Babel Starter Kit
+> app/
 
-Try this is a simple [React](https://facebook.github.io/react/), [Webpack](http://webpack.github.io/) and [Babel](https://babeljs.io/) application with nothing else in it.
+Defines actions, api, components, router, middlewares, reducers and store
+
+> *Build:*
+$ npm run build
+
+> *Dev:*
+$ npm install
+$ npm start
+
+# Lambdas
+
+> lambdas/
+
+Lambdas are bundled with `lambdas/utils.js` that implements all the business logic to store/retrieve user data from s3
+
+> *Build:*
+$ cd lambdas
+$ webpack
+
+# Oauth
+
+> oauth/
+
+oauth page is a stand-alone micro app, check `oauth/'. Users need to be signed-in to Cognito before reaching `oauth/`.
+
+> *Build:*
+$ cd oauth/
+$ webpack
