@@ -14,7 +14,8 @@ import style from './style.scss'
 
 export class AppContent extends React.Component {
   componentWillMount () {
-    this.props.loadProfile()
+    const charId = localStorage.getItem('charId')
+    this.props.loadProfile(charId)
   }
 
   render () {
