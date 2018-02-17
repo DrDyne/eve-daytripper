@@ -14,11 +14,15 @@ https://trello.com/b/lMme4zsH/eve-daytripper
 Defines actions, api, components, router, middlewares, reducers and store
 
 > *Build:*
+```sh
 $ npm run build
+```
 
 > *Dev:*
+```sh
 $ npm install
 $ npm start
+```
 
 # Lambdas
 
@@ -27,8 +31,10 @@ $ npm start
 Lambdas are bundled with `lambdas/utils.js` that implements all the business logic to store/retrieve user data from s3
 
 > *Build:*
+```sh
 $ cd lambdas
 $ webpack
+```
 
 # Oauth
 
@@ -37,5 +43,7 @@ $ webpack
 oauth page is a stand-alone micro app, check `oauth/'. Users need to be signed-in to Cognito before reaching `oauth/`.
 
 > *Build:*
-$ cd oauth/
+```sh
+cd oauth/
 $ webpack
+```
