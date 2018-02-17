@@ -27,7 +27,6 @@
     "amazon-cognito-identity-js": "^1.21.0",
     "assets-webpack-plugin": "^3.5.1",
     "aws-sdk": "^2.147.0",
-    "chartist": "^0.11.0",
     "crypto-js": "^3.1.9-1",
     "enzyme": "^2.9.1",
     "i18next": "^8.4.3",
