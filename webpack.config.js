@@ -9,7 +9,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8880";
 
-module.exports = {
+const App = {
   entry: [
     'react-hot-loader/patch',
     './app/index.jsx', // your app's entry point
@@ -62,4 +62,47 @@ module.exports = {
       }
     }),
   ]
-};
+}
+
+const Oauth = {
+  entry: './oauth/index.jsx',
+  devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
+  output: {
+    publicPath: '/',
+    path: path.join(__dirname, 'public/oauth'),
+    filename: 'oauth.[hash:5].js'
+  },
+  resolve: {
+    alias: {
+      App: path.resolve(__dirname, './app'),
+      mui: 'material-ui',
+      muii: 'material-ui-icons',
+    },
+    extensions: ['.js', '.jsx']
+  },
+  module: { loaders },
+  plugins: [
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      template: './oauth/index.html',
+      filename: 'oauth.html',
+      files: {
+        css: ['style.css'],
+        js: [ "oauth.js"],
+      },
+      favicon: './images/favicon-black.png'
+    }),
+  ],
+  devServer: {
+    contentBase: "./oauth/public",
+    // do not print bundle build stats
+    historyApiFallback: true,
+    port: PORT,
+    host: HOST
+  },
+}
+
+module.exports = [
+  App,
+  //Oauth // enable only for debugging the oauth callback page, you should disable App if you do.
+]
