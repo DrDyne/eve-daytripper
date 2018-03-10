@@ -316,5 +316,8 @@ const LastKill = ({corp}) => (
 )
 
 const CorpAvatar = ({corpId}) => (
-  <Avatar src={`https://image.eveonline.com/Corporation/${corpId}_128.png`} />
+  <Avatar
+    src={`https://image.eveonline.com/Corporation/${corpId}_128.png`}
+    style={{backgroundColor: '#222'}}
+  />
 )
