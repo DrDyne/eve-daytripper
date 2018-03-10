@@ -72,7 +72,7 @@ export class WormholeEffect extends React.Component {
   }
 }
 
-import moment from 'moment'
+//import moment from 'moment'
 export class WormholeActivity extends React.Component {
   state = {
     topKiller: null,
