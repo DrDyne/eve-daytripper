@@ -91,7 +91,10 @@ export const JSpaceNavigation = props => {
                 />
               </ListItem>
 
-              { j.statics && j.statics.map(wh => (
+              { j.statics &&
+                j.statics
+                .sort((a, b) => a.sig.localeCompare(b.sig))
+                .map(wh => (
                 <Route key={`${j.name}:${wh.sig}`} render={({history}) => (
                   <WormholeStaticListItem
                     system={j}

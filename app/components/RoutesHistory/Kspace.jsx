@@ -67,13 +67,13 @@ export const KSpaceRoutes = props => {
 
   const byOrigin = origin => route => route.origin.name === origin
   const leadsToFavorite = route => favorites.find(f => f.id === route.destination.id)
-  const sortRoutesByDestination = (a, b) => a.destination.name.charAt(0) < b.destination.name.charAt(0)
+  const sortRoutesByDestination = (a, b) => a.destination.name.localeCompare(b.destination.name)
 
   return (<div style={{background}}>
     { origins.map(origin => {
       const originSystem = routes.find(byOrigin(origin)).origin
       const routesFromOrigin = routes.filter(byOrigin(origin))
-      //console.log(routesFromOrigin)
+      
       return (<List key={'category-'+origin}>
         <Route render={({history}) => (
           <ListItem button onClick={() => history.push(`/home/nav/${originSystem.name}`)}>
