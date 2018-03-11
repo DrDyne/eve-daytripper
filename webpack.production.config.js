@@ -13,7 +13,6 @@ loaders.push({
 
 module.exports = {
   entry: [
-    './app/sw-install.js',
     './app/index.jsx',
     './styles/index.scss'
   ],
