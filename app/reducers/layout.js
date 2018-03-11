@@ -32,6 +32,18 @@ import {
 const STOCK_POS_LEFT = 'left'
 const STOCK_POS_RIGHT = 'right'
 
+const config = {
+  save: (key, value) => localStorage.setItem(key, value),
+  load: (key, defaultValue) => {
+    const value = localStorage.getItem(key)
+
+    return "true" === value ? true
+    : "false" === value ? false
+    : null === value ? defaultValue
+    : value
+  }
+}
+
 export const initialState = {
   profileSaving: false,
   profileLoading: false,
@@ -42,11 +54,11 @@ export const initialState = {
   showEmptyStock: false,
   showInfoDialog: false,
   showConfirmDeleteFavoritesDialog: false,
-  showFavoriteRoutes: true,
-  showShortestRoutes: true,
-  fleetVisibility: true,
-  inventoryVisibility: false,
-  navigationVisibility: false,
+  showFavoriteRoutes: config.load('showFavoriteRoutes', true),
+  showShortestRoutes: config.load('showShortestRoutes', true),
+  fleetVisibility: config.load('fleetVisibility', true),
+  inventoryVisibility: config.load('inventoryVisibility', false),
+  navigationVisibility: config.load('navigationVisibility', false),
   skipOriginsHistory: 0,
 
   primaryColor: 'rgb(245, 0, 87)',
@@ -64,6 +76,7 @@ const toggleShowEmptyStock = state => {
 
 const toggleFavoriteRoutes = state => {
   const showFavoriteRoutes = !state.showFavoriteRoutes
+  config.save('showFavoriteRoutes', showFavoriteRoutes)
   return Object.assign({}, state, {showFavoriteRoutes})
 }
 
@@ -84,21 +97,25 @@ const closeDeleteFavoriteDialog = state => {
 
 const toggleShortestRoutes = state => {
   const showShortestRoutes = !state.showShortestRoutes
+  config.save('showShortestRoutes', showShortestRoutes)
   return Object.assign({}, state, { showShortestRoutes })
 }
 
 const toggleFleetVisibility = state => {
   const fleetVisibility = !state.fleetVisibility
+  config.save('fleetVisibility', fleetVisibility)
   return Object.assign({}, state, { fleetVisibility })
 }
 
 const toggleInventoryVisibility = state => {
   const inventoryVisibility = !state.inventoryVisibility
+  config.save('inventoryVisibility', inventoryVisibility)
   return Object.assign({}, state, { inventoryVisibility })
 }
 
 const toggleNavigationVisibility = state => {
   const navigationVisibility = !state.navigationVisibility
+  config.save('navigationVisibility', navigationVisibility)
   return Object.assign({}, state, { navigationVisibility })
 }
 
