@@ -19,7 +19,8 @@ export const RoutesHistoryListItems = props => {
     memo.find(c => c === name.charAt(0).toUpperCase())
     ? memo
     : memo.concat(name.charAt(0).toUpperCase())
-  ), []).sort()
+  ), [])
+  .sort()
 
   //console.log(categories)
 
@@ -33,9 +34,12 @@ export const RoutesHistoryListItems = props => {
 
   return ( <div>
     { categories.map(category => {
+      const kroutes = routesByCategory[category]
+      if ( !kroutes.length ) return null
+
       return (<div key={'category-group-'+category}>
         <KSpaceSubHeader letter={category} />
-        <KSpaceRoutes {...props} routes={routesByCategory[category]} />
+        <KSpaceRoutes {...props} routes={kroutes} />
       </div>)
     }) }
   </div>)
@@ -73,7 +77,7 @@ export const KSpaceRoutes = props => {
     { origins.map(origin => {
       const originSystem = routes.find(byOrigin(origin)).origin
       const routesFromOrigin = routes.filter(byOrigin(origin))
-      
+
       return (<List key={'category-'+origin}>
         <Route render={({history}) => (
           <ListItem button onClick={() => history.push(`/home/nav/${originSystem.name}`)}>
