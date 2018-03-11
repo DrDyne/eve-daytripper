@@ -4,6 +4,7 @@ import { Avatar, Button } from 'material-ui'
 import { ListItemIcon } from 'material-ui/List'
 import { Collapse } from 'material-ui/transitions'
 import { LinearProgress } from 'mui/Progress'
+import { withTheme } from 'mui/styles'
 
 import ExpandMore from 'material-ui-icons/ExpandMore'
 import ExpandLess from 'material-ui-icons/ExpandLess'
@@ -16,9 +17,9 @@ const EFFECT_COLOR_BAD = 'rgb(240, 0,0)'
 const EFFECT_COLOR_GOOD = 'green'
 
 
-export const WormholeStatics = ({system}) => (
+export const WormholeStatics = withTheme()(({system, theme}) => (
   <List>
-    <ListSubheader style={{background: 'white'}}>
+    <ListSubheader style={{background: theme.palette.primary.main}}>
       Statics
     </ListSubheader>
     { system.statics.map(wh => (
@@ -30,7 +31,7 @@ export const WormholeStatics = ({system}) => (
       />
     )) }
   </List>
-)
+))
 
 export class WormholeEffect extends React.Component {
   state = {
@@ -73,7 +74,7 @@ export class WormholeEffect extends React.Component {
 }
 
 //import moment from 'moment'
-export class WormholeActivity extends React.Component {
+class WormholeActivityContainer extends React.Component {
   state = {
     topKiller: null,
     mostKills: null,
@@ -221,6 +222,7 @@ export class WormholeActivity extends React.Component {
   }
 
   render () {
+    const { theme } = this.props
     const {
       topKiller,
       mostKills,
@@ -236,7 +238,7 @@ export class WormholeActivity extends React.Component {
     return (
       <List>
         { busy && <LinearProgress /> }
-        <ListSubheader style={{background: 'white'}}>
+        <ListSubheader style={{background: theme.palette.primary.main}}>
           Activity
         </ListSubheader>
 
@@ -270,6 +272,8 @@ export class WormholeActivity extends React.Component {
     )
   }
 }
+
+export const WormholeActivity = withTheme()(WormholeActivityContainer)
 
 const TopKiller = ({corp, corpId, totalDestroyed}) => (
   <ListItem>

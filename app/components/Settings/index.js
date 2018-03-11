@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { withTheme } from 'mui/styles'
+
 import { Settings } from './component'
 //import { toggleSettingsMenu } from '../../actions'
 import { layout, clearRouteHistory, changeTab, user } from '../../actions'
@@ -17,4 +19,4 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(user.logout())
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Settings))
+export default withTheme()(withRouter(connect(mapStateToProps, mapDispatchToProps)(Settings)))

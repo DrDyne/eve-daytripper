@@ -14,7 +14,7 @@ import {
 } from '../../SystemSecAvatar'
 
 export const OriginsHistory = props => {
-  const { origins, skipOrigins } = props
+  const { origins, skipOrigins, theme } = props
 
   return !origins.length ? null : (
     <Route children={({history}) => (
@@ -51,7 +51,7 @@ export const OriginsHistory = props => {
         <Tab
           onClick={() => skipOrigins()}
           disabled={!origins.length}
-          icon={<Avatar style={{background: 'white', color: 'rgb(185,185,185)'}}><DeleteSweepIcon /></Avatar>}
+          icon={<Avatar style={{background: theme.palette.primary.main, color: 'rgb(185,185,185)'}}><DeleteSweepIcon /></Avatar>}
           label="Clear"
         />
       </Tabs>

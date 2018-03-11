@@ -1,14 +1,17 @@
 import React from 'react'
-import style from './style.css'
 import { Route } from 'react-router-dom'
+
+import Typography from 'mui/Typography'
+import Grid from 'material-ui/Grid'
+import List, { ListItem } from 'mui/List'
+import { withTheme } from 'mui/styles'
+import style from './style.css'
+
+import ProfileLoadingSplashScreen from 'App/components/ProfileLoadingSplashScreen/component'
 import {
   LoginForm,
   SignupForm,
 } from './Forms'
-import Grid from 'material-ui/Grid'
-import List, { ListItem } from 'material-ui/List'
-
-import ProfileLoadingSplashScreen from 'App/components/ProfileLoadingSplashScreen/component'
 
 export class Login extends React.Component {
   state = {
@@ -119,14 +122,12 @@ export class Login extends React.Component {
   }
 }
 
-import {
-  Typography
-} from 'material-ui'
-const LoginBranding = props => {
+const LoginBranding = withTheme()(({theme}) => {
   return (<Typography variant="display4" style={{
     textAlign: 'center',
     marginBottom: '0.5em',
+    color: theme.palette.primary.main,
   }}>
     Eve-daytripper
   </Typography>)
-}
+})

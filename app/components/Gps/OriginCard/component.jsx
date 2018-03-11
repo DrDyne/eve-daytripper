@@ -17,11 +17,11 @@ import ListItemButtonLink from 'App/components/ListItemButtonLink'
 import List, { ListItem, ListItemText } from 'mui/List'
 import { ListSubheader } from 'mui/List'
 
-export const OriginCard = ({system, deleteFromHistory}) => (
+export const OriginCard = ({system, deleteFromHistory, theme}) => (
   <List style={{ flexShrink: 1 }}>
-    <ListSubheader style={{background: 'white', padding: 0}} component="div">
+    <ListSubheader style={{background: theme.palette.primary.main, padding: 0}} component="div">
       <ListItem style={{
-        border: '1px solid #eee'
+        border: `1px solid ${theme.palette.secondary.main}`
       }}>
         <ListItemText
           primary={system.name}

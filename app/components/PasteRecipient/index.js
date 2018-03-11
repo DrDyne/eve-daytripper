@@ -5,6 +5,7 @@ import {
   inventory,
   gps
 } from '../../actions'
+import { withTheme } from 'mui/styles'
 import { PasteRecipient } from './component'
 
 export const mapStateToProps = state => ({
@@ -24,4 +25,4 @@ export const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PasteRecipient)
+export default withTheme()(connect(mapStateToProps, mapDispatchToProps)(PasteRecipient))

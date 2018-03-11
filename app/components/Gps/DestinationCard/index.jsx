@@ -6,14 +6,15 @@ import {
   CardActions,
   CardContent,
   Typography
-} from 'material-ui'
+} from 'mui'
+import { withTheme } from 'mui/styles'
 import { SystemSecAvatar } from 'App/components/SystemSecAvatar'
 import ListItemButtonLink from 'App/components/ListItemButtonLink'
 
 import List, { ListItem, ListItemText } from 'material-ui/List'
-export const DestinationCard = ({system}) => (
+export const DestinationCard = withTheme()(({system, theme}) => (
   <List>
-    <ListItem style={{ border: '1px solid #eee' }}>
+    <ListItem style={{ border: `1px solid ${theme.palette.secondary.main}` }}>
       <ListItemText
         primary={system.name}
         secondary={(
@@ -44,7 +45,7 @@ export const DestinationCard = ({system}) => (
       content={ <Typography type="caption"> ZKILL </Typography> }
     />
   </List>
-)
+))
 
 //export const DestinationCard = ({system}) => (<Card elevation={0} raised={false}>
 //  <CardContent style={{

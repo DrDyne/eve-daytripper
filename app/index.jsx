@@ -18,7 +18,9 @@ import I18n from './i18n'
 import { state as initialState } from './store'
 
 const store = createStore(Reducers, initialState, Middlewares)
+import { dark, darkBlue } from './themes'
 const muiTheme = createMuiTheme()
+//const muiTheme = darkBlue
 
 const WrappedRoot = (<AppContainer>
   <Provider store={store}>

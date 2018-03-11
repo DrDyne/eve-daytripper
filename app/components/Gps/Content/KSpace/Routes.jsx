@@ -4,9 +4,9 @@ import List, { ListSubheader, ListItem, ListItemText } from 'mui/List'
 import KSpaceListItem from './KSpaceListItem'
 import { byName } from '../../utils'
 
-export const Routes = ({origin, favorites, routes, showShortestRoutes}) => (
+export const Routes = ({origin, favorites, routes, showShortestRoutes, theme}) => (
   <div>
-    <ListSubheader style={{ background: 'white', zIndex: 5 }}> Routes </ListSubheader>
+    <ListSubheader style={{ background: theme.palette.primary.main, zIndex: 5 }}> Routes </ListSubheader>
     { routes
       .filter(route => route.origin.name === origin)
       .filter(route =>

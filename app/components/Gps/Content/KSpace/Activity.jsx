@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import List, { ListSubheader, ListItem } from 'mui/List'
 import GridList, { GridListTile } from 'mui/GridList'
+import { withTheme } from 'mui/styles'
 import { Typography } from 'mui'
 
-export class Activity extends React.Component {
+class Activity extends React.Component {
   state = {
     activity: [0, 0, 0, 0],
     grid: [{
@@ -57,10 +58,10 @@ export class Activity extends React.Component {
   )
 
   render () {
-    const { system } = this.props
+    const { system, theme } = this.props
     return (
       <div>
-        <ListSubheader style={{ background: 'white', zIndex: 5 }}>
+        <ListSubheader style={{ background: theme.palette.primary.main, zIndex: 5 }}>
           Activity - last hour
         </ListSubheader>
 
@@ -79,4 +80,4 @@ export class Activity extends React.Component {
   }
 }
 
-export default Activity
+export default withTheme()(Activity)

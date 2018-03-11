@@ -27,10 +27,10 @@ export class PasteRecipient extends React.Component {
 
   render () {
     const { hovered, focused, pasted } = this.state
-    const { busy, items, system } = this.props
+    const { busy, items, system, theme } = this.props
     const cssOverride = {
       root: {
-        background: 'white',
+        background: theme.palette.primary.main,
         marginBottom: 4,
         //background: !hovered
         //? 'red'

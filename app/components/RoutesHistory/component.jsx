@@ -48,7 +48,7 @@ export const RoutesHistory = props => {
     </ul>
 
     <ul style={styles.list}>
-      <ListSubheader style={{ background: 'white' }}>
+      <ListSubheader>
         Favorites
       </ListSubheader>
       <FavoriteHistoryListItems {...props} />

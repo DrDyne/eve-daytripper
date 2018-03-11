@@ -12,7 +12,7 @@ import style from './style.css'
 
 export const portrait256 = portrait64 => portrait64.replace(/64.jpg$/, '256.jpg')
 
-export const ProfileLoadingSplashScreen = ({show, profile, fullWidth=false, showProgress=true, message=null}) => {
+export const ProfileLoadingSplashScreen = ({show, profile, theme, fullWidth=false, showProgress=true, message=null}) => {
   if ( !show ) return null
 
   return (
@@ -76,7 +76,7 @@ export const ProfileLoadingSplashScreen = ({show, profile, fullWidth=false, show
             width: '100%',
           }}>
             <div className={style.avatarCover} style={{
-              background: profile ? 'none' : 'white'
+              background: profile ? 'none' : theme.palette.primary.main,
             }} />
           </div>
         </div>

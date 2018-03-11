@@ -6,9 +6,9 @@ import { Typography } from 'mui'
 import { RoutePath } from '../../RoutePath'
 import { byName } from '../../utils'
 
-export const Favorites = ({origin, favorites, routes, showShortestRoutes}) => (
+export const Favorites = ({origin, favorites, routes, showShortestRoutes, theme}) => (
   <div>
-    <ListSubheader style={{ background: 'white', zIndex: 5 }}> Favorites </ListSubheader>
+    <ListSubheader style={{ background: theme.palette.primary.main, zIndex: 5 }}> Favorites </ListSubheader>
     { favorites
       .map(fav => routes.find(byName(origin, fav.name)))
       .filter(route => !!route)
