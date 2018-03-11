@@ -4,6 +4,7 @@ import {
   Avatar,
   Divider,
   Drawer,
+  Paper,
   Toolbar,
   Typography,
 } from 'material-ui'
@@ -30,12 +31,11 @@ export const AppLayout = props => {
       <div style={{
         position: 'relative',
         width: drawerWidth,
-        background: 'white',
         height: '100vh',
         borderRight: '1px solid #eee',
       }} >
 
-        <div style={{
+        <Paper style={{
           width: '100%',
         }}>
 
@@ -45,7 +45,7 @@ export const AppLayout = props => {
           }}>
             <Settings />
           </div>
-        </div>
+        </Paper>
       </div>
 
       <Switch>
