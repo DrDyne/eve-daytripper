@@ -5,9 +5,14 @@ import Login from './components/Login'
 import AppLayout from './AppLayout'
 import ProfileLoadingSplashScreen from './components/ProfileLoadingSplashScreen'
 
-const Root = props => (
+const Root = ({track}) => (
   <div className="app">
     <ProfileLoadingSplashScreen />
+
+    <Route path="/" render={(history) => {
+      track(history.location.pathname)
+      return null
+    }} />
 
     <Switch>
       <Route exact path="/" component={() => (
@@ -32,5 +37,9 @@ const Root = props => (
     </Switch>
   </div>
 )
+
+Root.defaultProps = {
+  track: window.trackPageView
+}
 
 export default Root
