@@ -47,8 +47,8 @@ export const init = (state, action) => {
 export const byId = id => i => i.id === id
 export const byName = name => i => i.name === name
 
-export const addToStock = (state, item) => {
-  const stock = [...state.stock, item]
+export const addToStock = (state, {id, name, qty}) => {
+  const stock = [...state.stock, {id, name, qty}]
   return Object.assign({}, state, {stock})
 }
 

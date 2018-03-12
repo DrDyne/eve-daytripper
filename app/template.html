@@ -10,7 +10,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'UA-48079346-2');
+    gtag('config', 'UA-48079346-2', { app_name: 'eve-daytripper' });
+    window.trackPageView = url => gtag('config', 'UA-48079346-2', { page_path: url })
   </script>
   <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN' crossorigin='anonymous'>
 </head>
