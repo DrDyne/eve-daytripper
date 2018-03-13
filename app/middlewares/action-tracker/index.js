@@ -26,10 +26,23 @@ const events = [
   ],
   [ 'profile:chunk',
     ({chunkType, chunk}) => {
+      if ( 'all' === chunkType ) {
+        const { gps } = chunk
+        const uniqueOrigins = new Set( gps.routes.map(r => r.origin.id) )
+        const uniqueDest = new Set( gps.routes.map(r => r.destination.id) )
+        gtag('event', 'gps', { event_label: 'size', value: gps.routes.length })
+        gtag('event', 'gps', { event_label: 'origins', value: uniqueOrigins.size })
+        gtag('event', 'gps', { event_label: 'destinations', value: uniqueDest.size })
+        // do something smart
+      }
+
       if ( 'inventory' === chunkType ) {
         const { inventory } = chunk
+        const sumQty = (x=0, {qty}) => x + qty
         gtag('event', 'inventory', { event_label: 'size', value: inventory.items.length })
+        gtag('event', 'inventory', { event_label: 'count', value: inventory.items.reduce(sumQty) })
         gtag('event', 'stock', { event_label: 'size', value: inventory.stock.length })
+        gtag('event', 'stock', { event_label: 'count', value: inventory.stock.reduce(sumQty) })
         gtag('event', 'inventory', { event_label: 'capacity', value: inventory.capacity })
       }
     }

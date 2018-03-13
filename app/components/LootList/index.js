@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { LootList } from './component'
+import { inventory } from 'App/actions'
 
 const mapStateToProps = ({layout, inventory, history}) => ({
   layout,
@@ -11,8 +12,7 @@ const mapStateToProps = ({layout, inventory, history}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  action1: () => {},
-  action2: () => {}
+  emptyInventory: () => dispatch(inventory.clearLoot())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LootList)
