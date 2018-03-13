@@ -9,7 +9,8 @@ import {
   UPDATE_INVENTORY_FROM_PASTE,
 } from 'App/actions'
 import {
-  INVENTORY_CLEAR,
+  INVENTORY_CLEAR_ITEMS,
+  INVENTORY_CLEAR_STOCK,
   INVENTORY_INIT ,
   INVENTORY_RESET,
 } from 'App/actions/inventory'
@@ -150,12 +151,10 @@ export const inventory = (state=initialState, action) => {
     case INVENTORY_INIT:
       return init(state, action)
 
-    case INVENTORY_CLEAR:
-      return 'items' === action.target
-        ? clearItems(state)
-        : 'stock' === action.target
-        ? clearStock(state)
-        : state
+    case INVENTORY_CLEAR_ITEMS:
+      return clearItems(state)
+    case INVENTORY_CLEAR_STOCK:
+      return clearStock(state)
   }
 
   return state

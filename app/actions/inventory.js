@@ -10,12 +10,13 @@ import {
 export const INVENTORY_INIT = 'inventory:init'
 export const INVENTORY_RESET = 'inventory:reset'
 export const INVENTORY_SAVED = 'inventory:saved'
-export const INVENTORY_CLEAR = 'inventory:clear'
+export const INVENTORY_CLEAR_ITEMS = 'inventory:clear:items'
+export const INVENTORY_CLEAR_STOCK = 'inventory:clear:stock'
 
 const byName = name => i => i.name === name
 
-export const clearLoot = () => ({type: INVENTORY_CLEAR, target: 'items'})
-export const clearStock = () => ({type: INVENTORY_CLEAR, target: 'stock'})
+export const clearLoot = () => ({type: INVENTORY_CLEAR_ITEMS })
+export const clearStock = () => ({type: INVENTORY_CLEAR_STOCK })
 export const init = ({capacity, total, items, stock}) => ({
   type: INVENTORY_INIT,
   capacity,
