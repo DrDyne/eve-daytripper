@@ -9,6 +9,7 @@ import {
   UPDATE_INVENTORY_FROM_PASTE,
 } from 'App/actions'
 import {
+  INVENTORY_CLEAR,
   INVENTORY_INIT ,
   INVENTORY_RESET,
 } from 'App/actions/inventory'
@@ -93,6 +94,17 @@ export const updateItem = (state, {id, name, qty, isk, m3}) => {
   return Object.assign({}, state, { total, items })
 }
 
+export const clearItems = state => {
+  const total = { isk: 0, m3: 0 }
+  const items = []
+  return Object.assign({}, state, { items, total })
+}
+
+export const clearStock = state => {
+  const stock = state.stock.map(({id, name}) => ({id, name, qty: 0}))
+  return Object.assign({}, state, { stock })
+}
+
 export const setInfo = (state, name, info) => {
   console.log(info.description)
   return Object.assign({}, state, {
@@ -137,6 +149,13 @@ export const inventory = (state=initialState, action) => {
 
     case INVENTORY_INIT:
       return init(state, action)
+
+    case INVENTORY_CLEAR:
+      return 'items' === action.target
+        ? clearItems(state)
+        : 'stock' === action.target
+        ? clearStock(state)
+        : state
   }
 
   return state
