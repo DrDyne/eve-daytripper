@@ -124,7 +124,7 @@ import { Route } from 'react-router-dom'
 const ShowSystemButton = ({system, onClick}) => (
   <Route render={({history}) => (
     <Button
-      color="accent"
+      color="secondary"
       onClick={() => {
         history.push(`/home/nav/${system.name}`)
         onClick()

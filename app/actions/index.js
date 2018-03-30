@@ -124,7 +124,7 @@ export const saveProfile = type => (dispatch, getState, {api}) => {
 
   const saveMyProfile = chunk => api.user.saveProfile(fleet.commander, chunk)
 
-  console.log({type:'profile:chunk', chunkType:type, chunk:options[type]})
+  dispatch({type:'profile:chunk', chunkType:type, chunk:options[type]})
 
   if ( 'all' === type )
     return saveMyProfile(options.all)
