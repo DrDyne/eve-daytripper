@@ -46,7 +46,8 @@ export class VerticalLayout extends React.Component {
         display: 'flex',
         flexDirection: 'column',
       }}>
-      <Card raised={false}>
+
+      <Card id="edt-inventory-loot" raised={false}>
         <CardHeader
           avatar={<Avatar>$</Avatar>}
           action={this.toggleIcon('Loot')}
@@ -63,7 +64,7 @@ export class VerticalLayout extends React.Component {
         </CardContent>
       </Card>
 
-      <Card raised={false}>
+      <Card id="edt-inventory-stock" raised={false}>
         <CardHeader
           avatar={<Avatar> <ShoppingCartIcon /> </Avatar>}
           action={this.toggleIcon('Stock')}

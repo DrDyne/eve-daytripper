@@ -1,3 +1,4 @@
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Content } from './component'
 
@@ -8,4 +9,4 @@ export const mapStateToProps = state => ({
   showFavoriteRoutes: state.layout.showFavoriteRoutes
 })
 
-export default connect(mapStateToProps)(Content)
+export default withRouter(connect(mapStateToProps)(Content))

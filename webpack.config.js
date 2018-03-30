@@ -13,6 +13,7 @@ const App = {
   entry: [
     'react-hot-loader/patch',
     './app/index.jsx', // your app's entry point
+    //'react-joyride/lib/react-joyride-compiled.css'
   ],
   devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
   output: {

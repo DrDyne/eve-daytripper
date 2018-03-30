@@ -9,6 +9,8 @@ export const PROFILE_LOAD_END = 'layout:profile:load:end'
 export const PROFILE_SAVE_START = 'layout:profile:save:start'
 export const PROFILE_SAVE_END = 'layout:profile:save:end'
 export const SKIP_ORIGINS_HISTORY = 'layout:origins:skip'
+export const RIDE_START = 'layout:ride:start'
+export const RIDE_END = 'layout:ride:end'
 
 export const toggleShowEmptyStock = () => ({ type: TOGGLE_SHOW_EMPTY_STOCK })
 export const toggleFavoriteRoutes = () => ({ type: TOGGLE_FAVORITE_ROUTES })
@@ -27,3 +29,5 @@ export const skipOriginsHistory = () => (dispatch, getState) => {
     nbOrigins: history.origins.length
   })
 }
+export const enableRide = () => ({ type: RIDE_START })
+export const disableRide = () => ({ type: RIDE_END })

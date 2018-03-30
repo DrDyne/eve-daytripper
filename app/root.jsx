@@ -4,9 +4,11 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from './components/Login'
 import AppLayout from './AppLayout'
 import ProfileLoadingSplashScreen from './components/ProfileLoadingSplashScreen'
+import Ride from './ride'
 
 const Root = ({track}) => (
   <div className="app">
+    <Ride />
     <ProfileLoadingSplashScreen />
 
     <Route path="/" render={(history) => {
@@ -27,7 +29,6 @@ const Root = ({track}) => (
           position: 'relative',
           height: '100%',
           width: '100%',
-          overflowY: 'hidden',
         }}>
           <AppLayout />
 

@@ -8,7 +8,7 @@ import OriginsHistory from './OriginsHistory'
 import * as utils from './utils'
 
 export const Gps = () => (
-  <Paper style={{
+  <Paper id="edt-gps" style={{
     marginBottom: 4,
     width: '100%',
   }}>

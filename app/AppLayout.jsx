@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import {
   Avatar,
   Divider,
@@ -19,68 +20,82 @@ import { Notification as AutoSaveNotification } from './components/AutoSave'
 
 export const AppLayout = props => {
   const drawerWidth = 240
+  const { stickyPasteRecipient } = props
 
   return (
-    <div style={{
-      position: 'relative',
-      display: 'flex',
-      width: '100%',
-    }}>
-      <AutoSaveNotification />
+    <div style={{flexGrow: 1}}>
+      <div style={{
+        display: 'flex',
+        width: '100%',
+      }}>
+
+        <Switch>
+          <Route path="/home/fleet-add" render={() => (
+            <div style={{paddingLeft: drawerWidth, width: '100%'}}>
+              <CcpAuthenticate />
+            </div>
+          )} />
+
+          <Route path="/home" render={() => (
+            <main style={{
+              flexGrow: 1,
+              paddingLeft: drawerWidth,
+            }}>
+
+              <section>
+                <Toolbar disableGutters style={stickyPasteRecipient ? {
+                  position: 'fixed',
+                  top: 0,
+                  left: drawerWidth,
+                  right: 0,
+                  zIndex: 10,
+                } : null }>
+                  <PasteRecipient />
+                </Toolbar>
+
+                <Toolbar disableGutters style={{
+                  paddingTop: stickyPasteRecipient ? 89 : 0,
+                }}>
+                  <Gps />
+                </Toolbar>
+              </section>
+
+              <section>
+                <AppContent style={{width: '100%'}} />
+              </section>
+
+            </main>
+          )} />
+        </Switch>
+      </div>
 
       <div style={{
-        position: 'relative',
+        position: 'fixed',
+        top: 0,
         width: drawerWidth,
         height: '100vh',
         borderRight: '1px solid #eee',
       }} >
-
         <Paper style={{
-          width: '100%',
+          height: '100%',
+          width: drawerWidth
         }}>
-
-          <div style={{
-            height: '100vh',
-            width: drawerWidth
-          }}>
-            <Settings />
-          </div>
+          <Settings />
         </Paper>
       </div>
 
-      <Switch>
-        <Route path="/home/fleet-add" render={CcpAuthenticate} />
+      <AutoSaveNotification />
 
-        <Route path="/home" render={() => (
-          <main style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexGrow: 1,
-            height: '100vh',
-            overflowY: 'auto',
-          }}>
-
-            <section>
-              <Toolbar disableGutters style={{display: 'initial'}}>
-                <PasteRecipient />
-              </Toolbar>
-
-              <Route path="/home" component={() => (
-                <Toolbar disableGutters>
-                  <Gps />
-                </Toolbar>
-              )} />
-            </section>
-
-            <section>
-              <AppContent style={{width: '100%'}} />
-            </section>
-
-          </main>
-        )} />
-      </Switch>
     </div>
   )
 }
 
-export default AppLayout
+AppLayout.defaultProps = {
+  stickyPasteRecipient: true
+}
+
+const mapStateToProps = ({layout}) => ({
+  stickyPasteRecipient: !layout.rideActive
+})
+
+export default withRouter(connect(mapStateToProps)(AppLayout))

@@ -51,7 +51,9 @@ export class PasteRecipient extends React.Component {
     : 3
 
     return (
-      <Paper className={style.root}
+      <Paper
+        id="edt-paste-recipient"
+        className={style.root}
         style={cssOverride.root}
         elevation={2}
         onPaste={this.paste}>

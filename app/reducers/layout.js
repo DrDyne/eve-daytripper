@@ -22,6 +22,9 @@ import {
   PROFILE_LOAD_START,
   PROFILE_LOAD_END,
   SKIP_ORIGINS_HISTORY,
+  RIDE_ADD_STEP,
+  RIDE_START,
+  RIDE_END,
 } from '../actions/layout'
 
 import {
@@ -62,6 +65,14 @@ export const initialState = {
   skipOriginsHistory: 0,
 
   primaryColor: 'rgb(245, 0, 87)',
+  rideSteps: [],
+  rideActive: false,
+  rideFinished: config.load('rideFinished', false),
+}
+
+const addStep = (state, {step}) => {
+  const rideSteps = [...state.rideSteps, step]
+  return Object.assign({}, state, { rideSteps })
 }
 
 const toggleSettingsMenu = state => {
@@ -119,6 +130,11 @@ const toggleNavigationVisibility = state => {
   return Object.assign({}, state, { navigationVisibility })
 }
 
+const ride = (state, rideActive) => {
+  if ( !rideActive ) config.save('rideFinished', true)
+  return Object.assign({}, state, {rideActive})
+}
+
 export const layout = (state=initialState, action) => {
   switch ( action.type ) {
     case INSPECT_ITEM: return Object.assign({}, state, {showInfoDialog: true})
@@ -143,6 +159,10 @@ export const layout = (state=initialState, action) => {
     case PROFILE_LOAD_START: return Object.assign({}, state, { profileLoading: true })
     case PROFILE_LOAD_END: return Object.assign({}, state, { profileLoading: false })
     case SKIP_ORIGINS_HISTORY: return Object.assign({}, state, { skipOriginsHistory: action.nbOrigins })
+    case RIDE_ADD_STEP: return addstep(state, action)
+    case RIDE_START: return ride(state, true)
+    case RIDE_END: return ride(state, false)
   }
+
   return state
 }
