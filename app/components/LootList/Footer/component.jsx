@@ -20,8 +20,8 @@ export class Footer extends React.Component {
       prev: history.lastInventory.total
     }
     const [gain, loss] = [
-      total.isk > total.prev.isk && (total.prev.isk > 0),
-      total.isk < total.prev.isk
+      (total.isk > total.prev.isk) && (total.prev.isk > 0),
+      (total.isk < total.prev.isk)
     ]
 
     return (<div>

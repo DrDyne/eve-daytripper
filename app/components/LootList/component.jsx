@@ -1,20 +1,26 @@
 import React from 'react'
-import {
-  Avatar,
-  Button,
-  IconButton,
-  List,
+import Avatar from 'mui/Avatar'
+import Typography from 'mui/Typography'
+import List, {
   ListItem,
   ListItemAvatar,
+  ListItemIcon,
   ListItemText,
   ListItemSecondaryAction,
-  Typography,
-} from 'material-ui'
+} from 'mui/List'
+import Collapse from 'mui/transitions/Collapse';
+
+import {
+  Delete as DeleteIcon,
+  DeleteForever as DeleteForeverIcon
+} from 'muii'
+
 import { ISK } from '../ISK'
 import { M3 } from '../M3'
 import { GameItemAvatar } from '../GameItemAvatar'
 import SetStockDialog from '../SetStockDialog'
 import InfoButton from '../InfoButton'
+
 import style from './style.scss'
 
 export const LootListItem = ({index, item, onClick}) => (
@@ -29,7 +35,7 @@ export const LootListItem = ({index, item, onClick}) => (
       <ListItemText
         primary={item.name}
         secondary={item.qty}
-        />
+      />
 
       <ListItemSecondaryAction>
         <InfoButton id={item.id} />
@@ -37,10 +43,10 @@ export const LootListItem = ({index, item, onClick}) => (
     </ListItem>
 
     <div style={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        textAlign: 'right',
-        fontSize: 'x-small'
+      display: 'flex',
+      justifyContent: 'flex-end',
+      textAlign: 'right',
+      fontSize: 'x-small'
     }}>
       <Typography type="caption">
         <ISK value={item.isk}/>
@@ -53,6 +59,32 @@ export class LootList extends React.Component {
   state = {
     selectedItems: [],
     showStockDialog: false,
+    showEmptyInventoryConfirmation: false,
+  }
+
+  showInfo = item => {
+    this.setState({
+      showStockDialog: true,
+      selectedItems: [item]
+    })
+  }
+
+  hideInfo = () => {
+    this.setState({
+      showStockDialog: false,
+      selectedItems: [],
+    })
+  }
+
+  toggleEmptyInventoryConfirmation = () => {
+    const showEmptyInventoryConfirmation = !this.state.showEmptyInventoryConfirmation
+    this.setState({ showEmptyInventoryConfirmation })
+  }
+
+  confirmEmptyInventory = () => {
+    const { emptyInventory } = this.props
+    emptyInventory()
+    this.setState({ showEmptyInventoryConfirmation: false })
   }
 
   render () {
@@ -68,6 +100,22 @@ export class LootList extends React.Component {
         <ListItem>
           <ListItemText secondary={`${inventory.items.length} items`} />
         </ListItem>
+
+        <ListItem button onClick={this.toggleEmptyInventoryConfirmation} disabled={!inventory.items.length}>
+          <ListItemIcon>
+            <DeleteIcon />
+          </ListItemIcon>
+          <ListItemText secondary="Empty Inventory" />
+        </ListItem>
+
+        <Collapse in={this.state.showEmptyInventoryConfirmation}>
+          <ListItem button onClick={this.confirmEmptyInventory}>
+            <ListItemIcon>
+              <DeleteForeverIcon />
+            </ListItemIcon>
+            <ListItemText primary="Your inventory will be empty, confirm?" />
+          </ListItem>
+        </Collapse>
       </List>
     )
 
@@ -81,10 +129,7 @@ export class LootList extends React.Component {
               index={index}
               key={`loot/${index}:${item.name}`}
               onClick={() => {
-                this.setState({
-                  showStockDialog: true,
-                  selectedItems: [item]
-                })
+                this.showInfo(item)
               }}
             />
           ))
@@ -95,10 +140,7 @@ export class LootList extends React.Component {
         items={this.state.selectedItems}
         open={this.state.showStockDialog}
         onClose={() => {
-          this.setState({
-            showStockDialog: false,
-            selectedItems: [],
-          })
+          this.hideInfo()
         }} />
     </div>)
   }
