@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import List, { ListSubheader, ListItem, ListItemText } from 'material-ui/List'
 import KSpaceListItem from './KSpaceListItem'
 import { Typography } from 'mui'
-import { RoutePath } from '../../RoutePath'
+import RoutePath from '../../RoutePath'
 import { byName } from '../../utils'
 
 export const Favorites = ({origin, favorites, routes, showShortestRoutes}) => (

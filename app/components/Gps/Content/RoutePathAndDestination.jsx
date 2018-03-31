@@ -1,7 +1,7 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
-import { RoutePath, RoutePathDivider } from '../RoutePath'
-import { DestinationCard } from '../DestinationCard'
+import RoutePath, { RoutePathDivider } from '../RoutePath'
+import DestinationCard from '../DestinationCard'
 
 export const RoutePathAndDestination = ({route, systems}) => (
   <div style={{flex: '2 1 auto'}}>

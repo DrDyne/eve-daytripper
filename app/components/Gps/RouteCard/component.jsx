@@ -6,7 +6,7 @@ import {
   CardContent,
   Typography,
 } from 'material-ui'
-import { RoutePath } from '../RoutePath'
+import RoutePath from '../RoutePath'
 import RouteMenu from '../RouteMenu'
 import * as utils from '../utils'
 
@@ -43,20 +43,4 @@ export const RouteCard = ({showShortestRoutes, route, favorites, previewSize}) =
       <RoutePath systems={systems} previewSize={previewSize}/>
     </div>
   </CardContent>
-  {/*
-  <CardActions>
-    <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        width: '100%'
-    }}>
-      <Button style={{display: 'flex'}}
-        href={`http://evemaps.dotlan.net/route/${route.origin.name}:${route.destination.name}`} target="_blank">
-          route
-      </Button>
-
-      <RouteMenu route={route} />
-    </div>
-  </CardActions>
-  */}
 </Card>) }
