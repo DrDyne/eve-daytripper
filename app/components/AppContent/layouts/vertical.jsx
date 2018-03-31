@@ -46,38 +46,42 @@ export class VerticalLayout extends React.Component {
         display: 'flex',
         flexDirection: 'column',
       }}>
-      <Card raised={false}>
-        <CardHeader
-          avatar={<Avatar>$</Avatar>}
-          action={this.toggleIcon('Loot')}
-          title="LOOT"
-          style={{
-            paddingBottom: 0
-          }}
-        />
+      <section style={{marginBottom: 4}}>
+        <Card raised={false}>
+          <CardHeader
+            avatar={<Avatar>$</Avatar>}
+            action={this.toggleIcon('Loot')}
+            title="LOOT"
+            style={{
+              paddingBottom: 0
+            }}
+          />
 
-        <CardContent>
-          <LootListHeader />
-          <LootList collapsed={!this.state.visibleLoot} />
-          <LootListFooter />
-        </CardContent>
-      </Card>
+          <CardContent>
+            <LootListHeader />
+            <LootList collapsed={!this.state.visibleLoot} />
+            <LootListFooter />
+          </CardContent>
+        </Card>
+      </section>
 
-      <Card raised={false}>
-        <CardHeader
-          avatar={<Avatar> <ShoppingCartIcon /> </Avatar>}
-          action={this.toggleIcon('Stock')}
-          title="STOCK"
-          style={{
-            paddingBottom: 0
-          }}
-        />
+      <section>
+        <Card raised={false}>
+          <CardHeader
+            avatar={<Avatar> <ShoppingCartIcon /> </Avatar>}
+            action={this.toggleIcon('Stock')}
+            title="STOCK"
+            style={{
+              paddingBottom: 0
+            }}
+          />
 
-        <CardContent>
-          <StockListHeader />
-          <StockList collapsed={!this.state.visibleStock} />
-        </CardContent>
-      </Card>
+          <CardContent>
+            <StockListHeader />
+            <StockList collapsed={!this.state.visibleStock} />
+          </CardContent>
+        </Card>
+      </section>
     </div>)
 
     : 1 === activeTab

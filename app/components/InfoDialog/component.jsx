@@ -5,9 +5,7 @@ import {
   DialogTitle,
   Typography
 } from 'material-ui'
-import {
-  GameItemAvatar
-} from '../GameItemAvatar'
+import GameItemAvatar from '../GameItemAvatar'
 
 export const InfoDialog = props => {
   const { show, item, hideDialog } = props
