@@ -1,23 +1,20 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import {
-  Badge,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  TextField,
   Typography
-} from 'material-ui'
-import { Link } from 'react-router-dom'
-import { whEffectValues } from 'App/api/utils'
+} from 'mui'
+import List, {
+  ListItem,
+  ListItemText,
+  ListSubheader
+} from 'mui/List'
+
 import { SystemSecAvatar } from 'App/components/SystemSecAvatar'
 import ListItemButtonLink from 'App/components/ListItemButtonLink'
 
-import List, { ListItem, ListItemText } from 'mui/List'
-import { ListSubheader } from 'mui/List'
+import MoreMenu from './MoreMenu'
 
-export const OriginCard = ({system, deleteFromHistory}) => (
+export const OriginCard = ({system}) => (
   <List style={{ flexShrink: 1 }}>
     <ListSubheader style={{background: 'white', padding: 0}} component="div">
       <ListItem style={{
@@ -55,48 +52,9 @@ export const OriginCard = ({system, deleteFromHistory}) => (
     />
 
     <Route exact path="/home/nav/:origin" render={() => (
-      <DeleteFromHistoryListItem system={system} onClick={deleteFromHistory(system)}/>
+      <MoreMenu system={system} />
     ) } />
 
     <ListItem style={{display: 'flex'}} />
   </List>
 )
-
-import { Collapse } from 'mui/transitions'
-class DeleteFromHistoryListItem extends React.Component {
-  state = { showConfirm: false }
-
-  render () {
-    const { system, onClick } = this.props
-
-    return (
-      <div>
-        <ListItem
-          button
-          onClick={() => {
-            const showConfirm = !this.state.showConfirm
-            this.setState({ showConfirm })
-          }}
-          style={{justifyContent: 'center'}}
-        >
-          <Typography variant="caption">
-            Delete
-          </Typography>
-        </ListItem>
-
-        <Collapse in={this.state.showConfirm}>
-          <ListItem
-            button
-            onClick={() => {
-              onClick()
-              this.setState({ showConfirm: false })
-            }}
-            style={{justifyContent: 'flex-end'}}
-          >
-            <Typography variant="caption"> Confirm <u>Delete</u>? </Typography>
-          </ListItem>
-        </Collapse>
-      </div>
-    )
-  }
-}

@@ -14,6 +14,12 @@ export class ControlInputs extends React.Component {
     this.setState({ origin, destination }, this.search)
   }
 
+  onKeyPress = systemName => event => {
+    if ( event.key !== 'Enter' ) return
+    const { identify } = this.props
+    identify(systemName)
+  }
+
   search = () => {
     const { origin, destination } = this.state
     console.log('searching...', origin, '/', destination)
@@ -41,6 +47,7 @@ export class ControlInputs extends React.Component {
           }}>
             <TextField
               onChange={this.onChange('origin')}
+              onKeyPress={this.onKeyPress(this.state.origin)}
               label="From"
               style={{ flexGrow: 1 }}
             />
