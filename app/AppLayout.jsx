@@ -24,29 +24,9 @@ export const AppLayout = props => {
       position: 'relative',
       display: 'flex',
       width: '100%',
+      paddingLeft:  drawerWidth
     }}>
       <AutoSaveNotification />
-
-      <div style={{
-        position: 'relative',
-        width: drawerWidth,
-        background: 'white',
-        height: '100vh',
-        borderRight: '1px solid #eee',
-      }} >
-
-        <div style={{
-          width: '100%',
-        }}>
-
-          <div style={{
-            height: '100vh',
-            width: drawerWidth
-          }}>
-            <Settings />
-          </div>
-        </div>
-      </div>
 
       <Switch>
         <Route path="/home/fleet-add" render={CcpAuthenticate} />
@@ -61,12 +41,19 @@ export const AppLayout = props => {
           }}>
 
             <section>
-              <Toolbar disableGutters style={{display: 'initial'}}>
+              <Toolbar disableGutters style={{
+                display: 'initial',
+                position: 'fixed',
+                top: 0,
+                left: drawerWidth,
+                right: 0,
+                zIndex: 10,
+              }}>
                 <PasteRecipient />
               </Toolbar>
 
               <Route path="/home" component={() => (
-                <Toolbar disableGutters>
+                <Toolbar disableGutters style={{paddingTop: 89}}>
                   <Gps />
                 </Toolbar>
               )} />
@@ -79,6 +66,25 @@ export const AppLayout = props => {
           </main>
         )} />
       </Switch>
+
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        background: 'white',
+        height: '100vh',
+        borderRight: '1px solid #eee',
+      }} >
+
+
+        <div style={{
+          width: drawerWidth,
+        }}>
+          <Settings />
+        </div>
+      </div>
+
     </div>
   )
 }
