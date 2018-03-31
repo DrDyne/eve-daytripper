@@ -24,7 +24,6 @@ export const AppLayout = props => {
       position: 'relative',
       display: 'flex',
       width: '100%',
-      paddingLeft:  drawerWidth
     }}>
       <AutoSaveNotification />
 
@@ -38,6 +37,7 @@ export const AppLayout = props => {
             flexGrow: 1,
             height: '100vh',
             overflowY: 'auto',
+            paddingLeft:  drawerWidth
           }}>
 
             <section>
