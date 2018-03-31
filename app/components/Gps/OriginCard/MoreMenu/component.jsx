@@ -37,7 +37,7 @@ class MoreMenu extends React.Component {
         <ListSubheader> FAVORITES </ListSubheader>
 
         { isFavorite ? (
-          <ListItem button onClick={removeFavorite(system)}>
+          <ListItem button onClick={removeFavorite(system)} style={{height: 44}}>
             <Avatar style={{background: 'white'}}>
               <StarBorder  style={{fill: '#bdbdbd'}} />
             </Avatar>
@@ -45,7 +45,7 @@ class MoreMenu extends React.Component {
           </ListItem>
         )
         : (
-          <ListItem button onClick={addFavorite(system)}>
+          <ListItem button onClick={addFavorite(system)} style={{height: 44}}>
             <Avatar style={{background: 'white'}}>
               <StarBorder  style={{fill: '#F50057'}} />
             </Avatar>
@@ -74,6 +74,7 @@ export class DeleteFromHistoryListItem extends React.Component {
             const showConfirm = !this.state.showConfirm
             this.setState({ showConfirm })
           }}
+          style={{height: 44}}
         >
           <Avatar style={{background: 'white'}}>
             <Delete style={{fill: '#bdbdbd'}}/>

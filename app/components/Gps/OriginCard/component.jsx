@@ -26,7 +26,8 @@ export const OriginCard = ({system, favorites}) => {
     <List style={{ flexShrink: 1 }}>
       <ListSubheader style={{padding: 0}} component="div">
         <ListItem style={{
-          border: '1px solid #eee'
+          border: '1px solid #eee',
+          maxHeight: 66
         }}>
           <ListItemIcon>
             <SystemSecAvatarBig

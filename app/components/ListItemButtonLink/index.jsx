@@ -11,7 +11,7 @@ const ZkillAvatar = <Avatar style={{background: 'white'}}> <img src={ZkillboardI
 
 const ListItemButtonLink = ({href, icon, primary}) => (
   <a href={href} target="_blank" style={{textDecoration: 'none'}}>
-    <ListItem button>
+    <ListItem button style={{height: 44}}>
       { icon === 'dotlan' ? DotlanAvatar
       : icon === 'zkill' ? ZkillAvatar
       : null
