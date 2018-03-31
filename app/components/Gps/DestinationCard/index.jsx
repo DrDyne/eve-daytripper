@@ -34,44 +34,14 @@ export const DestinationCard = ({system}) => (
 
     <ListItemButtonLink
       href={`http://evemaps.dotlan.net/system/${system.name}`}
-      target="_blank"
-      content={ <Typography type="caption"> DOTLAN </Typography> }
+      primary="DOTLAN"
+      icon="dotlan"
     />
 
     <ListItemButtonLink
       href={`https://zkillboard.com/system/${system.id}/`}
-      target="_blank"
-      content={ <Typography type="caption"> ZKILL </Typography> }
+      primary="ZKILL"
+      icon="zkill"
     />
   </List>
 )
-
-//export const DestinationCard = ({system}) => (<Card elevation={0} raised={false}>
-//  <CardContent style={{
-//    paddingTop: 0,
-//    paddingBottom: 0,
-//  }} >
-//    <div style={{
-//      display: 'flex',
-//      flexDirection: 'row',
-//      justifyContent: 'space-between',
-//    }}>
-//      <div style={{
-//        display: 'flex',
-//        flexDirection: 'column',
-//      }}>
-//        <div style={{
-//          display: 'flex',
-//        }} >
-//          <Typography type="headline" style={{marginRight: 10}}>
-//            {system.name}
-//          </Typography>
-//        </div>
-//        <Typography type="caption" style={{marginRight: 10}}>
-//          <SystemSecAvatar system={system} />
-//          {system.sec.toFixed(2)}
-//        </Typography>
-//      </div>
-//    </div>
-//  </CardContent>
-//</Card>)

@@ -72,8 +72,8 @@ export const RoutePath = ({systems, previewSize, routeButton=true}) => {
       { routeButton &&
         <ListItemButtonLink
           href={`http://evemaps.dotlan.net/route/${routeOrigin.name}:${routeDestination.name}`}
-          target="_blank"
-          content={ <Typography type="body1"> route ({systems.length}) </Typography> }
+          primary={`route (${systems.length})`}
+          icon="dotlan"
         />
       }
     </List>

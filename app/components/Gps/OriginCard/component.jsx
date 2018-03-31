@@ -15,22 +15,7 @@ import { FavoriteEnabled } from 'App/components/Icons'
 
 import { SystemSecAvatar, SystemSecAvatarBig } from 'App/components/SystemSecAvatar'
 
-//import ListItemButtonLink from 'App/components/ListItemButtonLink'
-import DotlanIcon from 'Images/dotlan-logo.png'
-import ZkillboardIcon from 'Images/zkillboard-logo.png'
-const DotlanAvatar = <Avatar style={{background: 'white'}}> <img src={DotlanIcon} style={{width: 20}}/> </Avatar>
-const ZkillAvatar = <Avatar style={{background: 'white'}}> <img src={ZkillboardIcon} style={{width: 20}}/> </Avatar>
-const ListItemButtonLink = ({href, children, icon, primary}) => (
-  <a href={href} target="_blank" style={{textDecoration: 'none'}}>
-    <ListItem button>
-      { icon === 'dotlan' ? DotlanAvatar
-      : icon === 'zkill' ? ZkillAvatar
-      : null
-      }
-      <ListItemText secondary={primary} />
-    </ListItem>
-  </a>
-)
+import ListItemButtonLink from 'App/components/ListItemButtonLink'
 
 import MoreMenu from './MoreMenu'
 
