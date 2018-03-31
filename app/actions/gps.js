@@ -27,7 +27,10 @@ export const addFavorite = system => (dispatch, getState, {api}) => {
   dispatch({ type: GPS_FAVORITE, system })
   dispatch(saveProfile('gps'))
 }
-export const deleteFavorite = system => ({ type: GPS_FAVORITE_REMOVE, system })
+export const deleteFavorite = system => (dispatch, getState, {api}) => {
+  dispatch({ type: GPS_FAVORITE_REMOVE, system })
+  dispatch(saveProfile('gps'))
+}
 export const deleteRoute = (origin, destination) => ({ type: DELETE_ROUTE, origin, destination })
 export const deleteHistory = system => ({ type: DELETE_SYSTEM, system })
 export const saveRoute = systems => ({ type: CREATE_ROUTE, systems })

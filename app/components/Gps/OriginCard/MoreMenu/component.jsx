@@ -36,7 +36,7 @@ class MoreMenu extends React.Component {
         <ListItem button disabled>
         </ListItem>
 
-        { isFavorite ? (
+        { !system.wh && (isFavorite ? (
           <ListItem button onClick={removeFavorite(system)}>
             <ListItemIcon>
               <StarBorder  style={{fill: '#bdbdbd'}} />
@@ -51,7 +51,7 @@ class MoreMenu extends React.Component {
             </ListItemIcon>
             <ListItemText inset primary="Set favorite" />
           </ListItem>
-        ) }
+        )) }
 
 
         <DeleteFromHistoryListItem system={system} onClick={deleteFromHistory(system)}/>
