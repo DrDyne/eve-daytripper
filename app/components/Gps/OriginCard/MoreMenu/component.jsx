@@ -1,9 +1,10 @@
 import React from 'react'
+import Avatar from 'mui/Avatar'
 import Typography from 'mui/Typography'
 import List, {
   ListItem,
   ListItemText,
-  ListItemIcon
+  ListSubheader
 } from 'mui/List'
 import { Collapse } from 'mui/transitions'
 
@@ -33,26 +34,24 @@ class MoreMenu extends React.Component {
 
     return (
       <div>
-        <ListItem button disabled>
-        </ListItem>
+        <ListSubheader> FAVORITES </ListSubheader>
 
-        { !system.wh && (isFavorite ? (
+        { isFavorite ? (
           <ListItem button onClick={removeFavorite(system)}>
-            <ListItemIcon>
+            <Avatar style={{background: 'white'}}>
               <StarBorder  style={{fill: '#bdbdbd'}} />
-            </ListItemIcon>
-            <ListItemText inset primary="Remove favorite" />
+            </Avatar>
+            <ListItemText inset secondary="REMOVE" />
           </ListItem>
         )
         : (
           <ListItem button onClick={addFavorite(system)}>
-            <ListItemIcon>
+            <Avatar style={{background: 'white'}}>
               <StarBorder  style={{fill: '#F50057'}} />
-            </ListItemIcon>
-            <ListItemText inset primary="Set favorite" />
+            </Avatar>
+            <ListItemText inset secondary="ADD" />
           </ListItem>
-        )) }
-
+        ) }
 
         <DeleteFromHistoryListItem system={system} onClick={deleteFromHistory(system)}/>
 
@@ -76,10 +75,10 @@ export class DeleteFromHistoryListItem extends React.Component {
             this.setState({ showConfirm })
           }}
         >
-          <ListItemIcon>
-            <Delete />
-          </ListItemIcon>
-          <ListItemText primary="Delete" />
+          <Avatar style={{background: 'white'}}>
+            <Delete style={{fill: '#bdbdbd'}}/>
+          </Avatar>
+          <ListItemText secondary="DELETE" />
         </ListItem>
 
         <Collapse in={this.state.showConfirm}>

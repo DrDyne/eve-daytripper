@@ -1,3 +1,8 @@
+import { connect } from 'react-redux'
 import { OriginCard } from './component'
 
-export default OriginCard
+const mapStateToProps = ({gps}) => ({
+  favorites: gps.favorites
+})
+
+export default connect(mapStateToProps)(OriginCard)

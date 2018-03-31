@@ -56,6 +56,7 @@ const createRoute = (origin, destination) => (dispatch, getState, {api}) => {
 const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
   const { favorites, routes } = getState().gps
   const favoriteRoutes = favorites
+  .filter(destination => !destination.wh)
   .filter(destination => origin.id !== destination.id )
   .filter(destination => !routes.some(matchRoute(origin, destination)))
   .map(destination => dispatch(createRoute(origin, destination)))

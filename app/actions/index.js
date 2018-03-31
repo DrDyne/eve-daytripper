@@ -15,6 +15,7 @@ export {
   user,
 }
 
+export const PROFILE_CHUNK = 'profile:chunk'
 export const SET_BREADCRUMBS = 'breadcrumbs:set'
 export const SET_BREADCRUMBS_COLOR = 'breadcrumbs:color:set'
 export const CHANGE_TAB = 'tab:change'
@@ -124,7 +125,7 @@ export const saveProfile = type => (dispatch, getState, {api}) => {
 
   const saveMyProfile = chunk => api.user.saveProfile(fleet.commander, chunk)
 
-  dispatch({type:'profile:chunk', chunkType:type, chunk:options[type]})
+  dispatch({type: PROFILE_CHUNK, chunkType: type, chunk: options[type]})
 
   if ( 'all' === type )
     return saveMyProfile(options.all)
