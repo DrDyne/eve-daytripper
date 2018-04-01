@@ -14,7 +14,7 @@ import {
 } from 'material-ui'
 import { LinearProgress } from 'mui/Progress'
 import Collapse from 'material-ui/transitions/Collapse'
-import { GameItemAvatar } from '../GameItemAvatar'
+import GameItemAvatar from '../GameItemAvatar'
 import { ISK } from '../ISK'
 import SetStockDialog from '../SetStockDialog'
 import InfoButton from '../InfoButton'
@@ -141,15 +141,13 @@ export const StockListItem = ({
     <ListItem onClick={onClick}>
       <div>
         <ListItemAvatar>
-          <Avatar>
-            <GameItemAvatar id={item.id} />
-          </Avatar>
+          <GameItemAvatar id={item.id} />
         </ListItemAvatar>
 
         <LinearProgress
           variant="determinate"
           value={ Math.round(100*(inventoryQty/item.qty)) }
-          style={{ height: 5, marginTop: 5 }}
+          style={{ height: 5, marginTop: -4 }}
         />
 
         <Typography type="caption" style={{

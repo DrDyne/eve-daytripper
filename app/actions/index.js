@@ -15,6 +15,7 @@ export {
   user,
 }
 
+export const PROFILE_CHUNK = 'profile:chunk'
 export const SET_BREADCRUMBS = 'breadcrumbs:set'
 export const SET_BREADCRUMBS_COLOR = 'breadcrumbs:color:set'
 export const CHANGE_TAB = 'tab:change'
@@ -55,7 +56,6 @@ export const inputPasteDone = () => ({ type: INPUT_PASTE_DONE, })
 export const inventoryBusy = () => ({ type: INVENTORY_BUSY })
 export const inventoryBusyDone = () => ({ type: INVENTORY_BUSY_DONE })
 export const setStock = ({id, name, qty}) => ({ type: SET_STOCK, id, name, qty })
-export const setItemQty = ({id, name, qty}) => ({ type: SET_ITEM_QTY, id, name, qty })
 export const addOrUpdateItem = ({id, name, qty, m3, isk}) => ({ type: ADD_ITEM, id, name, qty, m3, isk })
 export const deleteItem = ({name}) => ({ type: DELETE_ITEM, name })
 export const setItemInfo = (item, info) => ({ type: SET_ITEM_INFO, name: item.name, info })
@@ -124,7 +124,7 @@ export const saveProfile = type => (dispatch, getState, {api}) => {
 
   const saveMyProfile = chunk => api.user.saveProfile(fleet.commander, chunk)
 
-  dispatch({type:'profile:chunk', chunkType:type, chunk:options[type]})
+  dispatch({type: PROFILE_CHUNK, chunkType: type, chunk: options[type]})
 
   if ( 'all' === type )
     return saveMyProfile(options.all)

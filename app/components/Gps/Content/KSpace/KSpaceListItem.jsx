@@ -2,7 +2,7 @@ import React from 'react'
 import List, { ListItem } from 'mui/List'
 import Typography from 'mui/Typography'
 import { LinearProgress } from 'mui/Progress'
-import { RoutePath } from '../../RoutePath'
+import RoutePath from '../../RoutePath'
 
 export const KSpaceListItem = ({route, systems, jumps, onClick}) => (
   <ListItem button onClick={onClick}>

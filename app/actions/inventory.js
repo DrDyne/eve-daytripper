@@ -47,16 +47,22 @@ export const updateInventoryFromPaste = () => (dispatch, getState, {api}) => {
   const identifications = history.lastPasted.items.map(item => (
     api.inventory.identify(item.name)
     .then(id => {
-      dirty = true
+      if ( !dirty ) {
+        dirty = true
+        dispatch(clearLoot())
+      }
+
       const itemWithId = Object.assign({}, item, {id})
       dispatch(addOrUpdateItem(itemWithId))
 
       const inStock = inventory.stock.find(byName(item.name))
-      if ( inStock && !inStock.id )
-        dispatch(setStock({
+      if ( inStock && !inStock.id ) {
+        const stockItem = {
           id: itemWithId.id,
           name: item.name,
-        }))
+        }
+        dispatch(setStock(stockItem))
+      }
     })
   ))
 

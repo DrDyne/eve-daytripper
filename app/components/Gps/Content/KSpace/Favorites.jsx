@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import List, { ListSubheader, ListItem, ListItemText } from 'material-ui/List'
 import KSpaceListItem from './KSpaceListItem'
 import { Typography } from 'mui'
-import { RoutePath } from '../../RoutePath'
+import RoutePath from '../../RoutePath'
 import { byName } from '../../utils'
 
 export const Favorites = ({origin, favorites, routes, showShortestRoutes}) => (
@@ -12,6 +12,7 @@ export const Favorites = ({origin, favorites, routes, showShortestRoutes}) => (
     { favorites
       .map(fav => routes.find(byName(origin, fav.name)))
       .filter(route => !!route)
+      .sort((a, b) => a.destination.name.localeCompare(b.destination.name))
       .map(route => {
         const { systems, jumps } = route[showShortestRoutes ? 'shortest' : 'safest']
 
@@ -29,3 +30,9 @@ export const Favorites = ({origin, favorites, routes, showShortestRoutes}) => (
     }
   </div>
 )
+
+Favorites.defaultProps = {
+  favorites: [],
+  routes: [],
+  showShortestRoutes: false,
+}

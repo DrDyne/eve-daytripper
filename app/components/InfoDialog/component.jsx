@@ -5,9 +5,7 @@ import {
   DialogTitle,
   Typography
 } from 'material-ui'
-import {
-  GameItemAvatar
-} from '../GameItemAvatar'
+import GameItemAvatar from '../GameItemAvatar'
 
 export const InfoDialog = props => {
   const { show, item, hideDialog } = props
@@ -21,8 +19,14 @@ export const InfoDialog = props => {
         padding: 25,
         maxWidth: 360
     }}>
-      <GameItemAvatar id={item.id} size={64} style={{float: 'right'}}/>
-      <Typography variant="headline">{item.name}</Typography>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        paddingBottom: 10,
+      }}>
+        <Typography variant="headline">{item.name}</Typography>
+        <GameItemAvatar id={item.id} width={64} height={64} style={{float: 'right'}}/>
+      </div>
       <Description text={item.info.description} />
     </div>
   </Dialog>)

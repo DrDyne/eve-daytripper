@@ -72,21 +72,14 @@ export const addItem = (state, {id, name, qty, isk, m3}) => {
   return Object.assign({}, state, { total, items })
 }
 
-export const setItemQty = (state, name, qty) => {
-  const itemIndex = state.items.findIndex(byName(name))
-  const items = state.items.slice()
-  items[itemIndex].qty = qty
-  return Object.assign({}, state, { items })
-}
-
 export const deleteItem = (state, {name}) => {
   return updateItem(state, { name, qty: 0, isk: 0, m3: 0, })
 }
 
 export const updateItem = (state, {id, name, qty, isk, m3}) => {
-  const items = state.items.slice() // else update it
-  const itemIndex = items.findIndex(byName(name))
-  items[itemIndex] = Object.assign(items[itemIndex], { qty, isk, m3 })
+  const items = [...state.items] // else update it
+  const index = items.findIndex(byName(name))
+  items[index] = Object.assign(items[index], { qty, isk, m3 })
   const total = {
     isk: state.items.reduce((memo, i) => memo + i.isk, 0),
     m3: state.items.reduce((memo, i) => memo + i.m3, 0),

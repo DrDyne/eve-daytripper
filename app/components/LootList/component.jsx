@@ -17,7 +17,7 @@ import {
 
 import { ISK } from '../ISK'
 import { M3 } from '../M3'
-import { GameItemAvatar } from '../GameItemAvatar'
+import GameItemAvatar from '../GameItemAvatar'
 import SetStockDialog from '../SetStockDialog'
 import InfoButton from '../InfoButton'
 
@@ -26,11 +26,9 @@ import style from './style.scss'
 export const LootListItem = ({index, item, onClick}) => (
   <div>
     <ListItem button dense onClick={onClick} >
-      <ListItemAvatar>
-        <Avatar>
-          <GameItemAvatar id={item.id} />
-        </Avatar>
-      </ListItemAvatar>
+      <ListItemIcon>
+        <GameItemAvatar id={item.id} />
+      </ListItemIcon>
 
       <ListItemText
         primary={item.name}

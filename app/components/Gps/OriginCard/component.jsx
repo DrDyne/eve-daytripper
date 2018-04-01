@@ -1,102 +1,95 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import {
-  Badge,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  TextField,
+  Avatar,
   Typography
-} from 'material-ui'
-import { Link } from 'react-router-dom'
-import { whEffectValues } from 'App/api/utils'
-import { SystemSecAvatar } from 'App/components/SystemSecAvatar'
+} from 'mui'
+import List, {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader
+} from 'mui/List'
+
+import { FavoriteEnabled } from 'App/components/Icons'
+
+import { SystemSecAvatar, SystemSecAvatarBig } from 'App/components/SystemSecAvatar'
+
 import ListItemButtonLink from 'App/components/ListItemButtonLink'
 
-import List, { ListItem, ListItemText } from 'mui/List'
-import { ListSubheader } from 'mui/List'
+import MoreMenu from './MoreMenu'
 
-export const OriginCard = ({system, deleteFromHistory}) => (
-  <List style={{ flexShrink: 1 }}>
-    <ListSubheader style={{background: 'white', padding: 0}} component="div">
-      <ListItem style={{
-        border: '1px solid #eee'
-      }}>
-        <ListItemText
-          primary={system.name}
-          secondary={(
-            <span>
-              <SystemSecAvatar system={system} />
-              { system.wh
-              ? system.jClass
-              : system.sec.toFixed(2)
-              }
-            </span>
-          )}
-          style={{
-            textAlign: 'center',
-            padding: 0
-          }}
-        />
-      </ListItem>
-    </ListSubheader>
+export const OriginCard = ({system, favorites}) => {
+  const isFavorite = favorites.find(({id}) => system.id === id)
 
+  const SystemHeader = ({onClick}) => (
+    <ListItem
+      button={!!onClick}
+      onClick={onClick}
+      style={{
+        border: '1px solid #eee',
+        maxHeight: 66
+    }}>
+      <ListItemIcon>
+        <SystemSecAvatarBig
+          thin={true}
+          system={system}
+          label={ system.wh
+          ? system.jClass
+          : system.sec.toFixed(2)
+        } />
+      </ListItemIcon>
+
+
+      <ListItemText
+        primary={system.name}
+        secondary={ isFavorite && (
+          <FavoriteEnabled style={{width: '1em', height: '1em'}}/>
+        ) }
+      />
+
+    </ListItem>
+  )
+
+  const DotlanButton = () => (
     <ListItemButtonLink
       href={`http://evemaps.dotlan.net/system/${system.name}`}
-      target="_blank"
-      content={ <Typography type="caption"> DOTLAN </Typography> }
+      icon="dotlan"
+      primary="DOTLAN"
     />
+  )
 
+  const ZkillButton = () => (
     <ListItemButtonLink
       href={`https://zkillboard.com/system/${system.id}/`}
-      target="_blank"
-      content={ <Typography type="caption"> ZKILL </Typography> }
+      icon="zkill"
+      primary="ZKILL"
     />
+  )
 
-    <Route exact path="/home/nav/:origin" render={() => (
-      <DeleteFromHistoryListItem system={system} onClick={deleteFromHistory(system)}/>
-    ) } />
+  return (
+    <List style={{ flexShrink: 1 }}>
+      <ListSubheader style={{padding: 0}} component="div">
 
-    <ListItem style={{display: 'flex'}} />
-  </List>
-)
+        <Switch>
+          <Route path="/home/nav/:origin/:destination" render={({history, match}) => (
+            <SystemHeader onClick={() => history.push(`/home/nav/${system.name}`) } />
+          )} />
 
-import { Collapse } from 'mui/transitions'
-class DeleteFromHistoryListItem extends React.Component {
-  state = { showConfirm: false }
+          <Route path="/home/nav/:origin" render={() => <SystemHeader />} />
+        </Switch>
 
-  render () {
-    const { system, onClick } = this.props
+      </ListSubheader>
 
-    return (
-      <div>
-        <ListItem
-          button
-          onClick={() => {
-            const showConfirm = !this.state.showConfirm
-            this.setState({ showConfirm })
-          }}
-          style={{justifyContent: 'center'}}
-        >
-          <Typography variant="caption">
-            Delete
-          </Typography>
-        </ListItem>
+      <DotlanButton />
 
-        <Collapse in={this.state.showConfirm}>
-          <ListItem
-            button
-            onClick={() => {
-              onClick()
-              this.setState({ showConfirm: false })
-            }}
-            style={{justifyContent: 'flex-end'}}
-          >
-            <Typography variant="caption"> Confirm <u>Delete</u>? </Typography>
-          </ListItem>
-        </Collapse>
-      </div>
-    )
-  }
+      <ZkillButton />
+
+      <Route exact path="/home/nav/:origin" render={() => (
+        <MoreMenu system={system} />
+      ) } />
+
+      <ListItem style={{display: 'flex'}} />
+    </List>
+  )
 }

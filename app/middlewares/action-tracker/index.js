@@ -1,6 +1,7 @@
 import {
   gps,
   INPUT_PASTE,
+  PROFILE_CHUNK,
 } from 'App/actions'
 
 const events = [
@@ -24,20 +25,22 @@ const events = [
   [ INPUT_PASTE,
     ({type, raw}) => gtag('event', type, { event_category: 'input', event_label: raw.length })
   ],
-  [ 'profile:chunk',
+  [ PROFILE_CHUNK,
     ({chunkType, chunk}) => {
+      const { fleet, inventory, origins, routes, favorites, avoidance } = chunk
+      
       if ( 'all' === chunkType ) {
-        const { gps } = chunk
-        const uniqueOrigins = new Set( gps.routes.map(r => r.origin.id) )
-        const uniqueDest = new Set( gps.routes.map(r => r.destination.id) )
-        gtag('event', 'gps', { event_label: 'size', value: gps.routes.length })
+        gtag('event', 'gps', { event_label: 'size', value: routes.length })
+        gtag('event', 'gps', { event_label: 'favorites', value: favorites.length })
+
+        const uniqueOrigins = new Set( routes.map(r => r.origin.id) )
+        const uniqueDest = new Set( routes.map(r => r.destination.id) )
         gtag('event', 'gps', { event_label: 'origins', value: uniqueOrigins.size })
         gtag('event', 'gps', { event_label: 'destinations', value: uniqueDest.size })
         // do something smart
       }
 
       if ( 'inventory' === chunkType ) {
-        const { inventory } = chunk
         const sumQty = (x=0, {qty}) => x + qty
         gtag('event', 'inventory', { event_label: 'size', value: inventory.items.length })
         gtag('event', 'inventory', { event_label: 'count', value: inventory.items.reduce(sumQty) })

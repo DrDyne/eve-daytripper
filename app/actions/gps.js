@@ -23,28 +23,20 @@ export const init = (routes, favorites, avoidance) => ({
   avoidance,
 })
 
-export const deleteFavorite = system => ({ type: GPS_FAVORITE_REMOVE, system })
+export const addFavorite = system => (dispatch, getState, {api}) => {
+  dispatch({ type: GPS_FAVORITE, system })
+  dispatch(saveProfile('gps'))
+}
+export const deleteFavorite = system => (dispatch, getState, {api}) => {
+  dispatch({ type: GPS_FAVORITE_REMOVE, system })
+  dispatch(saveProfile('gps'))
+}
 export const deleteRoute = (origin, destination) => ({ type: DELETE_ROUTE, origin, destination })
 export const deleteHistory = system => ({ type: DELETE_SYSTEM, system })
 export const saveRoute = systems => ({ type: CREATE_ROUTE, systems })
 const gpsBusy = () => ({ type: GPS_BUSY })
 const gpsBusyDone = () => ({ type: GPS_BUSY_DONE })
 export const addOriginToHistory = system => ({ type: GPS_IDENTIFIED_SYSTEM, system })
-
-export const addFavorite = system => (dispatch, getState, {api}) => {
-  dispatch({ type: GPS_FAVORITE, system })
-
-  const { gps, history } = getState()
-  const favoriteRoutes = history.origins
-  .filter(origin => origin.id !== system.id)
-  .filter(origin => !gps.routes.some(matchRoute(origin, system)))
-  .map(origin => {
-    return dispatch(createRoute(origin, system))
-    .then(route => dispatch(saveRoute(route)))
-  })
-
-  return Promise.all(favoriteRoutes)
-}
 
 const createRoute = (origin, destination) => (dispatch, getState, {api}) => {
   const alreadyExists = getState().gps.routes.find(r => {
@@ -64,6 +56,7 @@ const createRoute = (origin, destination) => (dispatch, getState, {api}) => {
 const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
   const { favorites, routes } = getState().gps
   const favoriteRoutes = favorites
+  .filter(destination => !destination.wh)
   .filter(destination => origin.id !== destination.id )
   .filter(destination => !routes.some(matchRoute(origin, destination)))
   .map(destination => dispatch(createRoute(origin, destination)))
@@ -74,11 +67,14 @@ const createFavoriteRoutes = origin => (dispatch, getState, {api}) => {
 
 export const identifySystemFromPaste = () => (dispatch, getState, {api}) => {
   const { raw } = getState().history.lastPasted
+  if ( raw.length > 25 ) return
+  return dispatch(identifySystem(raw.trim()))
+}
+
+export const identifySystem = systemName => (dispatch, getState, {api}) => {
   const { routes } = getState().gps
 
-  if ( raw.length > 25 ) return
-
-  return api.gps.identify(raw.trim())
+  return api.gps.identify(systemName)
   .then(origin => {
     dispatch(addOriginToHistory(origin))
     return origin
