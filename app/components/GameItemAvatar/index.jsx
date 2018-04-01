@@ -13,10 +13,14 @@ const GameItemAvatar = props => {
 
 GameItemAvatar.defaultProps = {
   size: 64,
-  width: 32,
-  height: 32,
-  padding: 4,
-  background: '#ebebeb',
+  //big icons
+  //width: 48,
+  //height: 48,
+  //small icons
+  width: 36,
+  height: 36,
+  padding: 1,
+  background: 'white',
 }
 
 export default GameItemAvatar

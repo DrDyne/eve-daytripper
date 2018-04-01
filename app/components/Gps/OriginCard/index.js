@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { OriginCard } from './component'
 
-const mapStateToProps = ({gps, layout}) => ({
+const mapStateToProps = ({gps}) => ({
   favorites: gps.favorites
 })
 
