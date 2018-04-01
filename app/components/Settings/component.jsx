@@ -1,14 +1,16 @@
 import React from 'react'
-import Collapse from 'material-ui/transitions/Collapse'
 import { Route, Link, NavLink } from 'react-router-dom'
-import Avatar from 'material-ui/Avatar'
-import blue from 'material-ui/colors/blue'
+
+import blue from 'mui/colors/blue'
+import Collapse from 'mui/transitions/Collapse'
+import Avatar from 'mui/Avatar'
 import List, {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-} from 'material-ui/List'
-import Typography from 'material-ui/Typography'
+} from 'mui/List'
+import Typography from 'mui/Typography'
+
 import {
   BusinessCenter,
   DeleteSweep,
@@ -21,7 +23,7 @@ import {
   Group,
   GroupAdd,
   ShoppingCart
-} from 'material-ui-icons'
+} from 'muii'
 
 import ShowEmptyStockSwitch from './components/ShowEmptyStockSwitch'
 import Fleet from '../Fleet'
@@ -131,6 +133,7 @@ export class Settings extends React.Component {
           <ListItemText primary="Stock"/>
         </ListItem>
 
+        { /*
         <ListItem
           button
           dense
@@ -138,6 +141,7 @@ export class Settings extends React.Component {
         >
           <ShowEmptyStockSwitch />
         </ListItem>
+        */ }
 
         <ListItem divider />
       </Collapse>
