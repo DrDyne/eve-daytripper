@@ -1,6 +1,7 @@
 .container {
   background-image: url('Images/bg_main.jpg');
   width: 100%;
+  padding-left: 240px;
   height: 100vh;
   display: flex;
   flex-direction: column;
